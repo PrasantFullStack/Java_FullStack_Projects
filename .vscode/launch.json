@@ -2,6 +2,12 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ApnaBazarBackendApplication",
+      "request": "launch",
+      "mainClass": "com.apna.bazar.backend.Backend.ApnaBazarBackendApplication"
+    },
+    {
+      "type": "java",
       "name": "Add",
       "request": "launch",
       "mainClass": "Add"

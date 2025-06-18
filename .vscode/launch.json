@@ -2,6 +2,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Reverse",
+      "request": "launch",
+      "mainClass": "Reverse",
+      "projectName": ""
+    },
+    {
+      "type": "java",
+      "name": "ReverseString",
+      "request": "launch",
+      "mainClass": "ReverseString",
+      "projectName": ""
+    },
+    {
+      "type": "java",
       "name": "ApnaBazarBackendApplication",
       "request": "launch",
       "mainClass": "com.apna.bazar.backend.Backend.ApnaBazarBackendApplication"

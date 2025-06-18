@@ -11,7 +11,7 @@ import com.prashant.apna.bazar.entities.User;
 import com.prashant.apna.bazar.models.SignupDTO;
 import com.prashant.apna.bazar.repositories.UserRepo;
 import com.prashant.apna.bazar.responseDto.SignupResponseDto;
-import com.prashant.apna.bazar.utils.FileUploadUtil;
+// import com.prashant.apna.bazar.utils.FileUploadUtil;
 
 @Service
 public class SignUpService {
@@ -19,7 +19,7 @@ public class SignUpService {
 	@Autowired
 	private UserRepo userRepo;
 
-	private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
+	// private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
 
 	// SignUp user
 	public SignupResponseDto signup(SignupDTO signupDto) {

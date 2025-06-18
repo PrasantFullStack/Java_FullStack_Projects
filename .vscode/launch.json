@@ -31,6 +31,16 @@
       "projectName": "chat-app-backend",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ApnaBazarBackendApplication<ApnaBazarBackend>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.prashant.apna.bazar.ApnaBazarBackendApplication",
+      "projectName": "ApnaBazarBackend",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

@@ -1,5 +1,67 @@
 package com.prashant.apna.bazar.controllers;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.prashant.apna.bazar.models.MaincategoryDto;
+import com.prashant.apna.bazar.responseDto.MainResponseDto;
+import com.prashant.apna.bazar.services.MainService;
+
+@RestController
+@RequestMapping("/maincategory")
 public class MainController {
+
+  @Autowired
+  private MainService mainService;
+
+  // create maincategory
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<MainResponseDto> createMaincategory(@RequestPart("data") MaincategoryDto mainDto,
+      @RequestPart("pic") MultipartFile file) throws IOException {
+    MainResponseDto responseDto = mainService.createMaincategory(mainDto, file);
+    return ResponseEntity.ok(responseDto);
+
+  }
+
+  // Get All Maincategories
+  @GetMapping
+  public ResponseEntity<List<MainResponseDto>> getAllMaincategories() {
+    return ResponseEntity.status(HttpStatus.OK).body(mainService.getAllMaincategories());
+  }
+
+  // Get Maincategory by ID
+  @GetMapping("/{id}")
+  public ResponseEntity<MainResponseDto> getMaincategoryById(@PathVariable Long id) {
+    return ResponseEntity.status(HttpStatus.OK).body(mainService.getMaincategory(id));
+  }
+
+  // Update Maincategory by Id
+  @PutMapping("/{id}")
+  public ResponseEntity<MainResponseDto> updateMaincategory(@PathVariable Long id,
+      @RequestPart("data") MaincategoryDto mainDto, @RequestPart("pic") MultipartFile file) throws IOException {
+    return ResponseEntity.status(HttpStatus.OK).body(mainService.updateMaincategory(id, mainDto, file));
+
+  }
+
+  // Delete Maincategory By Id
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deleteMancategory(@PathVariable Long id) {
+    mainService.getMaincategory(id);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
 
 }

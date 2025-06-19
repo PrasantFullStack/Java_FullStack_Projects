@@ -23,8 +23,7 @@ public class MainService {
   @Autowired
   private MainRepo mainRepo;
 
-  // File upload directory
-  private static final String uploadDir = FileUploadUtil.getUploadDirFor("maincategories");
+  private final String uploadDir = FileUploadUtil.getUploadDirFor("maincategory");
 
   // create maincategory
   public MainResponseDto createMaincategory(MaincategoryDto mainDto,
@@ -55,7 +54,7 @@ public class MainService {
     String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
     Path filePath = Path.of(uploadDir, fileName);
     Files.write(filePath, file.getBytes());
-    return "/uploads/maincategories" + fileName;
+    return "/uploads/maincategory" + fileName;
 
   }
 

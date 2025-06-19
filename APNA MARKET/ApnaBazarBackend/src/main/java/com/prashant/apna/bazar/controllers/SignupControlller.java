@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class SignupControlller {
 
   @Autowired

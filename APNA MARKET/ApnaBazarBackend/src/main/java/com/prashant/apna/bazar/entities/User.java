@@ -13,34 +13,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long userid;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long userid;
 
-private String name;
+  private String name;
 
-private String username;
+  private String username;
 
-private String email;
+  private String email;
 
-private String phone;
+  private String phone;
 
-private String password;
+  private String password;
 
-private String role;
+  private String role;
 
-private String addresss;
+  private String address;
 
-private String city;
+  private String city;
 
-private String state;
+  private String state;
 
-private String pin;
+  private String pin;
 
-private String pic;
+  private String pic;
 
-private boolean active;
+  private boolean active;
 
 }

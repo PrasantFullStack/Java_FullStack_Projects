@@ -4,18 +4,25 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prashant.apna.bazar.models.ProfileDTO;
 import com.prashant.apna.bazar.models.SignupDTO;
+import com.prashant.apna.bazar.responseDto.ProfileResponseDto;
 import com.prashant.apna.bazar.responseDto.SignupResponseDto;
-import com.prashant.apna.bazar.services.SignUpService;
+import com.prashant.apna.bazar.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -23,7 +30,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class SignupControlller {
 
   @Autowired
-  private SignUpService signUpService;
+  private UserService signUpService;
+
+  // Jackson ObjectMapper for JSON conversion
+  ObjectMapper mapper = new ObjectMapper();
 
   // create user
   @PostMapping
@@ -44,6 +54,19 @@ public class SignupControlller {
   ResponseEntity<List<SignupResponseDto>> getAllUsers() {
     List<SignupResponseDto> allUsers = signUpService.getAllUsers();
     return ResponseEntity.ok(allUsers);
+  }
+
+  // Update User Profile
+  @PutMapping("/{userId}")
+  ResponseEntity<ProfileResponseDto> updateUserProfile(@PathVariable Long userId, @RequestPart("data") String jsonData,
+      @RequestPart("pic") MultipartFile file) throws IOException {
+    // Convert JSON data to ProfileDTO
+    ProfileDTO profileDTO = mapper.readValue(jsonData, ProfileDTO.class);
+    // Update user with profile data and file
+    ProfileResponseDto updatedUser = signUpService.updateUser(userId, profileDTO, file);
+
+    // Return updated user profile
+    return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
   }
 
   // Delete User

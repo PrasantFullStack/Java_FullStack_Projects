@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prashant.apna.bazar.models.MaincategoryDto;
 import com.prashant.apna.bazar.responseDto.MainResponseDto;
 import com.prashant.apna.bazar.services.MainService;
@@ -28,12 +29,16 @@ public class MainController {
   @Autowired
   private MainService mainService;
 
+  private final ObjectMapper mapper = new ObjectMapper();
+
   // create maincategory
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<MainResponseDto> createMaincategory(@RequestPart("data") MaincategoryDto mainDto,
+  public ResponseEntity<MainResponseDto> createMaincategory(@RequestPart("data") String jsonData,
       @RequestPart("pic") MultipartFile file) throws IOException {
+    // Convert Json String to MaincategoryDto, Java Object
+    MaincategoryDto mainDto = mapper.readValue(jsonData, MaincategoryDto.class);
     MainResponseDto responseDto = mainService.createMaincategory(mainDto, file);
-    return ResponseEntity.ok(responseDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
 
   }
 
@@ -52,7 +57,9 @@ public class MainController {
   // Update Maincategory by Id
   @PutMapping("/{id}")
   public ResponseEntity<MainResponseDto> updateMaincategory(@PathVariable Long id,
-      @RequestPart("data") MaincategoryDto mainDto, @RequestPart("pic") MultipartFile file) throws IOException {
+      @RequestPart("data") String jsonData, @RequestPart("pic") MultipartFile file) throws IOException {
+    // Convert Json String to MaincategoryDto, Java Object
+    MaincategoryDto mainDto = mapper.readValue(jsonData, MaincategoryDto.class);
     return ResponseEntity.status(HttpStatus.OK).body(mainService.updateMaincategory(id, mainDto, file));
 
   }
@@ -61,7 +68,7 @@ public class MainController {
   @DeleteMapping("/{id}")
   public ResponseEntity<String> deleteMancategory(@PathVariable Long id) {
     mainService.getMaincategory(id);
-    return ResponseEntity.status(HttpStatus.OK).build();
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
 }

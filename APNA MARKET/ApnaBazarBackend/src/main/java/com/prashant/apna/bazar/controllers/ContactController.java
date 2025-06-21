@@ -1,8 +1,11 @@
 package com.prashant.apna.bazar.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,12 @@ public class ContactController {
   public ResponseEntity<ContactResDto> saveContactus(@RequestBody ContactDto contactDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(contactService.saveContactus(contactDto));
 
+  }
+
+  // Get All Contactus
+  @GetMapping
+  ResponseEntity<List<ContactResDto>> getAllContactus() {
+    return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllContactus());
   }
 
 }

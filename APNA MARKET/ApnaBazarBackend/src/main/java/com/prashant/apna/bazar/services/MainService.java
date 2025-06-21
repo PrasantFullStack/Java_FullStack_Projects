@@ -1,5 +1,6 @@
 package com.prashant.apna.bazar.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -104,11 +105,23 @@ public class MainService {
 
   // Delete Maincategory
   public void deleteMaincategory(Long id) {
-    Maincategory maincategory = mainRepo.findById(id)
+    Maincategory existsMaincategory = mainRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Maincategory not found with id: " + id));
+    if (existsMaincategory.getPic() != null) {
+      deleteFile(existsMaincategory.getPic());
+    }
     // Delete the maincategory
-    mainRepo.deleteById(maincategory.getId());
+    mainRepo.deleteById(id);
 
   }
 
+  // Helper Method to delete a file by its path
+  private void deleteFile(String filePath) {
+    try {
+      Path path = Path.of(uploadDir, new File(filePath).getName());
+      Files.deleteIfExists(path);
+    } catch (Exception e) {
+      System.err.println("Error Deleting" + filePath + "_" + e.getMessage());
+    }
+  }
 }

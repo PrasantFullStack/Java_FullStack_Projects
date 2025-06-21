@@ -1,7 +1,9 @@
 package com.prashant.apna.bazar.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +68,12 @@ public class MainController {
 
   // Delete Maincategory By Id
   @DeleteMapping("/{id}")
-  public ResponseEntity<String> deleteMancategory(@PathVariable Long id) {
-    mainService.getMaincategory(id);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  public ResponseEntity<Map<String, String>> deleteMancategory(@PathVariable Long id) {
+    mainService.deleteMaincategory(id);
+
+    Map<String, String> response = new HashMap<>();
+    response.put("message", "Maincategory deleted successfully");
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
 }

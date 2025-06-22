@@ -18,6 +18,7 @@ import com.prashant.apna.bazar.payload.request.BrandDto;
 import com.prashant.apna.bazar.payload.response.BrandResponse;
 import com.prashant.apna.bazar.repositories.BrandRepo;
 import com.prashant.apna.bazar.utils.FileUploadUtil;
+import com.prashant.apna.bazar.utils.FileValidationUtil;
 
 @Service
 public class BrandService {
@@ -28,7 +29,8 @@ public class BrandService {
 
   public BrandResponse createBrand(BrandDto brandDto, MultipartFile file) throws IOException {
     if (file != null && file.isEmpty()) {
-      String raletivePath = saveFile(file);
+      FileValidationUtil.ValidateImage(file); // check for size type
+      String raletivePath = saveFile(file); // save locally
       brandDto.setPic(raletivePath);
 
     }

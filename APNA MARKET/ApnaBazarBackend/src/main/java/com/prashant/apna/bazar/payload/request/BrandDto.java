@@ -5,14 +5,13 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class SubcategoryDto {
+public class BrandDto {
   @NotBlank(message = "Name is required")
-  @Pattern(regexp = "^[a-zA-Z]\\s{3,20}$", message = "Name should contain only letters and sapces and be between 3 to 20 characters")
+  @Pattern(regexp = "^[a-zA-Z]\\s{3, 20}$", message = "Name should be contain only letters and spaces and be between 3 to 20 characters")
   private String name;
 
-  @NotBlank(message = "pic is required")
+  @NotBlank(message = "Pic is required")
   private String pic;
-
-  private Boolean active;
+  private boolean active;
 
 }

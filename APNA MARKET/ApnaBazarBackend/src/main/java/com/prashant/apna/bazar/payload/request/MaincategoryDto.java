@@ -1,11 +1,13 @@
 package com.prashant.apna.bazar.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
 public class MaincategoryDto {
   @NotBlank(message = "Name is required")
+  @Pattern(regexp = "^[a-zA-Z]\\s{3,20}", message = "Name should be contain only letter and spaces and between  3 to 20 characters")
   private String name;
   @NotBlank(message = "Picture is required")
   private String pic;

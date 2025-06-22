@@ -74,7 +74,7 @@ public class SubService {
   // Get subcategory by id
   public SubResponseDto getSubcategoryById(Long id) {
     Subcategory existingSubcategory = subRepo.findById(id)
-        .orElseThrow(() -> new RuntimeException("Subcate not found with id :" + id));
+        .orElseThrow(() -> new RuntimeException("Subcategory not found with id :" + id));
 
     return mapToResponseDto(existingSubcategory);
   }
@@ -84,7 +84,7 @@ public class SubService {
   public SubResponseDto updateSubcategory(Long id, SubcategoryDto subDto, MultipartFile file) throws IOException {
     // find existing maincategory by id and updated
     Subcategory existingSubcategory = subRepo.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Maincategory is not found with id :" + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Subcategory is not found with id :" + id));
 
     subDto.setName(subDto.getName());
     subDto.setActive(subDto.getActive());

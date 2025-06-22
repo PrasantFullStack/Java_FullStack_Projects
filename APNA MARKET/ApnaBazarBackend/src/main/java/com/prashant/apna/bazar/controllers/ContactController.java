@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prashant.apna.bazar.models.ContactDto;
-import com.prashant.apna.bazar.responseDto.ContactResDto;
+import com.prashant.apna.bazar.payload.request.ContactDto;
+import com.prashant.apna.bazar.payload.response.ContactResDto;
 import com.prashant.apna.bazar.services.ContactService;
 
 @RestController

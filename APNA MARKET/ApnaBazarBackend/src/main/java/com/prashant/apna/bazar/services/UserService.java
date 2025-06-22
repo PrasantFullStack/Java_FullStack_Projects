@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.User;
-import com.prashant.apna.bazar.models.ProfileDTO;
-import com.prashant.apna.bazar.models.SignupDTO;
+import com.prashant.apna.bazar.payload.request.ProfileDTO;
+import com.prashant.apna.bazar.payload.request.SignupDTO;
+import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
+import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.repositories.UserRepo;
-import com.prashant.apna.bazar.responseDto.ProfileResponseDto;
-import com.prashant.apna.bazar.responseDto.SignupResponseDto;
 import com.prashant.apna.bazar.utils.FileUploadUtil;
 
 @Service

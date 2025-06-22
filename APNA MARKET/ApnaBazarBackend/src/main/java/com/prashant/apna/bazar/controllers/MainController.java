@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prashant.apna.bazar.models.MaincategoryDto;
-import com.prashant.apna.bazar.responseDto.MainResponseDto;
+import com.prashant.apna.bazar.payload.request.MaincategoryDto;
+import com.prashant.apna.bazar.payload.response.MainResponseDto;
 import com.prashant.apna.bazar.services.MainService;
 
 @RestController

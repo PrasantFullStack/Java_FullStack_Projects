@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prashant.apna.bazar.models.ProfileDTO;
-import com.prashant.apna.bazar.models.SignupDTO;
-import com.prashant.apna.bazar.responseDto.ProfileResponseDto;
-import com.prashant.apna.bazar.responseDto.SignupResponseDto;
+import com.prashant.apna.bazar.payload.request.ProfileDTO;
+import com.prashant.apna.bazar.payload.request.SignupDTO;
+import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
+import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;

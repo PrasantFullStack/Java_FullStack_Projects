@@ -1,4 +1,4 @@
-package com.prashant.apna.bazar.responseDto;
+package com.prashant.apna.bazar.payload.response;
 
 import lombok.Data;
 

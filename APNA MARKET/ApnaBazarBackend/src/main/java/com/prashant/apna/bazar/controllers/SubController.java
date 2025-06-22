@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prashant.apna.bazar.models.SubcategoryDto;
-import com.prashant.apna.bazar.responseDto.SubResponseDto;
+import com.prashant.apna.bazar.payload.request.SubcategoryDto;
+import com.prashant.apna.bazar.payload.response.SubResponseDto;
 import com.prashant.apna.bazar.services.SubService;
 
 @RestController

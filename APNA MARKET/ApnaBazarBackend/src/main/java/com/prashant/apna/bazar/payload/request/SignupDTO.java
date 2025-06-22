@@ -1,4 +1,4 @@
-package com.prashant.apna.bazar.models;
+package com.prashant.apna.bazar.payload.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

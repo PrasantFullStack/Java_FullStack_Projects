@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.Maincategory;
 import com.prashant.apna.bazar.exception.ResourceNotFoundException;
-import com.prashant.apna.bazar.models.MaincategoryDto;
+import com.prashant.apna.bazar.payload.request.MaincategoryDto;
+import com.prashant.apna.bazar.payload.response.MainResponseDto;
 import com.prashant.apna.bazar.repositories.MainRepo;
-import com.prashant.apna.bazar.responseDto.MainResponseDto;
 import com.prashant.apna.bazar.utils.FileUploadUtil;
 
 @Service

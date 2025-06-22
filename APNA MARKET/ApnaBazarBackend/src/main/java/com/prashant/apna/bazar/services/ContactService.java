@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.prashant.apna.bazar.entities.Contactus;
-import com.prashant.apna.bazar.models.ContactDto;
+import com.prashant.apna.bazar.payload.request.ContactDto;
+import com.prashant.apna.bazar.payload.response.ContactResDto;
 import com.prashant.apna.bazar.repositories.ContactRepo;
-import com.prashant.apna.bazar.responseDto.ContactResDto;
 
 @Service
 public class ContactService {

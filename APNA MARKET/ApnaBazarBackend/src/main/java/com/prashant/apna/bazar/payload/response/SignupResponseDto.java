@@ -23,4 +23,5 @@ public class SignupResponseDto {
 	private String password;
 
 	private String role;
+	private boolean active;
 }

@@ -13,6 +13,6 @@ public class SubcategoryDto {
   @NotBlank(message = "pic is required")
   private String pic;
 
-  private Boolean active;
+  private boolean active;
 
 }

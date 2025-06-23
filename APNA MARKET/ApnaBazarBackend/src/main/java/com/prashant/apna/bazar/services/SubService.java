@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.Subcategory;
 import com.prashant.apna.bazar.exception.ResourceNotFoundException;
+import com.prashant.apna.bazar.mapper.SubcategoryMapper;
 import com.prashant.apna.bazar.payload.request.SubcategoryDto;
 import com.prashant.apna.bazar.payload.response.SubResponseDto;
 import com.prashant.apna.bazar.repositories.SubRepo;
@@ -26,6 +27,9 @@ public class SubService {
 
   @Autowired
   private SubRepo subRepo;
+
+  @Autowired
+  private SubcategoryMapper subcategoryMapper;
 
   // file upload
   String uploadPic = FileUploadUtil.getUploadDirFor("subcategory");
@@ -43,19 +47,17 @@ public class SubService {
       String relativePath = saveFile(file);
       subDto.setPic(relativePath);
     }
-    BeanUtils.copyProperties(subDto, subcategory);
+
+    // BeanUtils.copyProperties(subDto, subcategory);
+
+    // map Dto to entity
+    subcategoryMapper.toEntity(subDto);
 
     // save entity
     Subcategory savedSub = subRepo.save(subcategory);
 
-    return mapToResponseDto(savedSub);
-  }
-
-  // Helper method to map subcategory to ResponseDto
-  private SubResponseDto mapToResponseDto(Subcategory subcategory) {
-    SubResponseDto subResponseDto = new SubResponseDto();
-    BeanUtils.copyProperties(subcategory, subResponseDto);
-    return subResponseDto;
+    // map to entity to response
+    return subcategoryMapper.toResponse(savedSub);
   }
 
   // Helper method for save file
@@ -68,15 +70,14 @@ public class SubService {
 
   // Get All Subcategory
   public List<SubResponseDto> getAllSubcategories() {
-    return subRepo.findAll().stream().map(this::mapToResponseDto).toList();
+    return subRepo.findAll().stream().map(subcategoryMapper::toResponse).toList();
   }
 
   // Get subcategory by id
   public SubResponseDto getSubcategoryById(Long id) {
     Subcategory existingSubcategory = subRepo.findById(id)
         .orElseThrow(() -> new RuntimeException("Subcategory not found with id :" + id));
-
-    return mapToResponseDto(existingSubcategory);
+    return subcategoryMapper.toResponse(existingSubcategory);
   }
 
   // Update Subcategory
@@ -87,7 +88,7 @@ public class SubService {
         .orElseThrow(() -> new ResourceNotFoundException("Subcategory is not found with id :" + id));
 
     subDto.setName(subDto.getName());
-    subDto.setActive(subDto.getActive());
+    subDto.setActive(subDto.isActive());
 
     // if a new image is provided, save it and update the pic field
     if (file != null && !file.isEmpty()) {
@@ -105,7 +106,7 @@ public class SubService {
       Subcategory updatedSubcategory = subRepo.save(existingSubcategory);
 
       // Convert updated entity to Response Dto
-      return mapToResponseDto(updatedSubcategory);
+      return subcategoryMapper.toResponse(updatedSubcategory);
     } else {
       // If subcategory dose not exist, throw an Exception
       throw new ResourceNotFoundException("Subcategory not found by id :" + id);

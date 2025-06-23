@@ -6,13 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.Maincategory;
 import com.prashant.apna.bazar.exception.ResourceNotFoundException;
+import com.prashant.apna.bazar.mapper.MaincategoryMapper;
 import com.prashant.apna.bazar.payload.request.MaincategoryDto;
 import com.prashant.apna.bazar.payload.response.MainResponseDto;
 import com.prashant.apna.bazar.repositories.MainRepo;
@@ -23,6 +23,9 @@ public class MainService {
 
   @Autowired
   private MainRepo mainRepo;
+
+  @Autowired
+  private MaincategoryMapper mapper;
 
   private final String uploadDir = FileUploadUtil.getUploadDirFor("maincategory");
 
@@ -35,19 +38,12 @@ public class MainService {
       mainDto.setPic(relativeFilePath);
     }
     Maincategory maincategory = new Maincategory();
-    // convert Data Transfer Object to Entity
-    BeanUtils.copyProperties(mainDto, maincategory);
+    // map dto to entity
+    mapper.toEntity(mainDto);
     // save entity to database
     Maincategory savedMaincategory = mainRepo.save(maincategory);
-    return mapToResponseDto(savedMaincategory);
+    return mapper.mapToResponse(savedMaincategory);
 
-  }
-
-  // Data Transfer Object to Response DTO
-  private MainResponseDto mapToResponseDto(Maincategory savedMaincategory) {
-    MainResponseDto responseDto = new MainResponseDto();
-    BeanUtils.copyProperties(savedMaincategory, responseDto);
-    return responseDto;
   }
 
   // Save File Method
@@ -61,9 +57,9 @@ public class MainService {
 
   // Get Maincategory by id
   public MainResponseDto getMaincategory(Long id) {
-    Maincategory maincategory = mainRepo.findById(id)
+    Maincategory existsMaincategory = mainRepo.findById(id)
         .orElseThrow(() -> new RuntimeException("Maincategory not found with id: " + id));
-    return mapToResponseDto(maincategory);
+    return mapper.mapToResponse(existsMaincategory);
   }
 
   // Update Maincategory
@@ -85,12 +81,17 @@ public class MainService {
     }
     if (existsMaincategory != null) {
 
-      // If the maincategory exists, we will update it
-      BeanUtils.copyProperties(mainDto, existsMaincategory);
+      // // If the maincategory exists, we will update it
+      // BeanUtils.copyProperties(mainDto, existsMaincategory);
+
+      // map dto to entity
+      mapper.toEntity(mainDto);
+
+      // Save Entity
       Maincategory updatedMaincategory = mainRepo.save(existsMaincategory);
 
-      // Convert the updated entity to response DTO
-      return mapToResponseDto(updatedMaincategory);
+      // map to updated entity to response DTO
+      return mapper.mapToResponse(updatedMaincategory);
     } else {
 
       // If the maincategory does not exist, throw an exception
@@ -100,7 +101,7 @@ public class MainService {
 
   // Get All maincategories
   public List<MainResponseDto> getAllMaincategories() {
-    return mainRepo.findAll().stream().map(this::mapToResponseDto).toList();
+    return mainRepo.findAll().stream().map(mapper::mapToResponse).toList();
   }
 
   // Delete Maincategory

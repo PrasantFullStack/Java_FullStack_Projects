@@ -17,9 +17,21 @@ public class CloudinaryService {
   private Cloudinary cloudinary;
 
   public String uploadImage(MultipartFile file, String folder) throws IOException {
-    Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(),
-        ObjectUtils.asMap("folder", "resource_type", "auto"));
+
+    if (file == null || file.isEmpty()) {
+      throw new IOException("File is empty or null");
+    }
+
+    if (file.getSize() > 2 * 1024 * 1024) {
+      throw new IOException("File too large. Max 2MB allowed.");
+    }
+
+    Map<?, ?> result = cloudinary.uploader().upload(
+        file.getBytes(),
+        ObjectUtils.asMap(
+            "folder", folder,
+            "resource_type", "auto"));
+
     return result.get("secure_url").toString();
   }
-
 }

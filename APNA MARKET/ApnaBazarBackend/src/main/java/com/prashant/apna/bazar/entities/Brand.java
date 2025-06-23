@@ -16,5 +16,5 @@ public class Brand {
   private UUID id;
   private String name;
   private String pic;
-  private String active;
+  private boolean active;
 }

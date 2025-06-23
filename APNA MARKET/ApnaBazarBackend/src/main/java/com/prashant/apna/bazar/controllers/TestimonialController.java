@@ -31,7 +31,7 @@ public class TestimonialController {
   @Autowired
   private ObjectMapper mapper;
 
-  // crate Testimonial
+  // create Testimonial
   @PostMapping
   ResponseEntity<TestimonialResponse> createTestimonial(@RequestPart("data") @Valid String jsonData,
       @RequestPart("pic") MultipartFile file) throws IOException {

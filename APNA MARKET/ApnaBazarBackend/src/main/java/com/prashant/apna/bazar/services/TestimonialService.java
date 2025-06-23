@@ -28,6 +28,7 @@ public class TestimonialService {
   @Autowired
   private TestimonialMappar testimonialMappar;
 
+  // create Testimonial
   public TestimonialResponse createTestmonial(TestimonialDto testDto, MultipartFile file) throws IOException {
     if (file != null && !file.isEmpty()) {
       String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/brands");

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ import com.prashant.apna.bazar.services.TestimonialService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/testimonals")
+@RequestMapping("/testimonials")
 public class TestimonialController {
 
   @Autowired
@@ -32,7 +33,7 @@ public class TestimonialController {
   private ObjectMapper mapper;
 
   // create Testimonial
-  @PostMapping
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   ResponseEntity<TestimonialResponse> createTestimonial(@RequestPart("data") @Valid String jsonData,
       @RequestPart("pic") MultipartFile file) throws IOException {
     TestimonialDto testDto = mapper.readValue(jsonData, TestimonialDto.class);
@@ -46,6 +47,7 @@ public class TestimonialController {
   }
 
   // GetAll Testimonials
+  @GetMapping
   ResponseEntity<List<TestimonialResponse>> getAllTestimonial() {
     return ResponseEntity.status(HttpStatus.OK).body(testimonialService.getAllTestimonial());
   }

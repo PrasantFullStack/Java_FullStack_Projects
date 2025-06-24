@@ -64,8 +64,8 @@ public class SubController {
 
   // Subcategory Delete
   @DeleteMapping("/{id}")
-  ResponseEntity<Map<String, String>> deleteSubcategory(@PathVariable Long id) {
-    subService.deleteSubcategory(id);
+  ResponseEntity<Map<String, String>> deleteSubcategory(@PathVariable Long id, String picId) throws IOException {
+    subService.deleteSubcategory(id, picId);
     Map<String, String> response = new HashMap<>();
     response.put("message", "Subcategory deleted successfully");
     return ResponseEntity.status(HttpStatus.OK).body(response);

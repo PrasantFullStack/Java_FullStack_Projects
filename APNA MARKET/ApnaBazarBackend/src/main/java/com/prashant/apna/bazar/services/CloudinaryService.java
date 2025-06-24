@@ -1,6 +1,7 @@
 package com.prashant.apna.bazar.services;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,8 @@ public class CloudinaryService {
     return result.get("secure_url").toString();
   }
 
-  public String updateImage(MultipartFile file, String folder) throws IOException {
-    // Step 1: Delete old image
-    if (oldPublicId != null && !oldPublicId.isEmpty()) {
-      cloudinary.uploader().destroy(oldPublicId, ObjectUtils.emptyMap());
-    }
-
+  public Map<String, String> updateImageWithPicId(MultipartFile file, String folder, String picId)
+      throws IOException {
     if (file == null || file.isEmpty()) {
       throw new IOException("File is empty or null");
     }
@@ -48,16 +45,19 @@ public class CloudinaryService {
       throw new IOException("File too large. Max 2MB allowed.");
     }
 
+    Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+        ObjectUtils.asMap("folder", folder, "resource_type", "auto"));
+
+    Map<String, String> result = new HashMap<>();
+    result.put("secure_url", uploadResult.get("secure_url").toString());
+    result.put("pic_id", uploadResult.get("pic_id").toString());
+    return result;
+
   }
 
-  public void deleteImage(String oldPublicId) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteImage'");
-  }
-
-  public Map<String, String> uploadImageWithPublicId(MultipartFile file, String string) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'uploadImageWithPublicId'");
+  public String deleteImage(String picId) throws IOException {
+    Map result = cloudinary.uploader().destroy(picId, ObjectUtils.emptyMap());
+    return result.get("result").toString(); // "ok" if deleted
   }
 
 }

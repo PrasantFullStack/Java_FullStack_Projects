@@ -16,7 +16,7 @@ public class TestimonialDto {
   private String message;
   @NotBlank(message = "Message is required")
 
-  private String picPublicId;
+  private String picId;
   private String pic;
   private boolean active;
 

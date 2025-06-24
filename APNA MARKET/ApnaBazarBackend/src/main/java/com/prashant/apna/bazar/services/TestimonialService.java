@@ -67,33 +67,33 @@ public class TestimonialService {
     if (file != null && !file.isEmpty()) {
 
       // Delete old image from Cloudinary public_id
-      String oldPublicId = existing.getPicPublicId();
+      String oldPublicId = existing.getPicId();
       if (oldPublicId != null && !oldPublicId.isBlank()) {
         cloudinaryService.deleteImage(oldPublicId); // delete from Cloudinary
       }
 
       // Upload new image and get secure_url + public_id
-      Map<String, String> uploadResult = cloudinaryService.uploadImageWithPublicId(
-          file, "apna-bazar/testimonials");
+      Map<String, String> uploadResult = cloudinaryService.updateImageWithPicId(
+          file, "apna-bazar/testimonials", oldPublicId);
       dto.setPic(uploadResult.get("secure_url"));
-      dto.setPicPublicId(uploadResult.get("public_id"));
+      dto.setPicId(uploadResult.get("public_id"));
     } else {
       // If no new image provided, keep existing
       dto.setPic(existing.getPic());
-      dto.setPicPublicId(existing.getPicPublicId());
+      dto.setPicId(existing.getPicId());
     }
 
-    // 3. Update values safely
+    // Update values safely
     existing.setName(dto.getName());
     existing.setMessage(dto.getMessage());
     existing.setPic(dto.getPic());
-    existing.setPicPublicId(dto.getPicPublicId());
+    existing.setPicId(dto.getPicId());
     existing.setActive(dto.isActive());
 
-    // 4. Save updated testimonial
+    // Save updated testimonial
     Testimonial updated = testimonialRepo.save(existing);
 
-    // 5. Return response
+    // Return response
     return testimonialMappar.toResponse(updated);
   }
 

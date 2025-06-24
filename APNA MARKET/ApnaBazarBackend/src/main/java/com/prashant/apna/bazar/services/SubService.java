@@ -1,9 +1,6 @@
 package com.prashant.apna.bazar.services;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -18,12 +15,11 @@ import com.prashant.apna.bazar.payload.request.SubcategoryDto;
 import com.prashant.apna.bazar.payload.response.SubResponseDto;
 import com.prashant.apna.bazar.repositories.SubRepo;
 import com.prashant.apna.bazar.repositories.UserRepo;
-import com.prashant.apna.bazar.utils.FileUploadUtil;
 
 @Service
 public class SubService {
-
-  private final UserRepo userRepo;
+  @Autowired
+  private UserRepo userRepo;
 
   @Autowired
   private SubRepo subRepo;
@@ -114,11 +110,11 @@ public class SubService {
   }
 
   // Delete by Id
-  public void deleteSubcategory(Long id) {
+  public void deleteSubcategory(Long id, String picId) throws IOException {
     Subcategory existssubcategory = subRepo.findById(id)
         .orElseThrow(() -> new RuntimeException("Subcate not found with id :" + id));
     if (existssubcategory.getPic() != null) {
-      deleteFile(existssubcategory.getPic());
+      cloudinaryService.deleteImage(picId);
     }
     subRepo.deleteById(id);
 

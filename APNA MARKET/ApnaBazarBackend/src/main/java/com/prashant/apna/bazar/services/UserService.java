@@ -33,6 +33,9 @@ public class UserService {
 	@Autowired
 	private ProfileMapper profileMapper;
 
+	// @Autowired
+	// private PasswordEncoder passwordEncoder;
+
 	private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
 
 	// SignUp user
@@ -41,6 +44,7 @@ public class UserService {
 		if (!signupDto.getPassword().equals(signupDto.getCpassword())) {
 			throw new RuntimeException("Password and Confirm Password do not match!");
 		}
+
 		// BeanUtils.copyProperties(signupDto, user);
 		// map Dto to entity
 		signupMapper.toEntity(signupDto);

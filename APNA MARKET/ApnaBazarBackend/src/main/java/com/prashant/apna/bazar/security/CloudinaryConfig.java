@@ -1,4 +1,4 @@
-package com.prashant.apna.bazar.global_config;
+package com.prashant.apna.bazar.security;
 
 import java.util.HashMap;
 import java.util.Map;

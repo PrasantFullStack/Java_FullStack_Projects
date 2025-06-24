@@ -1,4 +1,4 @@
-package com.prashant.apna.bazar.global_config;
+package com.prashant.apna.bazar.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,8 +34,8 @@ public class UserService {
 	@Autowired
 	private ProfileMapper profileMapper;
 
-	// @Autowired
-	// private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
 
@@ -48,6 +49,8 @@ public class UserService {
 		// BeanUtils.copyProperties(signupDto, user);
 		// map Dto to entity
 		signupMapper.toEntity(signupDto);
+		user.setPassword(passwordEncoder.encode(signupDto.getPassword()));
+		user.setActive(true);
 		// save entity
 		User saveUser = userRepo.save(user);
 		// return map entity to response

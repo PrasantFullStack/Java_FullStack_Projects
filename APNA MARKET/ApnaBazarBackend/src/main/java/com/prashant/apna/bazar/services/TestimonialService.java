@@ -2,7 +2,7 @@ package com.prashant.apna.bazar.services;
 
 import java.io.IOException;
 import java.util.List;
-
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +56,45 @@ public class TestimonialService {
   // GetAll Testimonials
   public List<TestimonialResponse> getAllTestimonial() {
     return testimonialRepo.findAll().stream().map(testimonialMappar::toResponse).collect(Collectors.toList());
+  }
+
+  public TestimonialResponse updateTestimonial(Long id, TestimonialDto dto, MultipartFile file) throws IOException {
+    // 1. Get existing testimonial
+    Testimonial existing = testimonialRepo.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Testimonial not found with id: " + id));
+
+    // Handle image update
+    if (file != null && !file.isEmpty()) {
+
+      // Delete old image from Cloudinary public_id
+      String oldPublicId = existing.getPicPublicId();
+      if (oldPublicId != null && !oldPublicId.isBlank()) {
+        cloudinaryService.deleteImage(oldPublicId); // delete from Cloudinary
+      }
+
+      // Upload new image and get secure_url + public_id
+      Map<String, String> uploadResult = cloudinaryService.uploadImageWithPublicId(
+          file, "apna-bazar/testimonials");
+      dto.setPic(uploadResult.get("secure_url"));
+      dto.setPicPublicId(uploadResult.get("public_id"));
+    } else {
+      // If no new image provided, keep existing
+      dto.setPic(existing.getPic());
+      dto.setPicPublicId(existing.getPicPublicId());
+    }
+
+    // 3. Update values safely
+    existing.setName(dto.getName());
+    existing.setMessage(dto.getMessage());
+    existing.setPic(dto.getPic());
+    existing.setPicPublicId(dto.getPicPublicId());
+    existing.setActive(dto.isActive());
+
+    // 4. Save updated testimonial
+    Testimonial updated = testimonialRepo.save(existing);
+
+    // 5. Return response
+    return testimonialMappar.toResponse(updated);
   }
 
   // Delete Testimonial by id

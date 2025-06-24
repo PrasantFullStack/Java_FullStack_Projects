@@ -31,12 +31,11 @@ public class SubService {
   @Autowired
   private SubcategoryMapper subcategoryMapper;
 
-  // file upload
-  String uploadPic = FileUploadUtil.getUploadDirFor("subcategory");
+  @Autowired
+  private CloudinaryService cloudinaryService;
 
-  SubService(UserRepo userRepo) {
-    this.userRepo = userRepo;
-  }
+  // // file upload
+  // String uploadPic = FileUploadUtil.getUploadDirFor("subcategory");
 
   // create subcategory
   public SubResponseDto createSubcategory(SubcategoryDto subDto, MultipartFile file) throws IOException {
@@ -44,8 +43,8 @@ public class SubService {
 
     // image upload logic
     if (file != null && !file.isEmpty()) {
-      String relativePath = saveFile(file);
-      subDto.setPic(relativePath);
+      String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
+      subDto.setPic(imageUrl);
     }
 
     // BeanUtils.copyProperties(subDto, subcategory);
@@ -60,13 +59,14 @@ public class SubService {
     return subcategoryMapper.toResponse(savedSub);
   }
 
-  // Helper method for save file
-  private String saveFile(MultipartFile file) throws IOException {
-    String filePath = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-    file.transferTo(new File(filePath));
-    return "uploads/subcategory/" + filePath;
+  // // Helper method for save file
+  // private String saveFile(MultipartFile file) throws IOException {
+  // String filePath = System.currentTimeMillis() + "_" +
+  // file.getOriginalFilename();
+  // file.transferTo(new File(filePath));
+  // return "uploads/subcategory/" + filePath;
 
-  }
+  // }
 
   // Get All Subcategory
   public List<SubResponseDto> getAllSubcategories() {
@@ -92,8 +92,8 @@ public class SubService {
 
     // if a new image is provided, save it and update the pic field
     if (file != null && !file.isEmpty()) {
-      String relativePath = saveFile(file);
-      subDto.setPic(relativePath);
+      String imageString = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
+      subDto.setPic(imageString);
     } else {
       // If no new file is provided, keep the existing pic;
       subDto.setPic(existingSubcategory.getPic());
@@ -124,14 +124,14 @@ public class SubService {
 
   }
 
-  // Helper Method to delete a file by its path
-  private void deleteFile(String filePath) {
-    try {
-      Path path = Path.of(uploadPic, new File(filePath).getName());
-      Files.deleteIfExists(path);
-    } catch (Exception e) {
-      System.err.println("Error Deleting" + filePath + "_" + e.getMessage());
-    }
-  }
+  // // Helper Method to delete a file by its path
+  // private void deleteFile(String filePath) {
+  // try {
+  // Path path = Path.of(uploadDir, new File(filePath).getName());
+  // Files.deleteIfExists(path);
+  // } catch (Exception e) {
+  // System.err.println("Error Deleting" + filePath + "_" + e.getMessage());
+  // }
+  // }
 
 }

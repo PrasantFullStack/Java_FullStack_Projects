@@ -31,7 +31,8 @@ public class BrandController {
   @Autowired
   private BrandService brandService;
 
-  ObjectMapper mapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper mapper;
 
   // post brand
   @PostMapping

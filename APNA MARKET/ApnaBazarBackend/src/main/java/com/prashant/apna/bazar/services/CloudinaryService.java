@@ -34,4 +34,30 @@ public class CloudinaryService {
 
     return result.get("secure_url").toString();
   }
+
+  public String updateImage(MultipartFile file, String folder) throws IOException {
+    // Step 1: Delete old image
+    if (oldPublicId != null && !oldPublicId.isEmpty()) {
+      cloudinary.uploader().destroy(oldPublicId, ObjectUtils.emptyMap());
+    }
+
+    if (file == null || file.isEmpty()) {
+      throw new IOException("File is empty or null");
+    }
+    if (file.getSize() > 2 * 1024 * 1024) {
+      throw new IOException("File too large. Max 2MB allowed.");
+    }
+
+  }
+
+  public void deleteImage(String oldPublicId) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteImage'");
+  }
+
+  public Map<String, String> uploadImageWithPublicId(MultipartFile file, String string) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'uploadImageWithPublicId'");
+  }
+
 }

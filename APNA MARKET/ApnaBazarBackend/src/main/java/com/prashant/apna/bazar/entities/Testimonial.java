@@ -13,9 +13,10 @@ public class Testimonial {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  private String picPublicId; // Cloudinary image public ID
   private String name;
   private String message;
-  private String pic;
+  private String pic; // store cloudinary image url
   private boolean active;
 
 }

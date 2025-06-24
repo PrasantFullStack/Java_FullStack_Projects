@@ -1,7 +1,9 @@
 package com.prashant.apna.bazar.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,8 @@ public class SignupControlller {
   private UserService signUpService;
 
   // Jackson ObjectMapper for JSON conversion
-  ObjectMapper mapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper mapper;
 
   // create user
   @PostMapping
@@ -71,8 +74,10 @@ public class SignupControlller {
 
   // Delete User
   @DeleteMapping("/{userId}")
-  ResponseEntity<Void> deleteUserById(@PathVariable Long userId) throws IOException {
+  ResponseEntity<Map<String, String>> deleteUserById(@PathVariable Long userId) throws IOException {
     signUpService.deleteUser(userId);
-    return ResponseEntity.noContent().build();
+    Map<String, String> response = new HashMap<>();
+    response.put("message", "user deleted successfully");
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }

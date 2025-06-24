@@ -31,7 +31,8 @@ public class MainController {
   @Autowired
   private MainService mainService;
 
-  private final ObjectMapper mapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper mapper;
 
   // create maincategory
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

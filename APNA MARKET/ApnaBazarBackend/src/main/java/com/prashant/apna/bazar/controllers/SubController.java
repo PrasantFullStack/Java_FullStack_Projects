@@ -29,8 +29,8 @@ public class SubController {
 
   @Autowired
   private SubService subService;
-
-  ObjectMapper mapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper mapper;
 
   // create subcategory
 

@@ -15,6 +15,8 @@ public class TestimonialDto {
   @Size(min = 20, max = 100)
   private String message;
   @NotBlank(message = "Message is required")
+
+  private String picPublicId;
   private String pic;
   private boolean active;
 

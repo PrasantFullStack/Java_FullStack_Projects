@@ -1,17 +1,17 @@
 package com.prashant.apna.bazar.services;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+// import java.nio.file.Files;
+// import java.nio.file.Path;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.User;
+import com.prashant.apna.bazar.exception.ResourceNotFoundException;
 import com.prashant.apna.bazar.mapper.ProfileMapper;
 import com.prashant.apna.bazar.mapper.SignupMapper;
 import com.prashant.apna.bazar.payload.request.ProfileDTO;
@@ -19,7 +19,7 @@ import com.prashant.apna.bazar.payload.request.SignupDTO;
 import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
 import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.repositories.UserRepo;
-import com.prashant.apna.bazar.utils.FileUploadUtil;
+// import com.prashant.apna.bazar.utils.FileUploadUtil;
 import com.prashant.apna.bazar.utils.FileValidationUtil;
 
 @Service
@@ -37,7 +37,10 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
+	@Autowired
+	private CloudinaryService cloudinaryService;
+
+	// private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
 
 	// SignUp user
 	public SignupResponseDto signup(SignupDTO signupDto) {
@@ -91,29 +94,31 @@ public class UserService {
 		// File upload logic
 		if (file != null && !file.isEmpty()) {
 			FileValidationUtil.ValidateImage(file);
-			String relativeFilePath = saveFile(file);
-			profileDTO.setPic(relativeFilePath);
+			String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/users");
+			profileDTO.setPic(imageUrl);
 		}
-		// Copy properties from DTO to existing user
-		BeanUtils.copyProperties(profileDTO, existingUser);
+		// // Copy properties from DTO to existing user
+		// BeanUtils.copyProperties(profileDTO, existingUser);
+
+		profileMapper.toEntity(profileDTO);
 		existingUser.setActive(true);
 		// Save updated user
 		User updatedUser = userRepo.save(existingUser);
 		return profileMapper.toResponse(updatedUser);
 	}
 
-	// save file method
-	private String saveFile(MultipartFile file) throws IOException {
-		String fileName = System.currentTimeMillis() + "_" +
-				file.getOriginalFilename();
-		Path filePath = Path.of(uploadDir, fileName);
-		Files.write(filePath, file.getBytes());
-		return "/uploads/users/" + fileName;
-	}
+	// // save file method
+	// private String saveFile(MultipartFile file) throws IOException {
+	// String fileName = System.currentTimeMillis() + "_" +
+	// file.getOriginalFilename();
+	// Path filePath = Path.of(uploadDir, fileName);
+	// Files.write(filePath, file.getBytes());
+	// return "/uploads/users/" + fileName;
+	// }
 
 	// Delete User
 	public void deleteUser(Long userId) throws IOException {
-		userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+		userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		userRepo.deleteById(userId);
 
 	}

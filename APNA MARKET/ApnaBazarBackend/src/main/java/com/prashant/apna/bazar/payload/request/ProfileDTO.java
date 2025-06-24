@@ -27,14 +27,6 @@ public class ProfileDTO {
   @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be numeric and 10 digits long")
   private String phone;
 
-  @NotBlank(message = "Password is required")
-  @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
-  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,20}$", message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
-  private String password;
-
-  @NotBlank(message = "Role is required")
-  private String role;
-
   @NotBlank(message = "Address is required")
   private String address;
 
@@ -50,5 +42,4 @@ public class ProfileDTO {
   @NotBlank(message = "Profile picture is required")
   private String pic;
 
-  private boolean active;
 }

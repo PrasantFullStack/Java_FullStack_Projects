@@ -14,10 +14,6 @@ public class ProfileResponseDto {
 
   private String phone;
 
-  private String password;
-
-  private String role;
-
   private String address;
 
   private String city;
@@ -28,5 +24,4 @@ public class ProfileResponseDto {
 
   private String pic;
 
-  private boolean active;
 }

@@ -1,5 +1,7 @@
 package com.prashant.apna.bazar.payload.request;
 
+import org.springframework.data.annotation.Transient;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -22,6 +24,7 @@ public class SignupDTO {
 
 	@NotBlank(message = "Email is required!")
 	@Email(message = "Email should be valid!")
+	@Pattern(regexp = "^[A-Za-z]")
 	private String email;
 
 	@NotBlank(message = "Phone number is required!")
@@ -29,8 +32,13 @@ public class SignupDTO {
 	private String phone;
 
 	@NotBlank(message = "password is required!")
-	@Size(min = 6, max = 10, message = "Password must be at least 6 and 10 characters")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "Password must be at least 8 characters long, include upper/lowercase, number, and special character")
 	private String password;
+
+	@Transient
+	@NotBlank(message = "Confirm password is required")
+	private String cpassword;
+
 	@NotBlank(message = "Role is required")
 	private String role;
 

@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.User;
+import com.prashant.apna.bazar.mapper.ProfileMapper;
+import com.prashant.apna.bazar.mapper.SignupMapper;
 import com.prashant.apna.bazar.payload.request.ProfileDTO;
 import com.prashant.apna.bazar.payload.request.SignupDTO;
 import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
 import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.repositories.UserRepo;
 import com.prashant.apna.bazar.utils.FileUploadUtil;
+import com.prashant.apna.bazar.utils.FileValidationUtil;
 
 @Service
 public class UserService {
@@ -24,41 +27,55 @@ public class UserService {
 	@Autowired
 	private UserRepo userRepo;
 
+	@Autowired
+	private SignupMapper signupMapper;
+
+	@Autowired
+	private ProfileMapper profileMapper;
+
 	private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
 
 	// SignUp user
 	public SignupResponseDto signup(SignupDTO signupDto) {
 		User user = new User();
-		BeanUtils.copyProperties(signupDto, user);
+		if (!signupDto.getPassword().equals(signupDto.getCpassword())) {
+			throw new RuntimeException("Password and Confirm Password do not match!");
+		}
+		// BeanUtils.copyProperties(signupDto, user);
+		// map Dto to entity
+		signupMapper.toEntity(signupDto);
+		// save entity
 		User saveUser = userRepo.save(user);
-		return mapToSignupResposnseDTO(saveUser);
+		// return map entity to response
+		return signupMapper.toResponse(saveUser);
+		// return mapToSignupResposnseDTO(saveUser);
 
 	}
 
-	// Mapping SignupResponseDto from User
-	private SignupResponseDto mapToSignupResposnseDTO(User user) {
-		SignupResponseDto responseDto = new SignupResponseDto();
-		BeanUtils.copyProperties(user, responseDto);
-		return responseDto;
+	// // Mapping SignupResponseDto from User
+	// private SignupResponseDto mapToSignupResposnseDTO(User user) {
+	// SignupResponseDto responseDto = new SignupResponseDto();
+	// BeanUtils.copyProperties(user, responseDto);
+	// return responseDto;
 
-	}
+	// }
 
-	// Mapping ProfileResponseDto from User
-	private ProfileResponseDto mapToProfileResponseDto(User user) {
-		ProfileResponseDto responseDto = new ProfileResponseDto();
-		BeanUtils.copyProperties(user, responseDto);
-		return responseDto;
-	}
+	// // Mapping ProfileResponseDto from User
+	// private ProfileResponseDto mapToProfileResponseDto(User user) {
+	// ProfileResponseDto responseDto = new ProfileResponseDto();
+	// BeanUtils.copyProperties(user, responseDto);
+	// return responseDto;
+	// }
 
 	// user get by id
 	public SignupResponseDto getUserById(Long userId) {
 		User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-		return mapToSignupResposnseDTO(user);
+		return signupMapper.toResponse(user);
 	}
 
 	// Get All Users
 	public List<SignupResponseDto> getAllUsers() {
-		return userRepo.findAll().stream().map(this::mapToSignupResposnseDTO).toList();
+		return userRepo.findAll().stream().map(signupMapper::toResponse).toList();
 	}
 
 	// Update User
@@ -66,6 +83,7 @@ public class UserService {
 		User existingUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 		// File upload logic
 		if (file != null && !file.isEmpty()) {
+			FileValidationUtil.ValidateImage(file);
 			String relativeFilePath = saveFile(file);
 			profileDTO.setPic(relativeFilePath);
 		}
@@ -74,7 +92,7 @@ public class UserService {
 		existingUser.setActive(true);
 		// Save updated user
 		User updatedUser = userRepo.save(existingUser);
-		return mapToProfileResponseDto(updatedUser);
+		return profileMapper.toResponse(updatedUser);
 	}
 
 	// save file method

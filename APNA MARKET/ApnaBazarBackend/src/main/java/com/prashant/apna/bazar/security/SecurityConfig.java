@@ -24,7 +24,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**", "/testimonials/**", "/products/**").permitAll()
+            .requestMatchers("/user/**", "/testimonials/**", "/products/**").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(session -> session
             .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))

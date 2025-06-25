@@ -20,6 +20,8 @@ import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
 import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.services.UserService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +41,8 @@ public class SignupControlller {
   private ObjectMapper mapper;
 
   // create user
-  @PostMapping
-  ResponseEntity<SignupResponseDto> signup(@RequestBody SignupDTO signupDTO) {
+  @PostMapping("/signup")
+  ResponseEntity<SignupResponseDto> signup(@RequestBody @Valid SignupDTO signupDTO) {
     SignupResponseDto signupResponseDto = signUpService.signup(signupDTO);
     return ResponseEntity.ok(signupResponseDto);
   }

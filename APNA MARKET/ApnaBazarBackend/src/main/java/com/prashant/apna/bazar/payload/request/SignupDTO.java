@@ -26,7 +26,7 @@ public class SignupDTO {
 
 	@NotBlank(message = "Email is required!")
 	@Email(message = "Email should be valid!")
-	@Pattern(regexp = "^[A-Za-z]")
+	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}$", message = "Email must be valid and contain at least two characters after the '@' symbol")
 	private String email;
 
 	@NotBlank(message = "Phone number is required!")

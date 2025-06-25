@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
-import javax.crypto.SecretKey;
 
 @Component
 public class JwtUtils {
@@ -20,26 +19,26 @@ public class JwtUtils {
   @Value("${jwt.secret}")
   private String secret;
 
-  // 1. Generate signing key
+  // 1. Create signing key from base64 secret
   private SecretKey getSigningKey() {
     byte[] keyBytes = Decoders.BASE64.decode(secret);
     return Keys.hmacShaKeyFor(keyBytes);
   }
 
-  // 2. Extract username
+  // 2. Extract username (subject) from token
   public String extractUserName(String token) {
     return extractClaim(token, Claims::getSubject);
   }
 
-  // 3. Generic claim extractor
+  // 3. Extract specific claim
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
   }
 
+  // 4. Extract all claims
   private Claims extractAllClaims(String token) {
-    return Jwts
-        .parser()
+    return Jwts.parser()
         .verifyWith(getSigningKey())
         .build()
         .parseSignedClaims(token)
@@ -47,12 +46,12 @@ public class JwtUtils {
   }
 
   // 5. Token validation
-  public Boolean validateToken(String token, UserDetails userDetails) {
+  public boolean validateToken(String token, UserDetails userDetails) {
     final String username = extractUserName(token);
-    return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
   }
 
-  private Boolean isTokenExpired(String token) {
+  private boolean isTokenExpired(String token) {
     return extractExpiration(token).before(new Date());
   }
 
@@ -60,13 +59,13 @@ public class JwtUtils {
     return extractClaim(token, Claims::getExpiration);
   }
 
-  // 6. Token generator
+  // 6. Generate JWT token
   public String generateToken(UserDetails userDetails) {
     Map<String, Object> claims = new HashMap<>();
     return createToken(claims, userDetails.getUsername());
   }
 
-  // 7 Token creation logic
+  // 7. Create token using claims
   private String createToken(Map<String, Object> claims, String subject) {
     return Jwts.builder()
         .issuedAt(new Date(System.currentTimeMillis()))
@@ -76,5 +75,4 @@ public class JwtUtils {
         .signWith(getSigningKey())
         .compact();
   }
-
 }

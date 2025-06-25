@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,13 +16,18 @@ import com.prashant.apna.bazar.entities.User;
 import com.prashant.apna.bazar.exception.ResourceNotFoundException;
 import com.prashant.apna.bazar.mapper.ProfileMapper;
 import com.prashant.apna.bazar.mapper.SignupMapper;
+import com.prashant.apna.bazar.payload.request.AuthRequest;
 import com.prashant.apna.bazar.payload.request.ProfileDTO;
 import com.prashant.apna.bazar.payload.request.SignupDTO;
+import com.prashant.apna.bazar.payload.response.AuthResponse;
 import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
 import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.repositories.UserRepo;
+import com.prashant.apna.bazar.security.JwtUtils;
 // import com.prashant.apna.bazar.utils.FileUploadUtil;
 import com.prashant.apna.bazar.utils.FileValidationUtil;
+
+import io.jsonwebtoken.lang.Collections;
 
 @Service
 public class UserService {
@@ -39,6 +46,12 @@ public class UserService {
 
 	@Autowired
 	private CloudinaryService cloudinaryService;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtUtils jwtUtils;
 
 	// private final String uploadDir = FileUploadUtil.getUploadDirFor("users");
 
@@ -123,4 +136,22 @@ public class UserService {
 
 	}
 
+	public AuthResponse login(AuthRequest request) {
+		authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+
+		// Actual DB lookup here
+		User user = userRepo.findByUsernameOrEmail(request.getUsername(), request.getUsername())
+				.orElseThrow(() -> new RuntimeException("User not found"));
+
+		String token = jwtUtils.generateToken(
+				new org.springframework.security.core.userdetails.User(
+						user.getUsername(), user.getPassword(), Collections.emptyList()));
+
+		AuthResponse response = new AuthResponse();
+		response.setToken(token);
+		response.setUsername(user.getUsername());
+		response.setRole(user.getRole());
+		return response;
+	}
 }

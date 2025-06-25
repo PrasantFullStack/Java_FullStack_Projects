@@ -28,22 +28,31 @@ public class JwtAutFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
 
+    // Jwt check for public endpoints
     String path = request.getRequestURI();
-    if (path.contains("/user/signup") || path.contains("/user/login")) {
+    if (path.startsWith("/user/signup") || path.startsWith("/user/login")) {
       filterChain.doFilter(request, response);
       return;
     }
-
+    // Get Authorization Header
     String authHeader = request.getHeader("Authorization");
 
     String token = null;
     String username = null;
 
+    // Extract token and username
     if (authHeader != null && authHeader.startsWith("Bearer")) {
       token = authHeader.substring(7);
-      username = jwtUtils.extractUserName(token);
-    }
+      try {
+        username = jwtUtils.extractUserName(token);
+      } catch (Exception e) {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("Invailid JwtToken");
+        return;
+      }
 
+    }
+    // Validate token and set Authentication
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = userService.loadUserByUsername(username);
       if (jwtUtils.validateToken(token, userDetails)) {

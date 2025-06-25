@@ -43,8 +43,8 @@ public class SignupControlller {
   // create user
   @PostMapping("/signup")
   ResponseEntity<SignupResponseDto> signup(@RequestBody @Valid SignupDTO signupDTO) {
-    SignupResponseDto signupResponseDto = signUpService.signup(signupDTO);
-    return ResponseEntity.status(HttpStatus.CREATED).body(signupResponseDto);
+    SignupResponseDto savedUser = signUpService.signup(signupDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
   }
 
   // get user by id

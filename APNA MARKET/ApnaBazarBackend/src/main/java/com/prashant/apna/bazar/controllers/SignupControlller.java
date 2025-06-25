@@ -44,7 +44,7 @@ public class SignupControlller {
   @PostMapping("/signup")
   ResponseEntity<SignupResponseDto> signup(@RequestBody @Valid SignupDTO signupDTO) {
     SignupResponseDto signupResponseDto = signUpService.signup(signupDTO);
-    return ResponseEntity.ok(signupResponseDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(signupResponseDto);
   }
 
   // get user by id

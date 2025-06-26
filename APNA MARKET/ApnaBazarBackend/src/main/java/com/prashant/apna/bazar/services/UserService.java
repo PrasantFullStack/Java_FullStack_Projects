@@ -57,14 +57,13 @@ public class UserService {
 
 	// SignUp user
 	public SignupResponseDto signup(SignupDTO signupDto) {
-		User user = new User();
 		if (!signupDto.getPassword().equals(signupDto.getCpassword())) {
 			throw new RuntimeException("Password and Confirm Password do not match!");
 		}
 
 		// BeanUtils.copyProperties(signupDto, user);
 		// map Dto to entity
-		signupMapper.toEntity(signupDto);
+		User user = signupMapper.toEntity(signupDto);
 		user.setPassword(passwordEncoder.encode(signupDto.getPassword()));
 		user.setActive(true);
 		// save entity
@@ -136,6 +135,7 @@ public class UserService {
 
 	}
 
+	// login user
 	public AuthResponse login(AuthRequest request) {
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));

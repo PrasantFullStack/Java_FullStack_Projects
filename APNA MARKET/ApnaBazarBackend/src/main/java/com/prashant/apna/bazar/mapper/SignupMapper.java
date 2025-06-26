@@ -1,7 +1,5 @@
 package com.prashant.apna.bazar.mapper;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.prashant.apna.bazar.entities.User;
@@ -30,15 +28,10 @@ public class SignupMapper {
     response.setName(entity.getName());
     response.setUsername(entity.getUsername());
     response.setEmail(entity.getEmail());
-    response.setPassword(entity.getPassword());
     response.setPhone(entity.getPhone());
     response.setRole(entity.getRole());
     response.setActive(entity.isActive());
     return response;
   }
 
-  public SignupResponseDto toResponse(String username, String password, List<Object> emptyList) {
-
-    throw new UnsupportedOperationException("Unimplemented method 'toResponse'");
-  }
 }

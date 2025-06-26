@@ -11,17 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SignupResponseDto {
 	private Long userid;
-
 	private String name;
-
 	private String username;
-
 	private String email;
-
 	private String phone;
-
-	private String password;
-
 	private String role;
 	private boolean active;
 }

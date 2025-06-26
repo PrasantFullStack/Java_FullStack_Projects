@@ -19,9 +19,9 @@ public class UserServiceImp implements UserDetailsService {
   private UserRepo userRepo;
 
   @Override
-  public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-    User user = userRepo.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepo.findByUsernameOrEmail(username, username)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email: " + username));
 
     return org.springframework.security.core.userdetails.User
         .withUsername(user.getUsername())

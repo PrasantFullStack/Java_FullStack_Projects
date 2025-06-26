@@ -31,6 +31,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       throws ServletException, IOException {
 
     String path = request.getRequestURI();
+
     if (path.startsWith("/user/signup") || path.startsWith("/user/login")) {
       filterChain.doFilter(request, response);
       return;
@@ -61,7 +62,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             userDetails, null, userDetails.getAuthorities());
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+
       }
     }
 

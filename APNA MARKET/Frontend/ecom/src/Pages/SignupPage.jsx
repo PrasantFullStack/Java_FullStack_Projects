@@ -75,21 +75,24 @@ export default function SignupPage() {
           });
           return;
         }
-        response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}user`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            name: data.name,
-            username: data.username,
-            email: data.email,
-            phone: data.phone,
-            password: data.password,
-            role: "Buyer",
-            active: true,
-          }),
-        });
+        response = await fetch(
+          `${process.env.REACT_APP_BACKEND_SERVER}user/signup`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              name: data.name,
+              username: data.username,
+              email: data.email,
+              phone: data.phone,
+              password: data.password,
+              role: "Admin",
+              active: true,
+            }),
+          }
+        );
         response = await response.json();
         navigate("/login");
       }

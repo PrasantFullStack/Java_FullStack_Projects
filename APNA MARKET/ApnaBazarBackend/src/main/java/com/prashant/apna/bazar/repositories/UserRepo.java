@@ -10,6 +10,6 @@ import com.prashant.apna.bazar.entities.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
 
-  Optional<User> findByUsernameOrEmail(String username, String username2);
+  Optional<User> findByUsernameOrEmail(String username, String email);
 
 }

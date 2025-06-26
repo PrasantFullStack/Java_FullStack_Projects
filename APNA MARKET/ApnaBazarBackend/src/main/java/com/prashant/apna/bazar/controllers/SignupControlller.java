@@ -20,8 +20,11 @@ import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
 import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.services.UserService;
 
+// import ch.qos.logback.core.joran.spi.HttpUtil.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +32,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+    RequestMethod.DELETE })
 @RestController
 @RequestMapping("/user")
 public class SignupControlller {
 
   @Autowired
-  private UserService signUpService;
+  private UserService userService;
 
   // Jackson ObjectMapper for JSON conversion
   @Autowired
@@ -43,22 +48,21 @@ public class SignupControlller {
   // create user
   @PostMapping("/signup")
   ResponseEntity<SignupResponseDto> signup(@RequestBody @Valid SignupDTO signupDTO) {
-    SignupResponseDto savedUser = signUpService.signup(signupDTO);
+    SignupResponseDto savedUser = userService.signup(signupDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
   }
 
   // get user by id
   @GetMapping("/{userId}")
   ResponseEntity<SignupResponseDto> getUserById(@PathVariable Long userId) {
-    SignupResponseDto user = signUpService.getUserById(userId);
+    SignupResponseDto user = userService.getUserById(userId);
     return ResponseEntity.ok(user);
   }
 
   // Get All Users
-  @GetMapping
-  ResponseEntity<List<SignupResponseDto>> getAllUsers() {
-    List<SignupResponseDto> allUsers = signUpService.getAllUsers();
-    return ResponseEntity.ok(allUsers);
+  @GetMapping("/all")
+  public ResponseEntity<List<SignupResponseDto>> getAllUsers() {
+    return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
   }
 
   // Update User Profile
@@ -68,7 +72,7 @@ public class SignupControlller {
     // Convert JSON data to ProfileDTO
     ProfileDTO profileDTO = mapper.readValue(jsonData, ProfileDTO.class);
     // Update user with profile data and file
-    ProfileResponseDto updatedUser = signUpService.updateUser(userId, profileDTO, file);
+    ProfileResponseDto updatedUser = userService.updateUser(userId, profileDTO, file);
 
     // Return updated user profile
     return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
@@ -77,7 +81,7 @@ public class SignupControlller {
   // Delete User
   @DeleteMapping("/{userId}")
   ResponseEntity<Map<String, String>> deleteUserById(@PathVariable Long userId) throws IOException {
-    signUpService.deleteUser(userId);
+    userService.deleteUser(userId);
     Map<String, String> response = new HashMap<>();
     response.put("message", "user deleted successfully");
     return ResponseEntity.status(HttpStatus.OK).body(response);

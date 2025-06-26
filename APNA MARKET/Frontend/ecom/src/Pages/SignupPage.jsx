@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Breadcrum from "../Components/Breadcrum";
 import FormValidator from "../Validators/FormValidator";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function SignupPage() {
   let [data, setData] = useState({
@@ -19,6 +20,7 @@ export default function SignupPage() {
     phone: "Phone Number Field Is Mendatory",
     password: "Password Field Is Mendatory",
   });
+  let [isLoading, setIsLoading] = useState(false); //Spinner
   let [show, setShow] = useState(false);
   let navigate = useNavigate();
 
@@ -39,73 +41,107 @@ export default function SignupPage() {
   }
   async function postData(e) {
     e.preventDefault();
-    if (data.password === data.cpassword) {
-      let error = Object.values(errorMessage).find((x) => x !== "");
-      if (error) setShow(true);
-      else {
-        let response = await fetch(
-          `${process.env.REACT_APP_BACKEND_SERVER}user`,
-          {
-            method: "GET",
-            headers: {
-              "content-type": "application/json",
-            },
-          }
-        );
-        response = await response.json();
-        let item = response.find(
-          (x) =>
-            x.username?.toLowerCase() === data.username.toLowerCase() ||
-            x.email?.toLowerCase() === data.email.toLowerCase()
-        );
-        if (item) {
-          setShow(true);
-          setErrorMessage((old) => {
-            return {
-              ...old,
-              username:
-                item.username?.toLowerCase() === data.username.toLowerCase()
-                  ? "Username Already Taken"
-                  : "",
-              email:
-                item.email?.toLowerCase() === data.email.toLowerCase()
-                  ? "Email Address Already Taken"
-                  : "",
-            };
-          });
-          return;
-        }
-        response = await fetch(
-          `${process.env.REACT_APP_BACKEND_SERVER}user/signup`,
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              name: data.name,
-              username: data.username,
-              email: data.email,
-              phone: data.phone,
-              password: data.password,
-              role: "Admin",
-              active: true,
-            }),
-          }
-        );
-        response = await response.json();
-        navigate("/login");
-      }
-    } else {
+
+    if (data.password !== data.cpassword) {
       setShow(true);
-      setErrorMessage((old) => {
-        return {
+      setErrorMessage((old) => ({
+        ...old,
+        password: "Password and Confirm Password Doesn't Matched",
+      }));
+      return;
+    }
+
+    let error = Object.values(errorMessage).find((x) => x !== "");
+    if (error) {
+      setShow(true);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      // Step 1: Get all existing users
+      let getUsersRes = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}user`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!getUsersRes.ok) {
+        throw new Error(
+          `Failed to fetch existing users: ${getUsersRes.status}`
+        );
+      }
+
+      let users = await getUsersRes.json();
+      console.log("Data from backend:", users);
+
+      // Step 2: Check for duplicate username/email
+      let item = users.find(
+        (x) =>
+          x.username?.toLowerCase() === data.username.toLowerCase() ||
+          x.email?.toLowerCase() === data.email.toLowerCase()
+      );
+
+      if (item) {
+        setShow(true);
+        setIsLoading(false);
+        setErrorMessage((old) => ({
           ...old,
-          password: "Password and Confirm Password Doesn't Matched",
-        };
-      });
+          username:
+            item.username?.toLowerCase() === data.username.toLowerCase()
+              ? "Username Already Taken"
+              : "",
+          email:
+            item.email?.toLowerCase() === data.email.toLowerCase()
+              ? "Email Address Already Taken"
+              : "",
+        }));
+        return;
+      }
+
+      // Step 3: Signup Request
+      let response = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}user/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: data.name,
+            username: data.username,
+            email: data.email,
+            phone: data.phone,
+            password: data.password,
+            role: "Admin",
+            active: true,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        toast.success("🎉 Signup Successful!");
+        console.log("Signup Success:", result);
+        navigate("/login");
+      } else {
+        const errorResult = await response.json();
+        console.error("Signup failed:", errorResult);
+        toast.error("Signup failed: " + (errorResult.message || "Try again."));
+      }
+    } catch (error) {
+      console.error("❌ Something went wrong:", error.message);
+      toast.error("❌ Signup failed: " + error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
+
   return (
     <>
       <Breadcrum title="Signup - Create Your Account" />
@@ -220,9 +256,17 @@ export default function SignupPage() {
               </div>
 
               <div className="mb-3">
-                <button type="submit" className="btn btn-primary w-100">
-                  Signup
-                </button>
+                {isLoading ? (
+                  <div className="spinner">Signing you up...</div>
+                ) : (
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-100"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Please wait..." : "Sign Up"}
+                  </button>
+                )}
               </div>
             </form>
             <div>

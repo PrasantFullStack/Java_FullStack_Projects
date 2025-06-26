@@ -1,5 +1,8 @@
 package com.prashant.apna.bazar.security;
 
+// Removed incorrect import of java.beans.Customizer
+import org.springframework.security.config.Customizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +27,10 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
+    http.cors(Customizer.withDefaults()) // Very important
+        .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/user/signup", "/user/login").permitAll()
+            .requestMatchers("/user/signup", "/user/login", "/user/all").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtAutFilter, UsernamePasswordAuthenticationFilter.class);

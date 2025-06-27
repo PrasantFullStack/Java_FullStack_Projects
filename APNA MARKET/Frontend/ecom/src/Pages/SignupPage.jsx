@@ -116,6 +116,7 @@ export default function SignupPage() {
             email: data.email,
             phone: data.phone,
             password: data.password,
+            cpassword: data.cpassword,
             role: "Admin",
             active: true,
           }),

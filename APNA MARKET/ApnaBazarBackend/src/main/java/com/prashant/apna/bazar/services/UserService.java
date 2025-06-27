@@ -102,7 +102,7 @@ public class UserService {
 
 	// Update User
 	public ProfileResponseDto updateUser(Long userid, ProfileDTO profileDTO, MultipartFile file) throws IOException {
-		User existingUser = userRepo.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
+		User existingUser = userRepo.findById(userid).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		// File upload logic
 		if (file != null && !file.isEmpty()) {
 			FileValidationUtil.ValidateImage(file);

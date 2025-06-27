@@ -90,8 +90,8 @@ public class UserService {
 	// }
 
 	// user get by id
-	public SignupResponseDto getUserById(Long userId) {
-		User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+	public SignupResponseDto getUserById(Long userid) {
+		User user = userRepo.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
 		return signupMapper.toResponse(user);
 	}
 
@@ -101,8 +101,8 @@ public class UserService {
 	}
 
 	// Update User
-	public ProfileResponseDto updateUser(Long userId, ProfileDTO profileDTO, MultipartFile file) throws IOException {
-		User existingUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+	public ProfileResponseDto updateUser(Long userid, ProfileDTO profileDTO, MultipartFile file) throws IOException {
+		User existingUser = userRepo.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
 		// File upload logic
 		if (file != null && !file.isEmpty()) {
 			FileValidationUtil.ValidateImage(file);
@@ -129,9 +129,9 @@ public class UserService {
 	// }
 
 	// Delete User
-	public void deleteUser(Long userId) throws IOException {
-		userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-		userRepo.deleteById(userId);
+	public void deleteUser(Long userid) throws IOException {
+		userRepo.findById(userid).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		userRepo.deleteById(userid);
 
 	}
 

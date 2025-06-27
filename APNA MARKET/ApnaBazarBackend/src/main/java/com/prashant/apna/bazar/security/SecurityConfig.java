@@ -30,7 +30,7 @@ public class SecurityConfig {
     http.cors(Customizer.withDefaults()) // Very important
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/user/signup", "/user/login", "/user/all").permitAll()
+            .requestMatchers("/user", "/user/**", "/user/signup", "/user/login").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtAutFilter, UsernamePasswordAuthenticationFilter.class);

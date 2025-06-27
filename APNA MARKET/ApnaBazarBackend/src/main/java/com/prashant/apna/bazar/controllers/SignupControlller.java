@@ -53,35 +53,35 @@ public class SignupControlller {
   }
 
   // get user by id
-  @GetMapping("/{userId}")
-  ResponseEntity<SignupResponseDto> getUserById(@PathVariable Long userId) {
-    SignupResponseDto user = userService.getUserById(userId);
+  @GetMapping("/{userid}")
+  ResponseEntity<SignupResponseDto> getUserById(@PathVariable Long userid) {
+    SignupResponseDto user = userService.getUserById(userid);
     return ResponseEntity.ok(user);
   }
 
   // Get All Users
-  @GetMapping("/all")
+  @GetMapping
   public ResponseEntity<List<SignupResponseDto>> getAllUsers() {
     return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
   }
 
   // Update User Profile
-  @PutMapping("/{userId}")
-  ResponseEntity<ProfileResponseDto> updateUserProfile(@PathVariable Long userId, @RequestPart("data") String jsonData,
+  @PutMapping("/{userid}")
+  ResponseEntity<ProfileResponseDto> updateUserProfile(@PathVariable Long userid, @RequestPart("data") String jsonData,
       @RequestPart("pic") MultipartFile file) throws IOException {
     // Convert JSON data to ProfileDTO
     ProfileDTO profileDTO = mapper.readValue(jsonData, ProfileDTO.class);
     // Update user with profile data and file
-    ProfileResponseDto updatedUser = userService.updateUser(userId, profileDTO, file);
+    ProfileResponseDto updatedUser = userService.updateUser(userid, profileDTO, file);
 
     // Return updated user profile
     return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
   }
 
   // Delete User
-  @DeleteMapping("/{userId}")
-  ResponseEntity<Map<String, String>> deleteUserById(@PathVariable Long userId) throws IOException {
-    userService.deleteUser(userId);
+  @DeleteMapping("/{userid}")
+  ResponseEntity<Map<String, String>> deleteUserById(@PathVariable Long userid) throws IOException {
+    userService.deleteUser(userid);
     Map<String, String> response = new HashMap<>();
     response.put("message", "user deleted successfully");
     return ResponseEntity.status(HttpStatus.OK).body(response);

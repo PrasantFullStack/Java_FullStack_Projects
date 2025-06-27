@@ -61,7 +61,7 @@ export default function SignupPage() {
       setIsLoading(true);
 
       // Step 1: Get all existing users
-      let getUsersRes = await fetch(
+      let response = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}user`,
         {
           method: "GET",
@@ -71,13 +71,11 @@ export default function SignupPage() {
         }
       );
 
-      if (!getUsersRes.ok) {
-        throw new Error(
-          `Failed to fetch existing users: ${getUsersRes.status}`
-        );
+      if (!response.ok) {
+        throw new Error(`Failed to fetch existing users: ${response.status}`);
       }
 
-      let users = await getUsersRes.json();
+      let users = await response.json();
       console.log("Data from backend:", users);
 
       // Step 2: Check for duplicate username/email
@@ -105,7 +103,7 @@ export default function SignupPage() {
       }
 
       // Step 3: Signup Request
-      let response = await fetch(
+      let signupResponse = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}user/signup`,
         {
           method: "POST",
@@ -124,13 +122,13 @@ export default function SignupPage() {
         }
       );
 
-      if (response.ok) {
-        const result = await response.json();
+      if (signupResponse.ok) {
+        const result = await signupResponse.json();
         toast.success("🎉 Signup Successful!");
         console.log("Signup Success:", result);
         navigate("/login");
       } else {
-        const errorResult = await response.json();
+        const errorResult = await signupResponse.json();
         console.error("Signup failed:", errorResult);
         toast.error("Signup failed: " + (errorResult.message || "Try again."));
       }

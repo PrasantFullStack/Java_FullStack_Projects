@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import ImageValidator from "../Validators/ImageValidator";
 import FormValidator from "../Validators/FormValidator";
+import { toast } from "react-toastify";
 export default function UpdateProfilePage() {
   let [data, setData] = useState({
     name: "",
@@ -86,8 +87,26 @@ export default function UpdateProfilePage() {
         }
 
         const formData = new FormData();
-        formData.append("data", JSON.stringify(data)); //append json data
-        formData.append("pic", data.pic); //send file
+        // Convert all data (except file) to JSON and append as "data"
+        const userData = {
+          name: data.name,
+          username: data.username,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          pin: data.pin,
+          city: data.city,
+          state: data.state,
+          role: "Admin", // or "Buyer"
+          active: true,
+        };
+
+        formData.append("data", JSON.stringify(userData));
+
+        // Step 3: Add the image file (if selected)
+        if (data.pic instanceof File) {
+          formData.append("pic", data.pic);
+        }
 
         response = await fetch(
           `${process.env.REACT_APP_BACKEND_SERVER}user/${localStorage.getItem(
@@ -98,13 +117,22 @@ export default function UpdateProfilePage() {
             body: formData, // no headers for formData
           }
         );
+
         response = await response.json();
-        if (data.role === "Buyer") navigate("/profile");
-        else navigate("/admin");
+
+        if (response.ok) {
+          toast.success("✅ Profile updated successfully!");
+          if (userData.role === "Buyer") navigate("/profile");
+          else navigate("/admin");
+        }
+        // response = await response.json();
+        // if (data.role === "Buyer") navigate("/profile");
+        // else navigate("/admin");
       }
     } catch (error) {
-      console.error("Profile update Error");
-      alert("Something went wrong during profile update!");
+      console.error("Profile update ❌Error");
+      toast.error("Profile update ❌Error");
+      alert("Something went ❌wrong during profile update!");
     }
   }
 

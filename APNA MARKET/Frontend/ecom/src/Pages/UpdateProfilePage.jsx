@@ -29,7 +29,8 @@ export default function UpdateProfilePage() {
 
   //file upload logic
   function getInputData(e) {
-    let { name, value, files } = e.target;
+    var name = e.target.name;
+    let value = e.target.files ? e.target.files[0] : e.target.value;
 
     // let value = e.target.files && e.target.files.length ? "product/" + e.target.files[0].name : e.target.value
     setErrorMessage((old) => {
@@ -41,7 +42,7 @@ export default function UpdateProfilePage() {
     setData((old) => {
       return {
         ...old,
-        [name]: files?.[0] || value, //Store actual file object if file
+        [name]: value, //Store actual file object if file
       };
     });
   }
@@ -86,23 +87,20 @@ export default function UpdateProfilePage() {
           return;
         }
 
-        const formData = new FormData();
-        // Convert all data (except file) to JSON and append as "data"
-        const userData = {
-          name: data.name,
-          username: data.username,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
-          pin: data.pin,
-          city: data.city,
-          state: data.state,
-          role: "Admin", // or "Buyer"
-          active: true,
-        };
+        // Convert all data to JSON and append as "data"
 
-        formData.append("data", JSON.stringify(userData));
-
+        var formData = new FormData();
+        formData.append(
+          "data",
+          JSON.stringify({
+            name: data.name,
+            phone: data.phone,
+            address: data.address,
+            pin: data.pin,
+            city: data.city,
+            state: data.state,
+          })
+        );
         // Step 3: Add the image file (if selected)
         if (data.pic instanceof File) {
           formData.append("pic", data.pic);
@@ -122,7 +120,7 @@ export default function UpdateProfilePage() {
 
         if (response.ok) {
           toast.success("✅ Profile updated successfully!");
-          if (userData.role === "Buyer") navigate("/profile");
+          if (data.role === "Buyer") navigate("/profile");
           else navigate("/admin");
         }
         // response = await response.json();

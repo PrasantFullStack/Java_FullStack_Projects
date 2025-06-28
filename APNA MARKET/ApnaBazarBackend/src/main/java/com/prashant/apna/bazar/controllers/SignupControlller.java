@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prashant.apna.bazar.ApnaBazarBackendApplication;
 import com.prashant.apna.bazar.payload.request.ProfileDTO;
 import com.prashant.apna.bazar.payload.request.SignupDTO;
 import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
@@ -38,12 +39,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/user")
 public class SignupControlller {
 
+  private final ApnaBazarBackendApplication apnaBazarBackendApplication;
+
   @Autowired
   private UserService userService;
 
   // Jackson ObjectMapper for JSON conversion
   @Autowired
   private ObjectMapper mapper;
+
+  SignupControlller(ApnaBazarBackendApplication apnaBazarBackendApplication) {
+    this.apnaBazarBackendApplication = apnaBazarBackendApplication;
+  }
 
   // create user
   @PostMapping("/signup")
@@ -68,7 +75,7 @@ public class SignupControlller {
   // Update User Profile
   @PutMapping("/{userid}")
   ResponseEntity<ProfileResponseDto> updateUserProfile(@PathVariable Long userid, @RequestPart("data") String jsonData,
-      @RequestPart("pic") MultipartFile file) throws IOException {
+      @RequestPart(value = "pic", required = false) MultipartFile file) throws IOException {
     // Convert JSON data to ProfileDTO
     ProfileDTO profileDTO = mapper.readValue(jsonData, ProfileDTO.class);
     // Update user with profile data and file

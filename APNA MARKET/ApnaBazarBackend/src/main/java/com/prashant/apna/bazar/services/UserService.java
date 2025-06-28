@@ -102,20 +102,24 @@ public class UserService {
 
 	// Update User
 	public ProfileResponseDto updateUser(Long userid, ProfileDTO profileDTO, MultipartFile file) throws IOException {
-		User existingUser = userRepo.findById(userid).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		User existingUser = userRepo.findById(userid)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
 		// File upload logic
 		if (file != null && !file.isEmpty()) {
 			FileValidationUtil.ValidateImage(file);
 			String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/users");
-			profileDTO.setPic(imageUrl);
+			profileDTO.setPic(imageUrl); // Set image URL in DTO
 		}
-		// // Copy properties from DTO to existing user
-		// BeanUtils.copyProperties(profileDTO, existingUser);
 
-		profileMapper.toEntity(profileDTO);
-		existingUser.setActive(true);
-		// Save updated user
+		// ✅ Update existing user from DTO using mapper
+		profileMapper.updateEntity(existingUser, profileDTO);
+		existingUser.setActive(true); // Optional: mark user active if needed
+
+		// ✅ Save the updated user
 		User updatedUser = userRepo.save(existingUser);
+
+		// Return updated response DTO
 		return profileMapper.toResponse(updatedUser);
 	}
 

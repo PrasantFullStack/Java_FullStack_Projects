@@ -24,4 +24,6 @@ public class ProfileResponseDto {
 
   private String pic;
 
+  private String role;
+
 }

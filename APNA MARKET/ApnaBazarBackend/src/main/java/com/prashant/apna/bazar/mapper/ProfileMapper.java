@@ -45,6 +45,7 @@ public class ProfileMapper {
       entity.setEmail(dto.getEmail());
     if (dto.getUsername() != null)
       entity.setUsername(dto.getUsername());
+
   }
 
   // Entity to Response
@@ -60,6 +61,7 @@ public class ProfileMapper {
     response.setPin(entity.getPin());
     response.setPic(entity.getPic());
     response.setState(entity.getState());
+    response.setRole(entity.getRole());
     return response;
   }
 }

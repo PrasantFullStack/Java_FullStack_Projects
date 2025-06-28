@@ -90,14 +90,14 @@ public class UserService {
 	// }
 
 	// user get by id
-	public SignupResponseDto getUserById(Long userid) {
+	public ProfileResponseDto getUserById(Long userid) {
 		User user = userRepo.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
-		return signupMapper.toResponse(user);
+		return profileMapper.toResponse(user);
 	}
 
 	// Get All Users
-	public List<SignupResponseDto> getAllUsers() {
-		return userRepo.findAll().stream().map(signupMapper::toResponse).toList();
+	public List<ProfileResponseDto> getAllUsers() {
+		return userRepo.findAll().stream().map(profileMapper::toResponse).toList();
 	}
 
 	// Update User

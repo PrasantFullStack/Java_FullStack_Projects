@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prashant.apna.bazar.ApnaBazarBackendApplication;
+
 import com.prashant.apna.bazar.payload.request.ProfileDTO;
 import com.prashant.apna.bazar.payload.request.SignupDTO;
 import com.prashant.apna.bazar.payload.response.ProfileResponseDto;
 import com.prashant.apna.bazar.payload.response.SignupResponseDto;
 import com.prashant.apna.bazar.services.UserService;
 
-// import ch.qos.logback.core.joran.spi.HttpUtil.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.validation.Valid;
 
@@ -39,18 +38,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/user")
 public class SignupControlller {
 
-  private final ApnaBazarBackendApplication apnaBazarBackendApplication;
-
   @Autowired
   private UserService userService;
 
   // Jackson ObjectMapper for JSON conversion
   @Autowired
   private ObjectMapper mapper;
-
-  SignupControlller(ApnaBazarBackendApplication apnaBazarBackendApplication) {
-    this.apnaBazarBackendApplication = apnaBazarBackendApplication;
-  }
 
   // create user
   @PostMapping("/signup")
@@ -61,14 +54,13 @@ public class SignupControlller {
 
   // get user by id
   @GetMapping("/{userid}")
-  ResponseEntity<SignupResponseDto> getUserById(@PathVariable Long userid) {
-    SignupResponseDto user = userService.getUserById(userid);
-    return ResponseEntity.ok(user);
+  ResponseEntity<ProfileResponseDto> getUserById(@PathVariable Long userid) {
+    return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(userid));
   }
 
   // Get All Users
   @GetMapping
-  public ResponseEntity<List<SignupResponseDto>> getAllUsers() {
+  public ResponseEntity<List<ProfileResponseDto>> getAllUsers() {
     return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
   }
 

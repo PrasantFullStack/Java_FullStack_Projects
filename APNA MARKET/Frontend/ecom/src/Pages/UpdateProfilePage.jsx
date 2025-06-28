@@ -32,7 +32,6 @@ export default function UpdateProfilePage() {
     var name = e.target.name;
     let value = e.target.files ? e.target.files[0] : e.target.value;
 
-    // let value = e.target.files && e.target.files.length ? "product/" + e.target.files[0].name : e.target.value
     setErrorMessage((old) => {
       return {
         ...old,
@@ -119,13 +118,11 @@ export default function UpdateProfilePage() {
         response = await response.json();
 
         if (response.ok) {
-          toast.success("✅ Profile updated successfully!");
           if (data.role === "Buyer") navigate("/profile");
           else navigate("/admin");
+        } else {
+          console.error("Server error:", response.status);
         }
-        // response = await response.json();
-        // if (data.role === "Buyer") navigate("/profile");
-        // else navigate("/admin");
       }
     } catch (error) {
       console.error("Profile update ❌Error");

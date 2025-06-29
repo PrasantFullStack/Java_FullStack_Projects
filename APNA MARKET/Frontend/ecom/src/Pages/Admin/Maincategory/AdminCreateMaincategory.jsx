@@ -67,26 +67,26 @@ export default function AdminCreateMaincategory() {
         setErrorMessage((old) => {
           return {
             ...old,
-            name: "Maincategory With Same Name Already Exist",
+            name: "Maincategory Name is Already Exist",
           };
         });
-        return;
-      }
-      //   dispatch(createMultipartRecord({ ...data }));
-      let formData = new FormData();
-      data.append(
-        "data",
-        JSON.stringify({
-          name: data.name,
-          active: data.active,
-        })
-      );
+      } else {
+        var formData = new FormData();
+        formData.append(
+          "data",
+          JSON.stringify({
+            name: data.name,
+            active: data.active,
+          })
+        );
 
-      if (data.pic instanceof File) {
-        formData.append("pic", data.pic);
+        if (data.pic instanceof File) {
+          formData.append("pic", data.pic);
+        }
+
+        dispatch(createMultipartRecord(formData)); // Correct Redux action
+        navigate("/admin/maincategory");
       }
-      dispatch(createMultipartRecord(data));
-      navigate("/admin/maincategory");
     }
   }
 

@@ -69,7 +69,8 @@ public class MainController {
 
   // Delete Maincategory By Id
   @DeleteMapping("/{id}")
-  public ResponseEntity<Map<String, String>> deleteMancategory(@PathVariable Long id) {
+  public ResponseEntity<Map<String, String>> deleteMancategory(@PathVariable Long id) throws IOException {
+
     mainService.deleteMaincategory(id);
 
     Map<String, String> response = new HashMap<>();

@@ -17,6 +17,7 @@ public class CloudinaryService {
   @Autowired
   private Cloudinary cloudinary;
 
+  // image upload on cloudinary
   public String uploadImage(MultipartFile file, String folder) throws IOException {
 
     if (file == null || file.isEmpty()) {
@@ -36,6 +37,7 @@ public class CloudinaryService {
     return result.get("secure_url").toString();
   }
 
+  // Here update image with id on cloudinary
   public Map<String, String> updateImageWithPicId(MultipartFile file, String folder, String picId)
       throws IOException {
     if (file == null || file.isEmpty()) {
@@ -55,6 +57,7 @@ public class CloudinaryService {
 
   }
 
+  // Delete image by id in Cloudinary
   public String deleteImage(String picId) throws IOException {
     Map result = cloudinary.uploader().destroy(picId, ObjectUtils.emptyMap());
     return result.get("result").toString(); // "ok" if deleted

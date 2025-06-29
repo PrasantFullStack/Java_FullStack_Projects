@@ -4,7 +4,6 @@ package com.prashant.apna.bazar.security;
 import org.springframework.security.config.Customizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Http;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,13 +31,26 @@ public class SecurityConfig {
     http.cors(Customizer.withDefaults()) // Very important
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-                "/user/signup", "/user/login")
-            .permitAll()// here GET method public
-            .requestMatchers(HttpMethod.GET, "/user", " /maincategory/**", "/subcategory/**", "/brand/**",
-                "/product/**", "/testimonial/**", "/newsletter/**")
+            // here GET method public : Anyone can fatch data
+            .requestMatchers("/user/signup", "/user/login", " /maincategory/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/user", "/maincategory", "/subcategory", "/brand",
+                "/product", "/testimonial", "/newsletter")
             .permitAll()
+            // Protected method only authentication user can modify
+            .requestMatchers(HttpMethod.POST, "/subcategory", "/brand", "/product", "/testimonial",
+                "/newsletter", "/contactus")
+            .hasRole("Admin")
 
+            // Protected method only authentication user can modify
+            .requestMatchers(HttpMethod.PUT, "/subcategory/**", "/brand/**", "/product/**",
+                "/testimonial/**", "/newsletter/**", "/contactus")
+            .hasRole("Admin")
+
+            // Protected method only authentication user can modify
+            .requestMatchers(HttpMethod.DELETE, " /maincategory/**", "/subcategory/**", "/brand/**", "/product/**",
+                "/testimonial/**", "/newsletter/**", "/contactus")
+            .hasRole("Admin")
+            // default rule for everything else
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtAutFilter, UsernamePasswordAuthenticationFilter.class);

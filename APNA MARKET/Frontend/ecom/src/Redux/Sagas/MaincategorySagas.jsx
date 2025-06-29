@@ -21,9 +21,12 @@ function* createSaga(action) {
   //Worker Saga
   //   let response = yield createRecord("maincategory", action.payload);
   //   yield put({ type: CREATE_MAINCATEGORY_RED, payload: response });
-
-  let response = yield createMultipartRecord("maincategory", action.payload);
-  yield put({ type: CREATE_MAINCATEGORY_RED, payload: response });
+  try {
+    let response = yield createMultipartRecord("maincategory", action.payload);
+    yield put({ type: CREATE_MAINCATEGORY_RED, payload: response });
+  } catch (error) {
+    console.log("Error creating Maincategory:", error);
+  }
 }
 
 function* getSaga() {

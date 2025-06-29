@@ -4,8 +4,10 @@ package com.prashant.apna.bazar.security;
 import org.springframework.security.config.Customizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Http;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -30,7 +32,13 @@ public class SecurityConfig {
     http.cors(Customizer.withDefaults()) // Very important
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/user", "/user/**", "/user/signup", "/user/login").permitAll()
+            .requestMatchers(
+                "/user/signup", "/user/login")
+            .permitAll()// here GET method public
+            .requestMatchers(HttpMethod.GET, "/user", " /maincategory/**", "/subcategory/**", "/brand/**",
+                "/product/**", "/testimonial/**", "/newsletter/**")
+            .permitAll()
+
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtAutFilter, UsernamePasswordAuthenticationFilter.class);

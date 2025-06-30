@@ -69,31 +69,33 @@ public class MainService {
     return mapper.mapToResponse(existsMaincategory);
   }
 
-  // Update Maincategory
+  // Update Maincategory by Id
   public MainResponseDto updateMaincategory(Long id, MaincategoryDto mainDto, MultipartFile file) throws IOException {
-    // find existing maincategory by id and updated
+    // 1.Fetch existing maincategory
     Maincategory existsMaincategory = mainRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Maincategory not found with id:" + id));
-    mainDto.setName(mainDto.getName());
-    mainDto.setActive(mainDto.isActive());
-    // mainDto.setPic(mainDto.getPic());
 
-    // If a new file is provided, save it and update the pic field
+    // 2. Update image if new file is uploaded
     if (file != null && !file.isEmpty()) {
-      Map<String, String> imageUrl = cloudinaryService.updateImageWithPicId(file, "/apna-bazar/maincategory",
+      Map<String, String> imageResult = cloudinaryService.updateImageWithPublicId(
+          file,
+          "/apna-bazar/maincategory",
           existsMaincategory.getPic());
-      mainDto.setPic(imageUrl.get("url")); // Adjust key as per your CloudinaryService response
+
+      // Set new image URL in DTO
+      mainDto.setPic(imageResult.get("secure_url"));
     } else {
-      // If no new file is provided, keep the existing pic
+      // Keep old pic
       mainDto.setPic(existsMaincategory.getPic());
     }
-    // map dto to entity
-    mapper.toEntity(mainDto);
 
-    // Save Entity
+    // 3. Update the existing entity with new DTO values
+    mapper.updateEntityFromDto(mainDto, existsMaincategory);
+
+    // 4.Save updated entity
     Maincategory updatedMaincategory = mainRepo.save(existsMaincategory);
 
-    // map to updated entity to response DTO
+    // 5.Return response DTO
     return mapper.mapToResponse(updatedMaincategory);
   }
 
@@ -107,7 +109,7 @@ public class MainService {
     Maincategory existsMaincategory = mainRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Maincategory not found with id: " + id));
     if (existsMaincategory.getPic() != null) {
-      cloudinaryService.deleteImage("picId");
+      cloudinaryService.deleteImage("public_id");
     }
     // Delete the maincategory
     mainRepo.deleteById(id);

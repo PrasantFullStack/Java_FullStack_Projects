@@ -59,7 +59,7 @@ public class TestimonialService {
   }
 
   public TestimonialResponse updateTestimonial(Long id, TestimonialDto dto, MultipartFile file) throws IOException {
-    // 1. Get existing testimonial
+    // 1.fetch existing testimonial
     Testimonial existing = testimonialRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Testimonial not found with id: " + id));
 
@@ -73,7 +73,7 @@ public class TestimonialService {
       }
 
       // Upload new image and get secure_url + public_id
-      Map<String, String> uploadResult = cloudinaryService.updateImageWithPicId(
+      Map<String, String> uploadResult = cloudinaryService.updateImageWithPublicId(
           file, "apna-bazar/testimonials", oldPublicId);
       dto.setPic(uploadResult.get("secure_url"));
       dto.setPicId(uploadResult.get("public_id"));
@@ -82,13 +82,6 @@ public class TestimonialService {
       dto.setPic(existing.getPic());
       dto.setPicId(existing.getPicId());
     }
-
-    // Update values safely
-    existing.setName(dto.getName());
-    existing.setMessage(dto.getMessage());
-    existing.setPic(dto.getPic());
-    existing.setPicId(dto.getPicId());
-    existing.setActive(dto.isActive());
 
     // Save updated testimonial
     Testimonial updated = testimonialRepo.save(existing);

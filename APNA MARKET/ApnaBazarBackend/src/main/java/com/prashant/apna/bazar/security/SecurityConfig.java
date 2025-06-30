@@ -33,8 +33,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login", " /maincategory").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/
-            ", "/maincategory", "/subcategory", "/brand",
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory", "/subcategory", "/brand",
                 "/product", "/testimonial", "/newsletter")
             .permitAll()
             // Protected method only authentication user can modify

@@ -14,6 +14,7 @@ import com.prashant.apna.bazar.mapper.MaincategoryMapper;
 import com.prashant.apna.bazar.payload.request.MaincategoryDto;
 import com.prashant.apna.bazar.payload.response.MainResponseDto;
 import com.prashant.apna.bazar.repositories.MainRepo;
+import com.prashant.apna.bazar.utils.FileValidationUtil;
 
 @Service
 public class MainService {
@@ -33,15 +34,18 @@ public class MainService {
   // create maincategory
   public MainResponseDto createMaincategory(MaincategoryDto mainDto,
       MultipartFile file) throws IOException {
+
     // File upload logic
     if (file != null && !file.isEmpty()) {
+      FileValidationUtil.ValidateImage(file);
+      // upload image t cloudinary
       String imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/maincategory");
       // String relativeFilePath = saveFile(file);
       mainDto.setPic(imgUrl);
     }
-    Maincategory maincategory = new Maincategory();
+
     // map dto to entity
-    mapper.toEntity(mainDto);
+    Maincategory maincategory = mapper.toEntity(mainDto);
     // save entity to database
     Maincategory savedMaincategory = mainRepo.save(maincategory);
     return mapper.mapToResponse(savedMaincategory);

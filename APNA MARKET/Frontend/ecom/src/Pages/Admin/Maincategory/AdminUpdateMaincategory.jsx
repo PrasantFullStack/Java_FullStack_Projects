@@ -39,14 +39,14 @@ export default function AdminUpdateMaincategory() {
       e.target.files && e.target.files.length
         ? e.target.files[0]
         : e.target.value;
-
-    setErrorMessage((old) => {
-      return {
-        ...old,
-        [name]: e.target.files ? ImageValidator(e) : FormValidator(e),
-      };
-    });
-
+    if (name !== "active") {
+      setErrorMessage((old) => {
+        return {
+          ...old,
+          [name]: e.target.files ? ImageValidator(e) : FormValidator(e),
+        };
+      });
+    }
     setData((old) => {
       return {
         ...old,
@@ -57,6 +57,11 @@ export default function AdminUpdateMaincategory() {
 
   async function postData(e) {
     e.preventDefault();
+    if (!id) {
+      console.error("Error: Maincategory ID is undefined!");
+      return;
+    }
+
     let error = Object.values(errorMessage).find((x) => x !== "");
     if (error) setShow(true);
     else {
@@ -71,30 +76,30 @@ export default function AdminUpdateMaincategory() {
             name: "Maincategory With Same Name Already Exist",
           };
         });
-        return;
-      }
+      } else {
+        //   let formData = new FormData();
+        //   formData.append("_id", data._id);
+        //   formData.append("name", data.name);
+        //   formData.append("pic", data.pic);
+        //   formData.append("active", data.active);
+        //   dispatch(getMaincategory(formData));
+        var formData = new FormData();
+        //Update fields
+        formData.append("id", data.id);
+        formData.append(
+          "data",
+          JSON.stringify({ name: data.name, active: data.active })
+        );
 
-      //   let formData = new FormData();
-      //   formData.append("_id", data._id);
-      //   formData.append("name", data.name);
-      //   formData.append("pic", data.pic);
-      //   formData.append("active", data.active);
-      //   dispatch(getMaincategory(formData));
-      var formData = new FormData();
-      formData.append("id", data.id);
-      formData.append(
-        "data",
-        JSON.stringify({
-          name: data.name,
-          active: data.active,
-        })
-      );
-      dispatch(updateMultipartRecord(formData));
-      // Step 3: Add the image file (if selected)
-      if (data.pic instanceof File) {
-        formData.append("pic", data.pic);
+        if (data.pic instanceof File) {
+          formData.append("pic", data.pic);
+        }
+        //Dispatch redux action the action to update the record
+        dispatch(updateMultipartRecord(formData));
+        // Step 3: Add the image file (if selected)
+
+        navigate("/admin/maincategory");
       }
-      navigate("/admin/maincategory");
     }
   }
   useEffect(() => {

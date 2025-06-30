@@ -33,25 +33,26 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login", " /maincategory").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory", "/subcategory", "/brand",
-                "/product", "/testimonial", "/newsletter")
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory")
             .permitAll()
             // Protected method only authentication user can modify
-            .requestMatchers(HttpMethod.POST, "/maincategory", "/subcategory", "/brand", "/product", "/testimonial",
-                "/newsletter", "/contactus")
+            .requestMatchers(HttpMethod.POST, "/maincategory")
             .permitAll()
-            // .hasRole("Admin")
+            // // .hasRole("Admin")
 
-            // Protected method only authentication user can modify
-            .requestMatchers(HttpMethod.PUT, "/subcategory/**", "/brand/**", "/product/**",
-                "/testimonial/**", "/newsletter/**", "/contactus")
-            .permitAll()
-            // .hasRole("Admin")
+            // // Protected method only authentication user can modify
+            // .requestMatchers(HttpMethod.PUT, "/subcategory/**", "/brand/**",
+            // "/product/**",
+            // "/testimonial/**", "/newsletter/**", "/contactus")
+            // .permitAll()
+            // // .hasRole("Admin")
 
-            // Protected method only authentication user can modify
-            .requestMatchers(HttpMethod.DELETE, " /maincategory/**", "/subcategory/**", "/brand/**", "/product/**",
-                "/testimonial/**", "/newsletter/**", "/contactus")
-            .hasRole("Admin")
+            // // Protected method only authentication user can modify
+            // .requestMatchers(HttpMethod.DELETE, " /maincategory", "/subcategory/**",
+            // "/brand/**", "/product/**",
+            // "/testimonial/**", "/newsletter/**", "/contactus")
+            // .permitAll()
+            // .hasRole("Admin")
             // default rule for everything else
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

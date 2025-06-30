@@ -33,19 +33,22 @@ export default function AdminCreateMaincategory() {
 
   function getInputData(e) {
     var name = e.target.name;
+    let value = e.target.files ? e.target.files[0] : e.target.value;
+
     // var value = e.target.files && e.target.files.length ? "maincategory/" + e.target.files[0].name : e.target.value
-    var value =
-      e.target.files && e.target.files.length
-        ? e.target.files[0]
-        : e.target.value;
 
-    setErrorMessage((old) => {
-      return {
-        ...old,
-        [name]: e.target.files ? ImageValidator(e) : FormValidator(e),
-      };
-    });
-
+    // var value =
+    //   e.target.files && e.target.files.length
+    //     ? e.target.files[0]
+    //     : e.target.value;
+    if (name !== "active") {
+      setErrorMessage((old) => {
+        return {
+          ...old,
+          [name]: e.target.files ? ImageValidator(e) : FormValidator(e),
+        };
+      });
+    }
     setData((old) => {
       return {
         ...old,

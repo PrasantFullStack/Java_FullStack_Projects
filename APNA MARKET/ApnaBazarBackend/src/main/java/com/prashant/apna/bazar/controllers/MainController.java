@@ -35,7 +35,7 @@ public class MainController {
   private ObjectMapper mapper;
 
   // create maincategory
-  @PostMapping
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<MainResponseDto> createMaincategory(@RequestPart("data") String jsonData,
       @RequestPart(value = "pic", required = false) MultipartFile file) throws IOException {
     // Convert Json String to MaincategoryDto, Java Object

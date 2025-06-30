@@ -18,10 +18,10 @@ export function getMaincategory() {
   };
 }
 
-export function updateMultipartRecord(data) {
+export function updateMultipartRecord(formData) {
   return {
     type: UPDATE_MAINCATEGORY,
-    payload: data,
+    payload: formData,
   };
 }
 

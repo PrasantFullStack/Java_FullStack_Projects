@@ -29,4 +29,14 @@ public class MaincategoryMapper {
     // response.setActive(entity.isActive());
     return response;
   }
+
+  // Update existing entity from DTO
+  public void updateEntityFromDto(MaincategoryDto dto, Maincategory entity) {
+    if (dto.getName() != null) {
+      entity.setName(dto.getName());
+    }
+
+    entity.setActive(dto.isActive());
+  }
+
 }

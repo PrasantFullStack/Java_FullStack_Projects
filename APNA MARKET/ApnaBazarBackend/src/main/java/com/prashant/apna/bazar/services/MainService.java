@@ -76,7 +76,7 @@ public class MainService {
         .orElseThrow(() -> new ResourceNotFoundException("Maincategory not found with id:" + id));
     mainDto.setName(mainDto.getName());
     mainDto.setActive(mainDto.isActive());
-    mainDto.setPic(mainDto.getPic());
+    // mainDto.setPic(mainDto.getPic());
 
     // If a new file is provided, save it and update the pic field
     if (file != null && !file.isEmpty()) {

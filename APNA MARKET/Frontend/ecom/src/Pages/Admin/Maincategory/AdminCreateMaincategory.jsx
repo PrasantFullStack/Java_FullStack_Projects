@@ -95,7 +95,8 @@ export default function AdminCreateMaincategory() {
 
   useEffect(() => {
     dispatch(getMaincategory());
-  }, [MaincategoryStateData.length]);
+  }, [dispatch]);
+
   return (
     <>
       <Breadcrum title="Admin" />

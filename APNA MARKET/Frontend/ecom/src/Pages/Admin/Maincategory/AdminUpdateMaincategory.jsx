@@ -104,7 +104,7 @@ export default function AdminUpdateMaincategory() {
   }
   useEffect(() => {
     dispatch(getMaincategory());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     console.log("Redux Data:", MaincategoryStateData);
     let category = MaincategoryStateData.find((x) => x.id === Number(id));

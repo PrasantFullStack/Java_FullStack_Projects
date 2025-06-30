@@ -32,19 +32,22 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
-            .requestMatchers("/user/signup", "/user/login", " /maincategory/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user", "/maincategory", "/subcategory", "/brand",
+            .requestMatchers("/user/signup", "/user/login", " /maincategory").permitAll()
+            .requestMatchers(HttpMethod.GET, "/user/
+            ", "/maincategory", "/subcategory", "/brand",
                 "/product", "/testimonial", "/newsletter")
             .permitAll()
             // Protected method only authentication user can modify
-            .requestMatchers(HttpMethod.POST, "/subcategory", "/brand", "/product", "/testimonial",
+            .requestMatchers(HttpMethod.POST, "/maincategory", "/subcategory", "/brand", "/product", "/testimonial",
                 "/newsletter", "/contactus")
-            .hasRole("Admin")
+            .permitAll()
+            // .hasRole("Admin")
 
             // Protected method only authentication user can modify
             .requestMatchers(HttpMethod.PUT, "/subcategory/**", "/brand/**", "/product/**",
                 "/testimonial/**", "/newsletter/**", "/contactus")
-            .hasRole("Admin")
+            .permitAll()
+            // .hasRole("Admin")
 
             // Protected method only authentication user can modify
             .requestMatchers(HttpMethod.DELETE, " /maincategory/**", "/subcategory/**", "/brand/**", "/product/**",

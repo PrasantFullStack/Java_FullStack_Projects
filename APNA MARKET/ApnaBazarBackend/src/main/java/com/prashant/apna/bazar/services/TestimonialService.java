@@ -58,16 +58,17 @@ public class TestimonialService {
     return testimonialRepo.findAll().stream().map(testimonialMappar::toResponse).collect(Collectors.toList());
   }
 
+  // Update Testimonial
   public TestimonialResponse updateTestimonial(Long id, TestimonialDto dto, MultipartFile file) throws IOException {
     // 1.fetch existing testimonial
-    Testimonial existing = testimonialRepo.findById(id)
+    Testimonial existTestimonial = testimonialRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Testimonial not found with id: " + id));
 
     // Handle image update
     if (file != null && !file.isEmpty()) {
 
       // Delete old image from Cloudinary public_id
-      String oldPublicId = existing.getPicId();
+      String oldPublicId = existTestimonial.getPicId();
       if (oldPublicId != null && !oldPublicId.isBlank()) {
         cloudinaryService.deleteImage(oldPublicId); // delete from Cloudinary
       }
@@ -79,12 +80,13 @@ public class TestimonialService {
       dto.setPicId(uploadResult.get("public_id"));
     } else {
       // If no new image provided, keep existing
-      dto.setPic(existing.getPic());
-      dto.setPicId(existing.getPicId());
+      dto.setPic(existTestimonial.getPic());
+      dto.setPicId(existTestimonial.getPicId());
     }
+    testimonialMappar.updateEntityFromDto(dto, existTestimonial);
 
     // Save updated testimonial
-    Testimonial updated = testimonialRepo.save(existing);
+    Testimonial updated = testimonialRepo.save(existTestimonial);
 
     // Return response
     return testimonialMappar.toResponse(updated);

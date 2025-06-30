@@ -1,8 +1,6 @@
 package com.prashant.apna.bazar.mapper;
 
 import org.springframework.stereotype.Component;
-
-import com.prashant.apna.bazar.entities.Maincategory;
 import com.prashant.apna.bazar.entities.Testimonial;
 import com.prashant.apna.bazar.payload.request.TestimonialDto;
 import com.prashant.apna.bazar.payload.response.TestimonialResponse;
@@ -33,11 +31,11 @@ public class TestimonialMappar {
   }
 
   // Update existing entity from DTO
-  public void updateEntityFromDto(TestimonialDto dto, Maincategory entity) {
+  public void updateEntityFromDto(TestimonialDto dto, Testimonial existTestimonial) {
     if (dto.getName() != null) {
-      entity.setName(dto.getName());
+      existTestimonial.setName(dto.getName());
     }
 
-    entity.setActive(dto.isActive());
+    existTestimonial.setActive(dto.isActive());
   }
 }

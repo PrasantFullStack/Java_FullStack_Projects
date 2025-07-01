@@ -5,7 +5,7 @@ import Breadcrum from "../../../Components/Breadcrum";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 
-import $, { data } from "jquery";
+import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 
@@ -76,15 +76,17 @@ export default function AdminMaincategory() {
                         <td>{item.id}</td>
                         <td>{item.name}</td>
                         <td>
-                          <img
-                            src={
-                              item.pic ? item.pic : "/assets/img/nouser.webp" // fallback image in your public folder
-                            }
-                            height={80}
-                            width={80}
-                            alt="Maincategory"
-                            style={{ objectFit: "cover" }}
-                          />
+                          <Link
+                            to={`${process.env.REACT_APP_BACKEND_SERVER}${item.pic}`}
+                            target="_blank"
+                          >
+                            <img
+                              src={`${process.env.REACT_APP_BACKEND_SERVER}${item.pic}`}
+                              height={80}
+                              width={80}
+                              alt=""
+                            />
+                          </Link>
                         </td>
                         <td>{item.active ? "Yes" : "No"}</td>
                         <td>

@@ -16,6 +16,7 @@ import {
   getRecord,
   updateMultipartRecord,
 } from "./Services/index";
+import { toast } from "react-toastify";
 
 function* createSaga(action) {
   //Worker Saga
@@ -24,7 +25,9 @@ function* createSaga(action) {
   try {
     let response = yield createMultipartRecord("maincategory", action.payload);
     yield put({ type: CREATE_MAINCATEGORY_RED, payload: response });
+    toast.success("Maincategory created successfully!🎉");
   } catch (error) {
+    toast.error("Error creating Maincategory! ❌");
     console.log("Error creating Maincategory:", error);
   }
 }

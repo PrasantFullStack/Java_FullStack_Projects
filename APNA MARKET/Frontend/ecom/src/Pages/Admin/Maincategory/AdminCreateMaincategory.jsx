@@ -44,6 +44,7 @@ export default function AdminCreateMaincategory() {
     //     : e.target.value;
     if (name !== "active") {
       setErrorMessage((old) => {
+        toast.error("Please pick image size less then 2MB🚫");
         return {
           ...old,
           [name]: e.target.files ? ImageValidator(e) : FormValidator(e),

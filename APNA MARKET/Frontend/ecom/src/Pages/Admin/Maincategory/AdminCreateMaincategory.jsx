@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import FormValidator from "../../../Validators/FormValidator";
 import ImageValidator from "../../../Validators/ImageValidator";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   createMultipartRecord,
   getMaincategory,
@@ -59,37 +60,49 @@ export default function AdminCreateMaincategory() {
 
   function postData(e) {
     e.preventDefault();
-    let error = Object.values(errorMessage).find((x) => x !== "");
-    if (error) setShow(true);
-    else {
-      let item = MaincategoryStateData.find(
-        (x) => x.name.toLowerCase() === data.name.toLowerCase()
-      );
-      if (item) {
+    try {
+      let error = Object.values(errorMessage).find((x) => x !== "");
+      if (error) {
         setShow(true);
-        setErrorMessage((old) => {
-          return {
-            ...old,
-            name: "Maincategory Name is Already Exist",
-          };
-        });
+        toast.error("Please fix the validation errors 🚫");
       } else {
-        var formData = new FormData();
-        formData.append(
-          "data",
-          JSON.stringify({
-            name: data.name,
-            active: data.active,
-          })
+        let item = MaincategoryStateData.find(
+          (x) => x.name.toLowerCase() === data.name.toLowerCase()
         );
+        if (item) {
+          setShow(true);
+          toast.warning("Maincategory already exists ⚠️");
+          setErrorMessage((old) => {
+            return {
+              ...old,
+              name: "Maincategory Name is Already Exist",
+            };
+          });
+        } else {
+          var formData = new FormData();
+          formData.append(
+            "data",
+            JSON.stringify({
+              name: data.name,
+              active: data.active,
+            })
+          );
 
-        if (data.pic instanceof File) {
-          formData.append("pic", data.pic);
+          if (data.pic instanceof File) {
+            formData.append("pic", data.pic);
+          }
+          console.log("data", formData);
+          console.log("pic", data.pic);
+
+          dispatch(createMultipartRecord(formData)); // Correct Redux action
+          toast.success("Maincategory Created Successfully ✅");
+          navigate("/admin/maincategory");
         }
-
-        dispatch(createMultipartRecord(formData)); // Correct Redux action
-        navigate("/admin/maincategory");
       }
+    } catch (error) {
+      console.error("Maincategory ❌Error");
+      toast.error("Maincategory not Created ❌");
+      alert("Something went ❌wrong during maincategory created!");
     }
   }
 

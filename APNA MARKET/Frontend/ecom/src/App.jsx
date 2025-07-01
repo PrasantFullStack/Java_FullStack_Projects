@@ -48,10 +48,15 @@ import AdminCreateUser from "./Pages/Admin/User/AdminCreateUser";
 import AdminUpdateUser from "./Pages/Admin/User/AdminUpdateUser";
 import ErrorPage from "./Pages/ErrorPage";
 
+import { ToastContainer } from "react-toastify"; // ✅ Step 1
+import "react-toastify/dist/ReactToastify.css";
+
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      {/*Toast Notifications Container */}
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path="" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />

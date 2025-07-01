@@ -35,6 +35,8 @@ public class MaincategoryMapper {
     if (dto.getName() != null) {
       entity.setName(dto.getName());
     }
+    if (dto.getPic() != null)
+      entity.setPic(dto.getPic());
 
     entity.setActive(dto.isActive());
   }

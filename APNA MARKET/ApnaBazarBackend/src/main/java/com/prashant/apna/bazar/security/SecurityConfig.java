@@ -33,11 +33,13 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login", " /maincategory").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory")
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**")
             .permitAll()
             // Protected method only authentication user can modify
             .requestMatchers(HttpMethod.POST, "/maincategory")
             .permitAll()
+            .requestMatchers(HttpMethod.PUT, "/maincategory/**").permitAll()
+            .requestMatchers(HttpMethod.DELETE, "/maincategory").permitAll()
             // // .hasRole("Admin")
 
             // // Protected method only authentication user can modify

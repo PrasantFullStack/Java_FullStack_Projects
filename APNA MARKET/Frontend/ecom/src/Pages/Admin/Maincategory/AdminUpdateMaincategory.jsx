@@ -3,7 +3,8 @@ import Breadcrum from "../../../Components/Breadcrum";
 import Sidebar from "../Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import FormValidator from "../../../Validators/FormValidator";
 import ImageValidator from "../../../Validators/ImageValidator";
 
@@ -61,47 +62,53 @@ export default function AdminUpdateMaincategory() {
       console.error("Error: Maincategory ID is undefined!");
       return;
     }
-
-    let error = Object.values(errorMessage).find((x) => x !== "");
-    if (error) setShow(true);
-    else {
-      let item = MaincategoryStateData.find(
-        (x) => x.id !== id && x.name.toLowerCase() === data.name.toLowerCase()
-      );
-      if (item) {
-        setShow(true);
-        setErrorMessage((old) => {
-          return {
-            ...old,
-            name: "Maincategory With Same Name Already Exist",
-          };
-        });
-      } else {
-        //   let formData = new FormData();
-        //   formData.append("_id", data._id);
-        //   formData.append("name", data.name);
-        //   formData.append("pic", data.pic);
-        //   formData.append("active", data.active);
-        //   dispatch(getMaincategory(formData));
-        var formData = new FormData();
-        //Update fields
-        formData.append("id", data.id);
-        formData.append(
-          "data",
-          JSON.stringify({ name: data.name, active: data.active })
+    try {
+      let error = Object.values(errorMessage).find((x) => x !== "");
+      if (error) setShow(true);
+      else {
+        let item = MaincategoryStateData.find(
+          (x) => x.id !== id && x.name.toLowerCase() === data.name.toLowerCase()
         );
+        if (item) {
+          setShow(true);
+          setErrorMessage((old) => {
+            return {
+              ...old,
+              name: "Maincategory With Same Name Already Exist",
+            };
+          });
+        } else {
+          //   let formData = new FormData();
+          //   formData.append("_id", data._id);
+          //   formData.append("name", data.name);
+          //   formData.append("pic", data.pic);
+          //   formData.append("active", data.active);
+          //   dispatch(getMaincategory(formData));
+          var formData = new FormData();
+          //Update fields
+          formData.append("id", data.id);
+          formData.append(
+            "data",
+            JSON.stringify({ name: data.name, active: data.active })
+          );
 
-        if (data.pic instanceof File) {
-          formData.append("pic", data.pic);
+          if (data.pic instanceof File) {
+            formData.append("pic", data.pic);
+          }
+          //Dispatch redux action the action to update the record
+          dispatch(updateMultipartRecord(formData));
+          // Step 3: Add the image file (if selected)
+
+          navigate("/admin/maincategory");
         }
-        //Dispatch redux action the action to update the record
-        dispatch(updateMultipartRecord(formData));
-        // Step 3: Add the image file (if selected)
-
-        navigate("/admin/maincategory");
       }
+    } catch (error) {
+      console.error("Profile update ❌Error");
+      toast.error("Profile update ❌Error");
+      alert("Something went ❌wrong during profile update!");
     }
   }
+
   useEffect(() => {
     dispatch(getMaincategory());
   }, [dispatch]);

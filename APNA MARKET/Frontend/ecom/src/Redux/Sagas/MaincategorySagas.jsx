@@ -17,6 +17,7 @@ import {
   updateMultipartRecord,
 } from "./Services/index";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function* createSaga(action) {
   //Worker Saga

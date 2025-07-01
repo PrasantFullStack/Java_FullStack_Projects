@@ -5,7 +5,7 @@ import Breadcrum from "../../../Components/Breadcrum";
 import Sidebar from "../Sidebar";
 import { Link } from "react-router-dom";
 
-import $ from "jquery";
+import $, { data } from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 
@@ -77,11 +77,11 @@ export default function AdminMaincategory() {
                         <td>{item.name}</td>
                         <td>
                           <Link
-                            to={`${process.env.REACT_APP_BACKEND_SERVER}${item.pic}`}
+                            to={item.pic || "/assets/img/nouser.webp"}
                             target="_blank"
                           >
                             <img
-                              src={`${process.env.REACT_APP_BACKEND_SERVER}${item.pic}`}
+                              src={item.pic || "/assets/img/nouser.webp"}
                               height={80}
                               width={80}
                               alt=""

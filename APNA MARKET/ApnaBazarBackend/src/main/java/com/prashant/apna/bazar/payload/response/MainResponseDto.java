@@ -6,6 +6,7 @@ import lombok.Data;
 public class MainResponseDto {
   private Long id;
   private String name;
+
   private String pic;
   private boolean active;
 }

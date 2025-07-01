@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Breadcrum from "../Components/Breadcrum";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   let [data, setData] = useState({
@@ -33,18 +34,30 @@ export default function LoginPage() {
         x.username === data.username ||
         (x.email === data.username && x.password === data.password)
     );
-    if (item && item.active === false)
+    if (item && item.active === false) {
+      toast.error(
+        "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
+      );
       setErrorMessage(
         "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
       );
-    else if (item) {
+    } else if (item) {
       localStorage.setItem("login", true);
       localStorage.setItem("name", item.name);
       localStorage.setItem("userid", item.userid);
+      localStorage.setItem("token", item.token);
       localStorage.setItem("role", item.role);
-      if (item.role === "Buyer") navigate("/profile");
-      else navigate("/admin");
-    } else setErrorMessage("Invalid Username or Password");
+      if (item.role === "Buyer") {
+        navigate("/profile");
+        toast.success("Login Successfully 🎉");
+      } else {
+        navigate("/admin");
+        toast.success("Login Successfully 🎉");
+      }
+    } else {
+      setErrorMessage("Invalid Username or Password");
+      toast.error("Invalid Username or Password");
+    }
   }
   return (
     <>

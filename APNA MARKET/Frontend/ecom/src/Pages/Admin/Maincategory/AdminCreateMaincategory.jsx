@@ -44,7 +44,6 @@ export default function AdminCreateMaincategory() {
     //     : e.target.value;
     if (name !== "active") {
       setErrorMessage((old) => {
-        toast.error("Please pick image size less then 2MB🚫");
         return {
           ...old,
           [name]: e.target.files ? ImageValidator(e) : FormValidator(e),
@@ -92,11 +91,11 @@ export default function AdminCreateMaincategory() {
           if (data.pic instanceof File) {
             formData.append("pic", data.pic);
           }
-          console.log("data", formData);
+          console.log("data", data.name, data.active);
           console.log("pic", data.pic);
 
           dispatch(createMultipartRecord(formData)); // Correct Redux action
-          toast.success("Maincategory Created Successfully ✅");
+          // toast.success("Maincategory Created Successfully ✅");
           navigate("/admin/maincategory");
         }
       }

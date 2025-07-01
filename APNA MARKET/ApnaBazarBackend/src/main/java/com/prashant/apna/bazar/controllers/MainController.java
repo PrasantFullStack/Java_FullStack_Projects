@@ -28,7 +28,6 @@ import com.prashant.apna.bazar.services.MainService;
 
 @CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
     RequestMethod.DELETE })
-
 @RestController
 @RequestMapping("/maincategory")
 public class MainController {
@@ -45,8 +44,8 @@ public class MainController {
       @RequestPart(value = "pic", required = false) MultipartFile file) throws IOException {
     // Convert Json String to MaincategoryDto, Java Object
     MaincategoryDto mainDto = mapper.readValue(jsonData, MaincategoryDto.class);
-    MainResponseDto responseDto = mainService.createMaincategory(mainDto, file);
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    MainResponseDto response = mainService.createMaincategory(mainDto, file);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
   }
 

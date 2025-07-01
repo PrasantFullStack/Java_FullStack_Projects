@@ -1,13 +1,16 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   let navigate = useNavigate();
   function logout() {
     localStorage.removeItem("name");
+    localStorage.removeItem("token");
     localStorage.removeItem("login");
     localStorage.removeItem("role");
     localStorage.removeItem("userid");
+    toast.success("Logout Successfully 🎉");
     navigate("/login");
   }
   return (

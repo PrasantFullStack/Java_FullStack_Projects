@@ -22,43 +22,92 @@ export default function LoginPage() {
   }
   async function postData(e) {
     e.preventDefault();
-    let response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}user`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    response = await response.json();
-    let item = response.find(
-      (x) =>
-        x.username === data.username ||
-        (x.email === data.username && x.password === data.password)
-    );
-    if (item && item.active === false) {
-      toast.error(
-        "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
+
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}user/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: data.username,
+            password: data.password,
+          }),
+        }
       );
-      setErrorMessage(
-        "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
-      );
-    } else if (item) {
-      localStorage.setItem("login", true);
-      localStorage.setItem("name", item.name);
-      localStorage.setItem("userid", item.userid);
-      localStorage.setItem("token", item.token);
-      localStorage.setItem("role", item.role);
-      if (item.role === "Buyer") {
-        navigate("/profile");
+
+      const res = await response.json();
+
+      if (res.token) {
+        // Account block check – optional
+        if (res.active === false) {
+          toast.error("Your Account is Blocked. Please contact support.");
+          setErrorMessage(
+            "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
+          );
+          return;
+        }
+
+        localStorage.setItem("login", true);
+        localStorage.setItem("name", res.name);
+        localStorage.setItem("userid", res.userid);
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("role", res.role);
+
         toast.success("Login Successfully 🎉");
+        if (res.role === "Buyer") navigate("/profile");
+        else navigate("/admin");
       } else {
-        navigate("/admin");
-        toast.success("Login Successfully 🎉");
+        toast.error("Invalid Username or Password");
+        setErrorMessage("Invalid Username or Password");
       }
-    } else {
-      setErrorMessage("Invalid Username or Password");
-      toast.error("Invalid Username or Password");
+    } catch (error) {
+      console.error("Login Error:", error);
+      toast.error("Something went wrong during login");
     }
   }
+
+  // async function postData(e) {
+  //   e.preventDefault();
+  //   let response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}user`, {
+  //     method: "GET",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   });
+  //   response = await response.json();
+  //   let item = response.find(
+  //     (x) =>
+  //       x.username === data.username ||
+  //       (x.email === data.username && x.password === data.password)
+  //   );
+  //   if (item && item.active === false) {
+  //     toast.error(
+  //       "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
+  //     );
+  //     setErrorMessage(
+  //       "Your Account is Blocked for Some Reason. Please Contact Us to UnBlock Your Account"
+  //     );
+  //   } else if (item) {
+  //     localStorage.setItem("login", true);
+  //     localStorage.setItem("name", item.name);
+  //     localStorage.setItem("userid", item.userid);
+  //     localStorage.setItem("token", item.token);
+  //     localStorage.setItem("role", item.role);
+  //     if (item.role === "Buyer") {
+  //       navigate("/profile");
+  //       toast.success("Login Successfully 🎉");
+  //     } else {
+  //       navigate("/admin");
+  //       toast.success("Login Successfully 🎉");
+  //     }
+  //   } else {
+  //     setErrorMessage("Invalid Username or Password");
+  //     toast.error("Invalid Username or Password");
+  //   }
+  // }
   return (
     <>
       <Breadcrum title="Login - To Your Account" />

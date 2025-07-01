@@ -154,7 +154,8 @@ public class UserService {
 
 		AuthResponse response = new AuthResponse();
 		response.setToken(token);
-		response.setUsername(user.getUsername());
+		response.setUserid(user.getUserid());
+		response.setName(user.getName());
 		response.setRole(user.getRole());
 		return response;
 	}

@@ -146,7 +146,8 @@ public class UserService {
 
 		// Actual DB lookup here
 		User user = userRepo.findByUsernameOrEmail(request.getUsername(), request.getUsername())
-				.orElseThrow(() -> new RuntimeException("User not found"));
+				.orElseThrow(
+						() -> new ResourceNotFoundException("User not found by username or email: " + request.getUsername()));
 
 		String token = jwtUtils.generateToken(
 				new org.springframework.security.core.userdetails.User(

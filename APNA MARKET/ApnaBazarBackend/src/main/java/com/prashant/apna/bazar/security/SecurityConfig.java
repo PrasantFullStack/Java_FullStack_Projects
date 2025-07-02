@@ -32,29 +32,18 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
-            .requestMatchers("/user/signup", "/user/login", " /maincategory").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/maincategory")
-            .permitAll()
-            // Protected method only authentication user can modify
-            .requestMatchers(HttpMethod.POST, "/maincategory")
-            .permitAll()
-            .requestMatchers(HttpMethod.PUT, "/maincategory").permitAll()
-            .requestMatchers(HttpMethod.DELETE, "/maincategory").permitAll()
-            // // .hasRole("Admin")
+            .requestMatchers("/user/signup", "/user/login").permitAll()
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/maincategory").permitAll()
 
-            // // Protected method only authentication user can modify
-            // .requestMatchers(HttpMethod.PUT, "/subcategory/**", "/brand/**",
-            // "/product/**",
-            // "/testimonial/**", "/newsletter/**", "/contactus")
-            // .permitAll()
-            // // .hasRole("Admin")
+            // Protected method only authentication Admin can create data and category
+            .requestMatchers(HttpMethod.POST, "/maincategory").hasRole("Admin")
 
-            // // Protected method only authentication user can modify
-            // .requestMatchers(HttpMethod.DELETE, " /maincategory", "/subcategory/**",
-            // "/brand/**", "/product/**",
-            // "/testimonial/**", "/newsletter/**", "/contactus")
-            // .permitAll()
-            // .hasRole("Admin")
+            // Protected method only authentication Admin can modify
+            .requestMatchers(HttpMethod.PUT, "/user", "/maincategory").authenticated()
+
+            // Protected method only authentication Admin can delete
+            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory").hasRole("Admin")
+
             // default rule for everything else
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

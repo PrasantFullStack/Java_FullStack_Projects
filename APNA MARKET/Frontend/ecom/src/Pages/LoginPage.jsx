@@ -57,8 +57,13 @@ export default function LoginPage() {
         localStorage.setItem("role", res.role);
 
         toast.success("Login Successfully 🎉");
-        if (res.role === "Buyer") navigate("/profile");
-        else navigate("/admin");
+        if (res.role === "Buyer") {
+          toast.success("Welcome to your profile!");
+          navigate("/profile");
+        } else if (res.role === "Admin") {
+          toast.success("Welcome to the admin dashboard!");
+          navigate("/admin");
+        }
       } else {
         toast.error("Invalid Username or Password");
         setErrorMessage("Invalid Username or Password");

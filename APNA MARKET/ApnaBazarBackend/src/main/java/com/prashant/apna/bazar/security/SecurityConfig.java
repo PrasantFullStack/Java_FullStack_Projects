@@ -37,7 +37,11 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/maincategory").hasRole("Admin")
 
             // Protected method only authentication Admin can modify
+<<<<<<< HEAD
             .requestMatchers(HttpMethod.PUT, "/user", "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
+=======
+            .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
+>>>>>>> e4c50c079ff6b0ad429bd2179d9697fd8f7a0d7b
 
             // Protected method only authentication Admin can delete
             .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory").hasRole("Admin")

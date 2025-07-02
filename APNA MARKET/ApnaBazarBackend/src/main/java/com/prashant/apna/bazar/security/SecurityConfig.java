@@ -34,17 +34,16 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/maincategory").permitAll()
 
             // Protected method only authentication Admin can create data and category
-            .requestMatchers(HttpMethod.POST, "/maincategory").hasRole("Admin")
+            .requestMatchers(HttpMethod.POST, "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
 
             // Protected method only authentication Admin can modify
-<<<<<<< HEAD
+
             .requestMatchers(HttpMethod.PUT, "/user", "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
-=======
+
             .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
->>>>>>> e4c50c079ff6b0ad429bd2179d9697fd8f7a0d7b
 
             // Protected method only authentication Admin can delete
-            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory").hasRole("Admin")
+            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
 
             // default rule for everything else
             .anyRequest().authenticated())

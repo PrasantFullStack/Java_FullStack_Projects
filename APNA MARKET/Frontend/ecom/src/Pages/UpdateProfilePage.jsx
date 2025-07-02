@@ -104,6 +104,7 @@ export default function UpdateProfilePage() {
         if (data.pic instanceof File) {
           formData.append("pic", data.pic);
         }
+        //step 4: Get token and userid from localStorage
 
         response = await fetch(
           `${process.env.REACT_APP_BACKEND_SERVER}user/${localStorage.getItem(
@@ -111,7 +112,10 @@ export default function UpdateProfilePage() {
           )}`,
           {
             method: "PUT",
-            body: formData, // no headers for formData
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: formData,
           }
         );
 

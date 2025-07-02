@@ -117,7 +117,7 @@ export default function SignupPage() {
             phone: data.phone,
             password: data.password,
             cpassword: data.cpassword,
-            role: "Buyer",
+            role: "Buyer", // Default role for signup
             active: true,
           }),
         }

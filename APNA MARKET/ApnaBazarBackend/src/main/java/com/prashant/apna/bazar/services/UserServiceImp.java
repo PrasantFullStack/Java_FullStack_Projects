@@ -26,7 +26,7 @@ public class UserServiceImp implements UserDetailsService {
     return org.springframework.security.core.userdetails.User
         .withUsername(user.getUsername())
         .password(user.getPassword())
-        .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole())))
+        .authorities(List.of(new SimpleGrantedAuthority(user.getRole())))
         .accountExpired(false)
         .accountLocked(false)
         .credentialsExpired(false)

@@ -1,11 +1,8 @@
 package com.prashant.apna.bazar.security;
 
 import java.io.IOException;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -63,9 +60,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
             userDetails, null, userDetails.getAuthorities());
 
-        List.of(new SimpleGrantedAuthority("Admin"));
+        // List<SimpleGrantedAuthority> authorities = List.of(new
+        // SimpleGrantedAuthority(user.getRole()));
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        // missing part
+        // Set the authentication in the security context
+        SecurityContextHolder.getContext().setAuthentication(authToken);
 
       }
     }

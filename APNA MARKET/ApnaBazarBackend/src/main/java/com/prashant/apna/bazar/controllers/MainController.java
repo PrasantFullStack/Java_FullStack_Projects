@@ -30,6 +30,7 @@ import com.prashant.apna.bazar.services.MainService;
     RequestMethod.DELETE })
 @RestController
 @RequestMapping("/maincategory")
+
 public class MainController {
 
   @Autowired

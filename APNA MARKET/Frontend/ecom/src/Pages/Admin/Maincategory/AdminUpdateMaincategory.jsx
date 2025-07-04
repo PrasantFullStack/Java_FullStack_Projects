@@ -59,6 +59,7 @@ export default function AdminUpdateMaincategory() {
   async function postData(e) {
     e.preventDefault();
     if (!id) {
+      toast.error("Maincategory ID is undefined!");
       console.error("Error: Maincategory ID is undefined!");
       return;
     }

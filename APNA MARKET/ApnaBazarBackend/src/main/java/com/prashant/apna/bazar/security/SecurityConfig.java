@@ -31,11 +31,12 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory").permitAll()
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**").permitAll()
             // Admin and Super Admin can access these endpoints
             // Protected method only authentication Admin can create data and category
             // .hasAuthority("Admin") => Looks for Admin as-is(jo tumhare DB me stored hai)
-            .requestMatchers(HttpMethod.POST, "/user", "/maincategory").hasAnyAuthority("Admin", "Super Admin")
+            .requestMatchers(HttpMethod.POST, "/user", "/maincategory", "/subcategory")
+            .hasAnyAuthority("Admin", "Super Admin")
 
             // .hasRole("Admin") => Looks for ROLE_Admin
             // .hasAnyRole("Admin", "Buyer", "Seller") => Looks for ROLE_Admin, ROLE_Buyer,
@@ -44,14 +45,15 @@ public class SecurityConfig {
             // "Buyer", "Seller")
 
             // Protected method only authentication Admin can modify
-            .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory")
+            .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory", "/subcategory")
             .hasAnyAuthority("Admin", "Super Admin", "Buyer")
 
             // .requestMatchers(HttpMethod.PUT, "/user/**",
             // "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
 
             // Protected method only authentication Admin can delete
-            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
+            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory")
+            .hasAnyRole("Admin", "Buyer", "Seller")
 
             // Buyer only
             .requestMatchers(HttpMethod.POST, "/checkout/**").hasAuthority("Buyer")

@@ -95,12 +95,12 @@ export default function AdminCreateMaincategory() {
           console.log("pic", data.pic);
 
           dispatch(createMultipartRecord(formData)); // Correct Redux action
-          // toast.success("Maincategory Created Successfully ✅");
+          toast.success("Maincategory Created Successfully ✅");
           navigate("/admin/maincategory");
         }
       }
     } catch (error) {
-      console.error("Maincategory ❌Error");
+      console.error("Maincategory❌Error");
       toast.error("Maincategory not Created ❌");
       alert("Something went ❌wrong during maincategory created!");
     }

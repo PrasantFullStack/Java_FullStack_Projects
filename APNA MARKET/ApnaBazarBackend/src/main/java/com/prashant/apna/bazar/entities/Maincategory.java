@@ -17,7 +17,8 @@ public class Maincategory {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  private String pic;
+  private String publicId; // image public id from cloudinary
+  private String pic; // here we store the cloudinary image url
   private boolean active;
 
 }

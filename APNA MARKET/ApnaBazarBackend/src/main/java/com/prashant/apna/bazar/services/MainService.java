@@ -84,6 +84,7 @@ public class MainService {
 
       // Set new image URL in DTO
       mainDto.setPic(imageResult.get("secure_url"));
+      mainDto.setPublicId(imageResult.get("public_id"));
     } else {
       // Keep old pic
       mainDto.setPic(existsMaincategory.getPic());

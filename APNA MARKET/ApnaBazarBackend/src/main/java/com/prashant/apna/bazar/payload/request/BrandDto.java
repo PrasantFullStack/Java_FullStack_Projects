@@ -12,6 +12,7 @@ public class BrandDto {
 
   @NotBlank(message = "Pic is required")
   private String pic;
+  private String publicId; // image public id from cloudinary
   private boolean active;
 
 }

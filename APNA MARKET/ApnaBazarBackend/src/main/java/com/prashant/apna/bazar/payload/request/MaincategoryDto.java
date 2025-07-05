@@ -11,7 +11,7 @@ public class MaincategoryDto {
   private String name;
   @NotBlank(message = "Picture is required")
   private String pic;
-
+  private String publicId; // image public id from cloudinary
   private boolean active;
 
 }

@@ -40,7 +40,7 @@ public class User {
   private String state;
 
   private String pin;
-
+  private String publicId;
   private String pic;
 
   private boolean active;

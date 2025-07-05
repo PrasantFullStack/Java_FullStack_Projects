@@ -68,7 +68,7 @@ public class TestimonialService {
     if (file != null && !file.isEmpty()) {
 
       // Delete old image from Cloudinary public_id
-      String oldPublicId = existTestimonial.getPicId();
+      String oldPublicId = existTestimonial.getPublicId();
       if (oldPublicId != null && !oldPublicId.isBlank()) {
         cloudinaryService.deleteImage(oldPublicId); // delete from Cloudinary
       }
@@ -77,11 +77,11 @@ public class TestimonialService {
       Map<String, String> uploadResult = cloudinaryService.updateImageWithPublicId(
           file, "apna-bazar/testimonials", oldPublicId);
       dto.setPic(uploadResult.get("secure_url"));
-      dto.setPicId(uploadResult.get("public_id"));
+      dto.setPublicId(uploadResult.get("public_id"));
     } else {
       // If no new image provided, keep existing
       dto.setPic(existTestimonial.getPic());
-      dto.setPicId(existTestimonial.getPicId());
+      dto.setPublicId(existTestimonial.getPublicId());
     }
     testimonialMappar.updateEntityFromDto(dto, existTestimonial);
 
@@ -93,10 +93,17 @@ public class TestimonialService {
   }
 
   // Delete Testimonial by id
-  public void deleteTestimonail(Long id) {
+  public void deleteTestimonail(Long id, String publicId) {
     testimonialRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Testimonial not found with id :" + id));
     testimonialRepo.deleteById(id);
-
+    // Delete image from Cloudinary if publicId is provided
+    if (publicId != null && !publicId.isBlank()) {
+      try {
+        cloudinaryService.deleteImage(publicId);
+      } catch (IOException e) {
+        throw new RuntimeException("Failed to delete image from Cloudinary: " + e.getMessage(), e);
+      }
+    }
   }
 }

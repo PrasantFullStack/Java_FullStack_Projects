@@ -8,7 +8,7 @@ public class TestimonialResponse {
   private String name;
   private String message;
   private String pic;
-  private String picId;
+  private String publicId;
   private boolean active;
 
 }

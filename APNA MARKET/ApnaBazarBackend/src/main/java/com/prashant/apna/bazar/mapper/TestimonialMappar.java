@@ -12,7 +12,6 @@ public class TestimonialMappar {
     Testimonial entity = new Testimonial();
     entity.setName(testDto.getName());
     entity.setMessage(testDto.getMessage());
-    entity.setPicId(testDto.getPicId());
     entity.setPic(testDto.getPic());
     entity.setActive(testDto.isActive());
     return entity;
@@ -24,7 +23,7 @@ public class TestimonialMappar {
     response.setId(entity.getId());
     response.setName(entity.getName());
     response.setMessage(entity.getMessage());
-    response.setPicId(entity.getPicId());
+    response.setPublicId(entity.getPublicId());
     response.setPic(entity.getPic());
     response.setActive(entity.isActive());
     return response;

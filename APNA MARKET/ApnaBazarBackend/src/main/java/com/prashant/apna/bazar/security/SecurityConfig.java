@@ -31,7 +31,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**", "/newsletter")
+            .permitAll()
             // Admin and Super Admin can access these endpoints
             // Protected method only authentication Admin can create data and category
             // .hasAuthority("Admin") => Looks for Admin as-is(jo tumhare DB me stored hai)

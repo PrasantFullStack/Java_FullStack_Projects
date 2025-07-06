@@ -9,8 +9,9 @@ import ImageValidator from "../../../Validators/ImageValidator";
 
 import {
   getSubcategory,
-  updateSubcategory,
+  updateMultipartRecord,
 } from "../../../Redux/ActionCreators/SubcategoryActionCreators";
+import { toast } from "react-toastify";
 export default function AdminUpdateSubcategory() {
   let { id } = useParams();
   let [data, setData] = useState({
@@ -55,31 +56,40 @@ export default function AdminUpdateSubcategory() {
 
   async function postData(e) {
     e.preventDefault();
-    let error = Object.values(errorMessage).find((x) => x !== "");
-    if (error) setShow(true);
-    else {
-      let item = SubcategoryStateData.find(
-        (x) => x.id !== id && x.name.toLowerCase() === data.name.toLowerCase()
-      );
-      if (item) {
-        setShow(true);
-        setErrorMessage((old) => {
-          return {
-            ...old,
-            name: "Subcategory With Same Name Already Exist",
-          };
-        });
-        return;
-      }
-      dispatch(updateSubcategory({ ...data }));
-      // let formData = new FormData()
-      // formData.append("_id", data._id)
-      // formData.append("name", data.name)
-      // formData.append("pic", data.pic)
-      // formData.append("active", data.active)
-      // dispatch(createSubcategory(formData))
+    try {
+      let error = Object.values(errorMessage).find((x) => x !== "");
+      if (error) setShow(true);
+      else {
+        let item = SubcategoryStateData.find(
+          (x) => x.id !== id && x.name.toLowerCase() === data.name.toLowerCase()
+        );
+        if (item) {
+          setShow(true);
+          setErrorMessage((old) => {
+            toast.error("Subcategory With Same Name Already Exist");
+            return {
+              ...old,
+              name: "Subcategory With Same Name Already Exist",
+            };
+          });
+          return;
+        }
 
-      navigate("/admin/subcategory");
+        let formData = new FormData();
+        formData.append(
+          "data",
+          JSON.stringify({ name: data.name, active: data.active })
+        );
+        if (data.pic instanceof File) {
+          formData.append("pic", data.pic);
+        }
+        dispatch(updateMultipartRecord(formData));
+        toast.success("Subcategory updated successfully");
+        navigate("/admin/subcategory");
+      }
+    } catch (error) {
+      toast.error("Error updating subcategory: " + error.message);
+      console.error("Error updating subcategory:", error);
     }
   }
 

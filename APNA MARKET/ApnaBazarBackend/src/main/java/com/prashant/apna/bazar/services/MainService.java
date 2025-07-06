@@ -40,6 +40,7 @@ public class MainService {
       FileValidationUtil.ValidateImage(file);
       // upload image t cloudinary
       String imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/maincategory");
+
       // String relativeFilePath = saveFile(file);
       mainDto.setPic(imgUrl);
     }

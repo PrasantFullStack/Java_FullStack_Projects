@@ -60,8 +60,10 @@ export default function AdminCreateSubcategory() {
     e.preventDefault();
     try {
       let error = Object.values(errorMessage).find((x) => x !== "");
-      if (error) setShow(true);
-      else {
+      if (error) {
+        setShow(true);
+        toast.error("Please upload a valid image file");
+      } else {
         let item = SubcategoryStateData.find(
           (x) => x.name.toLowerCase() === data.name.toLowerCase()
         );

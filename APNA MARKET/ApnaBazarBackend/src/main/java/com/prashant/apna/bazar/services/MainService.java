@@ -43,7 +43,7 @@ public class MainService {
 
       // String relativeFilePath = saveFile(file);
       mainDto.setPic(imgUrl.get("secure_url"));
-      mainDto.setPublicId(imgUrl.get("secure_url"));
+      mainDto.setPublicId(imgUrl.get("public_id"));
     }
 
     // map dto to entity

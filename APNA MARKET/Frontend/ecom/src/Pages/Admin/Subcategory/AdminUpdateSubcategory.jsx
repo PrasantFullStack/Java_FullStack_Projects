@@ -97,10 +97,28 @@ export default function AdminUpdateSubcategory() {
 
   useEffect(() => {
     dispatch(getSubcategory());
-    if (SubcategoryStateData.length) {
-      setData(SubcategoryStateData.find((x) => x.id === id));
+  }, [dispatch]);
+
+  // Fetch the subcategory data when the component mounts or when the id changes
+  useEffect(() => {
+    console.log("Redux Data:", SubcategoryStateData);
+    let category = SubcategoryStateData.find((x) => x.id === Number(id));
+
+    if (category) {
+      setData({
+        name: category.name,
+        pic: category.pic,
+        active: category.active,
+      });
     }
-  }, [id, SubcategoryStateData.length]);
+  }, [id, SubcategoryStateData]);
+
+  //   useEffect(() => {
+  //     dispatch(getSubcategory());
+  //     if (SubcategoryStateData) {
+  //       setData(SubcategoryStateData.find((x) => x.id === id));
+  //     }
+  //   }, [id, SubcategoryStateData]);
   return (
     <>
       <Breadcrum title="Admin" />

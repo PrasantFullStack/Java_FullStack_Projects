@@ -80,12 +80,6 @@ export default function AdminUpdateMaincategory() {
             };
           });
         } else {
-          //   let formData = new FormData();
-          //   formData.append("_id", data._id);
-          //   formData.append("name", data.name);
-          //   formData.append("pic", data.pic);
-          //   formData.append("active", data.active);
-          //   dispatch(getMaincategory(formData));
           var formData = new FormData();
           //Update fields
           formData.append("id", id);

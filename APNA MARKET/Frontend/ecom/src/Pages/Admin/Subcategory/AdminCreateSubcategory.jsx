@@ -11,6 +11,7 @@ import {
   getSubcategory,
   createMultipartRecord,
 } from "../../../Redux/ActionCreators/SubcategoryActionCreators";
+import { toast } from "react-toastify";
 export default function AdminCreateSubcategory() {
   let [data, setData] = useState({
     name: "",
@@ -31,11 +32,14 @@ export default function AdminCreateSubcategory() {
 
   function getInputData(e) {
     var name = e.target.name;
+    // var value =
+    //   e.target.files && e.target.files.length
+    //     ? "subcategory/" + e.target.files[0].name
+    //     : e.target.value;
     var value =
       e.target.files && e.target.files.length
-        ? "subcategory/" + e.target.files[0].name
+        ? e.target.files[0]
         : e.target.value;
-    // var value = e.target.files && e.target.files.length ? e.target.files[0] : e.target.value
 
     setErrorMessage((old) => {
       return {
@@ -54,29 +58,44 @@ export default function AdminCreateSubcategory() {
 
   function postData(e) {
     e.preventDefault();
-    let error = Object.values(errorMessage).find((x) => x !== "");
-    if (error) setShow(true);
-    else {
-      let item = SubcategoryStateData.find(
-        (x) => x.name.toLowerCase() === data.name.toLowerCase()
-      );
-      if (item) {
-        setShow(true);
-        setErrorMessage((old) => {
-          return {
-            ...old,
-            name: "Subcategory With Same Name Already Exist",
-          };
-        });
-        return;
+    try {
+      let error = Object.values(errorMessage).find((x) => x !== "");
+      if (error) setShow(true);
+      else {
+        let item = SubcategoryStateData.find(
+          (x) => x.name.toLowerCase() === data.name.toLowerCase()
+        );
+        if (item) {
+          setShow(true);
+          setErrorMessage((old) => {
+            toast.error("Subcategory with same name already exists");
+            return {
+              ...old,
+              name: "Subcategory With Same Name Already Exist",
+            };
+          });
+          return;
+        }
+
+        let formData = new FormData();
+        formData.append(
+          "data",
+          JSON.stringify({ name: data.name, active: data.active })
+        );
+        if (data.pic instanceof File) {
+          formData.append("pic", data.pic);
+        }
+        console.log(formData);
+
+        dispatch(createMultipartRecord(formData));
+        navigate("/admin/subcategory");
+        toast.success("Subcategory Created Successfully");
       }
-      dispatch(createSubcategory({ ...data }));
-      // let formData = new FormData()
-      // formData.append("name", data.name)
-      // formData.append("pic", data.pic)
-      // formData.append("active", data.active)
-      // dispatch(createSubcategory(formData))
-      navigate("/admin/subcategory");
+    } catch (error) {
+      toast.error(
+        "An error occurred while creating the subcategory. Please try again later."
+      );
+      console.error("Error creating subcategory:", error);
     }
   }
 

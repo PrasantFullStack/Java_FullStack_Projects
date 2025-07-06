@@ -8,7 +8,7 @@ import {
 export function createMultipartRecord(formData) {
   return {
     type: CREATE_SUBCATEGORY,
-    payload: data,
+    payload: formData,
   };
 }
 

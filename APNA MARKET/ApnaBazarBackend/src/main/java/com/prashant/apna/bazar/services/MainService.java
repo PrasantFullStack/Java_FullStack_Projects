@@ -39,10 +39,11 @@ public class MainService {
     if (file != null && !file.isEmpty()) {
       FileValidationUtil.ValidateImage(file);
       // upload image t cloudinary
-      String imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/maincategory");
+      Map<String, String> imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/maincategory");
 
       // String relativeFilePath = saveFile(file);
-      mainDto.setPic(imgUrl);
+      mainDto.setPic(imgUrl.get("secure_url"));
+      mainDto.setPublicId(imgUrl.get("secure_url"));
     }
 
     // map dto to entity

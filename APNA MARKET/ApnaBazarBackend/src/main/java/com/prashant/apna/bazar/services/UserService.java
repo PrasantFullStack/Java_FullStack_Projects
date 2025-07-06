@@ -4,6 +4,7 @@ import java.io.IOException;
 // import java.nio.file.Files;
 // import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -108,8 +109,9 @@ public class UserService {
 		// File upload logic
 		if (file != null && !file.isEmpty()) {
 			FileValidationUtil.ValidateImage(file);
-			String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/users");
-			profileDTO.setPic(imageUrl); // Set image URL in DTO
+			Map<String, String> imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/users");
+			profileDTO.setPic(imageUrl.get("secure_url")); // Set image URL in DTO
+			profileDTO.setPublicId(imageUrl.get("public_id")); // Set public ID in DTO
 		}
 
 		// ✅ Update existing user from DTO using mapper

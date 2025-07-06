@@ -31,8 +31,9 @@ public class TestimonialService {
   // create Testimonial
   public TestimonialResponse createTestmonial(TestimonialDto testDto, MultipartFile file) throws IOException {
     if (file != null && !file.isEmpty()) {
-      String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/testimonials");
-      testDto.setPic(imageUrl);
+      Map<String, String> imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/testimonials");
+      testDto.setPic(imageUrl.get("secure_url"));
+      testDto.setPublicId(imageUrl.get("public_id"));
     }
 
     // create object

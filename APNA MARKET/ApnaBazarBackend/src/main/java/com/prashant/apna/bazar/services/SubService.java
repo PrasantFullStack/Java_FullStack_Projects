@@ -86,8 +86,9 @@ public class SubService {
 
     // if a new image is provided, save it and update the pic field
     if (file != null && !file.isEmpty()) {
-      String imageString = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
-      subDto.setPic(imageString);
+      Map<String, String> imageString = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
+      subDto.setPic(imageString.get("secure_url"));
+      subDto.setPublicId(imageString.get("public_id"));
     } else {
       // If no new file is provided, keep the existing pic;
       subDto.setPic(existingSubcategory.getPic());

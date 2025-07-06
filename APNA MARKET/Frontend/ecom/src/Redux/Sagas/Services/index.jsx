@@ -41,7 +41,6 @@ export async function getRecord(collection) {
       }
     );
     if (response.ok) {
-      toast.success("Records fetched successfully!");
       return await response.json();
     }
     const text = await response.text();
@@ -73,8 +72,8 @@ export async function updateRecord(collection, payload) {
         body: JSON.stringify({ ...payload }),
       }
     );
+
     return await response.json();
-    toast.success("Record updated successfully!");
   } catch (error) {
     toast.error("Error updating record. Please try again later.");
     console.error("Error updating record:", error);

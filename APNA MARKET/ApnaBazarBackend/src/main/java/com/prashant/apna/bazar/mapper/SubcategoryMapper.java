@@ -1,5 +1,6 @@
 package com.prashant.apna.bazar.mapper;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.prashant.apna.bazar.entities.Subcategory;
@@ -11,9 +12,10 @@ public class SubcategoryMapper {
   // Dto to entity
   public Subcategory toEntity(SubcategoryDto subcategoryDto) {
     Subcategory entity = new Subcategory();
-    entity.setName(subcategoryDto.getName());
-    entity.setPic(subcategoryDto.getPic());
-    entity.setActive(subcategoryDto.isActive());
+    BeanUtils.copyProperties(subcategoryDto, entity);
+    // entity.setName(subcategoryDto.getName());
+    // entity.setPic(subcategoryDto.getPic());
+    // entity.setActive(subcategoryDto.isActive());
 
     return entity;
   }
@@ -21,10 +23,11 @@ public class SubcategoryMapper {
   // Entity to Response
   public SubResponseDto toResponse(Subcategory entity) {
     SubResponseDto response = new SubResponseDto();
-    response.setId(entity.getId());
-    response.setName(entity.getName());
-    response.setPic(entity.getPic());
-    response.setActive(entity.getActive());
+    BeanUtils.copyProperties(entity, response);
+    // response.setId(entity.getId());
+    // response.setName(entity.getName());
+    // response.setPic(entity.getPic());
+    // response.setActive(entity.getActive());
     return response;
   }
 }

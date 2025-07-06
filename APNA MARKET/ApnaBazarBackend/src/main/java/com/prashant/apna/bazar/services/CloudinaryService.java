@@ -18,7 +18,7 @@ public class CloudinaryService {
   private Cloudinary cloudinary;
 
   // image upload on cloudinary
-  public String uploadImage(MultipartFile file, String folder) throws IOException {
+  public Map<String, String> uploadImage(MultipartFile file, String folder) throws IOException {
 
     if (file == null || file.isEmpty()) {
       throw new IOException("File is empty or null");
@@ -28,13 +28,16 @@ public class CloudinaryService {
       throw new IOException("File too large. Max 2MB allowed.");
     }
 
-    Map<?, ?> result = cloudinary.uploader().upload(
+    Map<?, ?> uploadResult = cloudinary.uploader().upload(
         file.getBytes(),
         ObjectUtils.asMap(
             "folder", folder,
             "resource_type", "auto"));
 
-    return result.get("secure_url").toString();
+    Map<String, String> result = new HashMap<>();
+    result.put("secure_url", uploadResult.get("secure_url").toString());
+    result.put("public_id", uploadResult.get("public_id").toString());
+    return result;
   }
 
   // Update Image with existing public_id in Cloudinary

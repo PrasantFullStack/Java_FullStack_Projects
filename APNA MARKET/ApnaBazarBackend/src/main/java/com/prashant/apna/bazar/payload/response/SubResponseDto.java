@@ -6,6 +6,7 @@ import lombok.Data;
 public class SubResponseDto {
   private Long id;
   private String name;
+  private String publicId;
   private String pic;
   private Boolean active;
 

@@ -2,6 +2,7 @@ package com.prashant.apna.bazar.services;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,10 @@ public class SubService {
   public SubResponseDto createSubcategory(SubcategoryDto subDto, MultipartFile file) throws IOException {
     // image upload logic
     if (file != null && !file.isEmpty()) {
-      String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
-      subDto.setPic(imageUrl);
+      Map<String, String> imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
+      subDto.setPic(imageUrl.get("secure_url"));
+      subDto.setPublicId(imageUrl.get("public_id"));
     }
-
-    // BeanUtils.copyProperties(subDto, subcategory);
 
     // map Dto to entity
     Subcategory subcategory = subcategoryMapper.toEntity(subDto);

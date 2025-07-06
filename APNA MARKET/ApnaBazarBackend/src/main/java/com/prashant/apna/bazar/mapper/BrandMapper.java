@@ -1,5 +1,6 @@
 package com.prashant.apna.bazar.mapper;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.prashant.apna.bazar.entities.Brand;
@@ -11,19 +12,37 @@ public class BrandMapper {
   // Dto to entity
   public Brand toEntity(BrandDto dto) {
     Brand entity = new Brand();
-    entity.setName(dto.getName());
-    entity.setPic(dto.getPic());
+    BeanUtils.copyProperties(dto, entity);
+    // entity.setName(dto.getName());
+    // entity.setPic(dto.getPic());
+    // entity.setActive(dto.isActive());
+    return entity;
+  }
+
+  // update Dto to entity
+  public Brand toUpdateEntity(BrandDto dto, Brand entity) {
+    if (dto.getName() != null) {
+      entity.setName(dto.getName());
+    }
+    if (dto.getPic() != null) {
+      entity.setPic(dto.getPic());
+    }
+    if (dto.getPublicId() != null) {
+      entity.setPublicId(dto.getPublicId());
+    }
     entity.setActive(dto.isActive());
+    // BeanUtils.copyProperties(dto, entity);
     return entity;
   }
 
   // Entity to response
   public BrandResponse toResponse(Brand entity) {
     BrandResponse response = new BrandResponse();
-    response.setId(entity.getId());
-    response.setName(entity.getName());
-    response.setPic(entity.getPic());
-    response.setActive(entity.isActive());
+    BeanUtils.copyProperties(entity, response);
+    // response.setId(entity.getId());
+    // response.setName(entity.getName());
+    // response.setPic(entity.getPic());
+    // response.setActive(entity.isActive());
     return response;
   }
 }

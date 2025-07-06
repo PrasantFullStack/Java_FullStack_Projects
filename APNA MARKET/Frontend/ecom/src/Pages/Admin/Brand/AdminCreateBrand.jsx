@@ -39,7 +39,6 @@ export default function AdminCreateBrand() {
         : e.target.value;
 
     setErrorMessage((old) => {
-      toast.warn("Field Validation Error");
       return {
         ...old,
         [name]: e.target.files ? ImageValidator(e) : FormValidator(e),

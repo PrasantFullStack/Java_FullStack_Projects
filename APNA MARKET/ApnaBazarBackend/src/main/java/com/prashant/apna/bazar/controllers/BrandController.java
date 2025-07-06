@@ -66,7 +66,7 @@ public class BrandController {
 
   // brand delete by id
   @DeleteMapping("/{id}")
-  ResponseEntity<Map<String, String>> deleteBrand(@PathVariable UUID id) {
+  ResponseEntity<Map<String, String>> deleteBrand(@PathVariable UUID id) throws IOException {
     brandService.deleteBrand(id);
     Map<String, String> response = new HashMap<>();
     response.put("message", "Brand deleted successfully");

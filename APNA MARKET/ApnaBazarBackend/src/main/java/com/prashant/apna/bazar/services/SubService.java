@@ -35,8 +35,6 @@ public class SubService {
 
   // create subcategory
   public SubResponseDto createSubcategory(SubcategoryDto subDto, MultipartFile file) throws IOException {
-    Subcategory subcategory = new Subcategory();
-
     // image upload logic
     if (file != null && !file.isEmpty()) {
       String imageUrl = cloudinaryService.uploadImage(file, "apna-bazar/subcategory");
@@ -46,7 +44,7 @@ public class SubService {
     // BeanUtils.copyProperties(subDto, subcategory);
 
     // map Dto to entity
-    subcategoryMapper.toEntity(subDto);
+    Subcategory subcategory = subcategoryMapper.toEntity(subDto);
 
     // save entity
     Subcategory savedSub = subRepo.save(subcategory);

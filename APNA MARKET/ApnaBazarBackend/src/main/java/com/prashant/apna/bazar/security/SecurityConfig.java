@@ -31,12 +31,13 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**", "/newsletter")
+            .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**", "/brand/**",
+                "/newsletter/**")
             .permitAll()
             // Admin and Super Admin can access these endpoints
             // Protected method only authentication Admin can create data and category
             // .hasAuthority("Admin") => Looks for Admin as-is(jo tumhare DB me stored hai)
-            .requestMatchers(HttpMethod.POST, "/user", "/maincategory", "/subcategory")
+            .requestMatchers(HttpMethod.POST, "/user", "/maincategory", "/subcategory", "/brand")
             .hasAnyAuthority("Admin", "Super Admin")
 
             // .hasRole("Admin") => Looks for ROLE_Admin
@@ -46,7 +47,7 @@ public class SecurityConfig {
             // "Buyer", "Seller")
 
             // Protected method only authentication Admin can modify
-            .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory", "/subcategory")
+            .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory", "/subcategory", "/brand")
             .hasAnyAuthority("Admin", "Super Admin", "Buyer")
 
             // .requestMatchers(HttpMethod.PUT, "/user/**",

@@ -72,6 +72,7 @@ export default function AdminUpdateMaincategory() {
         );
         if (item) {
           setShow(true);
+          toast.warning("Maincategory with same name already exists ⚠️");
           setErrorMessage((old) => {
             return {
               ...old,
@@ -87,7 +88,7 @@ export default function AdminUpdateMaincategory() {
           //   dispatch(getMaincategory(formData));
           var formData = new FormData();
           //Update fields
-          formData.append("id", data.id);
+          formData.append("id", id);
           formData.append(
             "data",
             JSON.stringify({ name: data.name, active: data.active })
@@ -98,8 +99,7 @@ export default function AdminUpdateMaincategory() {
           }
           //Dispatch redux action the action to update the record
           dispatch(updateMultipartRecord(formData));
-          // Step 3: Add the image file (if selected)
-
+          toast.success("Maincategory updated successfully");
           navigate("/admin/maincategory");
         }
       }

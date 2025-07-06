@@ -65,6 +65,7 @@ export default function AdminUpdateSubcategory() {
         );
         if (item) {
           setShow(true);
+          toast.error("Please fix the validation errors 🚫");
           setErrorMessage((old) => {
             toast.error("Subcategory With Same Name Already Exist");
             return {
@@ -76,6 +77,7 @@ export default function AdminUpdateSubcategory() {
         }
 
         let formData = new FormData();
+        formData.append("id", id);
         formData.append(
           "data",
           JSON.stringify({ name: data.name, active: data.active })
@@ -98,7 +100,7 @@ export default function AdminUpdateSubcategory() {
     if (SubcategoryStateData.length) {
       setData(SubcategoryStateData.find((x) => x.id === id));
     }
-  }, [SubcategoryStateData.length]);
+  }, [id, SubcategoryStateData.length]);
   return (
     <>
       <Breadcrum title="Admin" />

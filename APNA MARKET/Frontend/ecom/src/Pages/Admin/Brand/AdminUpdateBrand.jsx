@@ -3,6 +3,7 @@ import Breadcrum from "../../../Components/Breadcrum";
 import Sidebar from "../Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import FormValidator from "../../../Validators/FormValidator";
 import ImageValidator from "../../../Validators/ImageValidator";
@@ -31,7 +32,7 @@ export default function AdminUpdateBrand() {
   let dispatch = useDispatch();
 
   function getInputData(e) {
-    // var name = e.target.name;
+    var name = e.target.name;
     // var value =
     //   e.target.files && e.target.files.length
     //     ? "brand/" + e.target.files[0].name
@@ -102,7 +103,7 @@ export default function AdminUpdateBrand() {
     if (BrandStateData.length) {
       setData(BrandStateData.find((x) => x.id === id));
     }
-  }, [BrandStateData.length]);
+  }, [id, BrandStateData.length]);
   return (
     <>
       <Breadcrum title="Admin" />

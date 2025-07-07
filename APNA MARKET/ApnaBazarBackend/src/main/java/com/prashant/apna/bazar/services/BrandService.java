@@ -35,7 +35,7 @@ public class BrandService {
       Map<String, String> imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/brands");
       // String raletivePath = saveFile(file); // save locally
       brandDto.setPic(imgUrl.get("secure_url"));
-      brandDto.setPublicId(imgUrl.get(" public_id"));
+      brandDto.setPublicId(imgUrl.get("public_id"));
 
     }
     // map dto to entity

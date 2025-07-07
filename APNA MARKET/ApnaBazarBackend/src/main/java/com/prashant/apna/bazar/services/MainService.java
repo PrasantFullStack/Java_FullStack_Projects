@@ -38,7 +38,7 @@ public class MainService {
     // File upload logic
     if (file != null && !file.isEmpty()) {
       FileValidationUtil.ValidateImage(file);
-      // upload image t cloudinary
+      // upload image cloudinary
       Map<String, String> imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/maincategory");
 
       // String relativeFilePath = saveFile(file);

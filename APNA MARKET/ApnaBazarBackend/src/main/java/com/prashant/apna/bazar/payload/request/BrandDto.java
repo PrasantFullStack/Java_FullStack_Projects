@@ -10,9 +10,10 @@ public class BrandDto {
   @Pattern(regexp = "^[a-zA-Z]\\s{3, 20}$", message = "Name should be contain only letters and spaces and be between 3 to 20 characters")
   private String name;
 
+  private String publicId; // image public id from cloudinary
+
   @NotBlank(message = "Pic is required")
   private String pic;
-  private String publicId; // image public id from cloudinary
   private boolean active;
 
 }

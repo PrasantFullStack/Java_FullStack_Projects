@@ -31,12 +31,15 @@ export default function AdminUpdateBrand() {
   let dispatch = useDispatch();
 
   function getInputData(e) {
-    var name = e.target.name;
+    // var name = e.target.name;
+    // var value =
+    //   e.target.files && e.target.files.length
+    //     ? "brand/" + e.target.files[0].name
+    //     : e.target.value;
     var value =
       e.target.files && e.target.files.length
-        ? "brand/" + e.target.files[0].name
+        ? e.target.files[0]
         : e.target.value;
-    // var value = e.target.files && e.target.files.length ? e.target.files[0] : e.target.value
 
     setErrorMessage((old) => {
       return {
@@ -55,31 +58,42 @@ export default function AdminUpdateBrand() {
 
   async function postData(e) {
     e.preventDefault();
-    let error = Object.values(errorMessage).find((x) => x !== "");
-    if (error) setShow(true);
-    else {
-      let item = BrandStateData.find(
-        (x) => x.id !== id && x.name.toLowerCase() === data.name.toLowerCase()
-      );
-      if (item) {
-        setShow(true);
-        setErrorMessage((old) => {
-          return {
-            ...old,
-            name: "Brand With Same Name Already Exist",
-          };
-        });
-        return;
-      }
-      dispatch(updateMultipartRecord({ ...data }));
-      // let formData = new FormData()
-      // formData.append("_id", data._id)
-      // formData.append("name", data.name)
-      // formData.append("pic", data.pic)
-      // formData.append("active", data.active)
-      // dispatch(createBrand(formData))
+    try {
+      let error = Object.values(errorMessage).find((x) => x !== "");
+      if (error) setShow(true);
+      else {
+        let item = BrandStateData.find(
+          (x) => x.id !== id && x.name.toLowerCase() === data.name.toLowerCase()
+        );
+        if (item) {
+          setShow(true);
+          toast.warn("Brand With Same Name Already Exist");
+          setErrorMessage((old) => {
+            return {
+              ...old,
+              name: "Brand With Same Name Already Exist",
+            };
+          });
+          return;
+        }
+        // dispatch(updateMultipartRecord({ ...data })); // This line for dummy server
+        let formData = new FormData();
+        formData.append("id", id);
+        formData.append(
+          "data",
+          JSON.stringify({ name: data.name, active: data.active })
+        );
+        if (data.pic instanceof File) {
+          formData.append("pic", data.pic);
+        }
 
-      navigate("/admin/brand");
+        dispatch(updateMultipartRecord(formData));
+        toast.success("Brand Updated Successfully");
+        navigate("/admin/brand");
+      }
+    } catch (error) {
+      toast.error("Something went wrong, please try again later:", error);
+      console.error("Error updating brand:", error);
     }
   }
 

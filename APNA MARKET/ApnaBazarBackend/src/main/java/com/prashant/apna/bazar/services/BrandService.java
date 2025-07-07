@@ -36,7 +36,6 @@ public class BrandService {
       // String raletivePath = saveFile(file); // save locally
       brandDto.setPic(imgUrl.get("secure_url"));
       brandDto.setPublicId(imgUrl.get("public_id"));
-
     }
     // map dto to entity
     Brand brand = brandMapper.toEntity(brandDto);

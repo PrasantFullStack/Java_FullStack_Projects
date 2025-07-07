@@ -10,9 +10,9 @@ import com.prashant.apna.bazar.payload.response.BrandResponse;
 @Component
 public class BrandMapper {
   // Dto to entity
-  public Brand toEntity(BrandDto dto) {
+  public Brand toEntity(BrandDto brandDto) {
     Brand entity = new Brand();
-    BeanUtils.copyProperties(dto, entity);
+    BeanUtils.copyProperties(brandDto, entity);
     // entity.setName(dto.getName());
     // entity.setPic(dto.getPic());
     // entity.setActive(dto.isActive());

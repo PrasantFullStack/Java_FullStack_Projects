@@ -79,7 +79,7 @@ export default function AdminCreateBrand() {
         JSON.stringify({ name: data.name, active: data.active })
       );
 
-      if (data.pic && data.pic instanceof File) {
+      if (data.pic instanceof File) {
         formData.append("pic", data.pic);
       }
       //Dispatch action to create brand

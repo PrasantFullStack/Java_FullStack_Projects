@@ -82,7 +82,6 @@ export async function updateRecord(collection, payload) {
 }
 
 //If record has files
-
 export async function updateMultipartRecord(collection, payload) {
   try {
     let response = await fetch(
@@ -103,8 +102,18 @@ export async function updateMultipartRecord(collection, payload) {
       console.error("Error updating record:", errorText);
       return [];
     }
-    toast.success("Record updated successfully!");
-    return await response.json();
+
+    //UnAuthorized error handling
+    if (response.status === 401) {
+      toast.error("Unauthorized access. Please log in again.");
+      return [];
+    }
+    // Check if the response status is 200 (OK)
+    if (response.status === 200) {
+      const data = await response.json();
+      toast.success("Record updated successfully.");
+      return data;
+    }
   } catch (error) {
     toast.error("Error updating record. Please try again later.");
     console.error("Error updating record:", error);

@@ -19,15 +19,15 @@ public class CloudinaryService {
 
   // image upload on cloudinary
   public Map<String, String> uploadImage(MultipartFile file, String folder) throws IOException {
-
+    // if image is null or empty, throw IOException
     if (file == null || file.isEmpty()) {
       throw new IOException("File is empty or null");
     }
-
+    // Check file size, if greater than 2MB, throw IOException
     if (file.getSize() > 2 * 1024 * 1024) {
       throw new IOException("File too large. Max 2MB allowed.");
     }
-
+    // Upload image to Cloudinary folder
     Map<?, ?> uploadResult = cloudinary.uploader().upload(
         file.getBytes(),
         ObjectUtils.asMap(

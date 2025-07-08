@@ -2,6 +2,12 @@
   "configurations": [
     {
       "type": "java",
+      "name": "FirstProgram",
+      "request": "launch",
+      "mainClass": "FirstProgram"
+    },
+    {
+      "type": "java",
       "name": "Reverse",
       "request": "launch",
       "mainClass": "Reverse",

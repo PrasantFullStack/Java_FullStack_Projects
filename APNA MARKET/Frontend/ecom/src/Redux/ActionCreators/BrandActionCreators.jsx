@@ -5,6 +5,13 @@ import {
   UPDATE_BRAND,
 } from "../Constants";
 
+// export function createBrand(data) {
+//   return {
+//     type: CREATE_BRAND,
+//     payload: data,
+//   };
+// }
+
 export function createMultipartRecord(formData) {
   return {
     type: CREATE_BRAND,

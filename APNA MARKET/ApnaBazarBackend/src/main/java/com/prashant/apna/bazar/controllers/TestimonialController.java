@@ -24,7 +24,7 @@ import com.prashant.apna.bazar.services.TestimonialService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/testimonials")
+@RequestMapping("/testimonial")
 public class TestimonialController {
 
   @Autowired

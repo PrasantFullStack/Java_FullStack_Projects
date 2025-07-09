@@ -22,10 +22,7 @@ function* createSaga(action) {
   // let response = yield createRecord("testimonial", action.payload)
   // yield put({ type: CREATE_TESTIMONIAL_RED, payload: response })
 
-  let response = yield createMultipartRecord(
-    "api/testimonial/add",
-    action.payload
-  );
+  let response = yield createMultipartRecord("testimonial", action.payload);
   yield put({ type: CREATE_TESTIMONIAL_RED, payload: response });
 }
 
@@ -40,10 +37,7 @@ function* updateSaga(action) {
   // yield updateRecord("testimonial", action.payload)
   // yield put({ type: UPDATE_TESTIMONIAL_RED, payload: action.payload })
 
-  let response = yield updateMultipartRecord(
-    "api/testimonial/update",
-    action.payload
-  );
+  let response = yield updateMultipartRecord("testimonial", action.payload);
   yield put({ type: UPDATE_TESTIMONIAL_RED, payload: response });
 }
 

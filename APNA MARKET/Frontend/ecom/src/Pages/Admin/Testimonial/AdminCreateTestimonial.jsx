@@ -78,10 +78,18 @@ export default function AdminCreateTestimonial() {
       }
       // dispatch(createTestimonial({ ...data }))
       let formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("pic", data.pic);
-      formData.append("message", data.message);
-      formData.append("active", data.active);
+      formData.append(
+        "data",
+        JSON.stringify({
+          name: data.name,
+          message: data.message,
+          active: data.active,
+        })
+      );
+
+      if (data.pic instanceof File) {
+        formData.append("pic", data.pic);
+      }
       dispatch(createMultipartRecord(formData));
       navigate("/admin/testimonial");
     }

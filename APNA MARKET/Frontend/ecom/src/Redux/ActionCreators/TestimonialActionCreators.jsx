@@ -12,7 +12,7 @@ import {
 //     }
 // }
 
-export function createMultpartForm(formData) {
+export function createMultipartRecord(formData) {
   return {
     type: CREATE_TESTIMONIAL,
     payload: formData,
@@ -25,10 +25,10 @@ export function getTestimonial() {
   };
 }
 
-export function updateMultipartRecord(data) {
+export function updateMultipartRecord(formData) {
   return {
     type: UPDATE_TESTIMONIAL,
-    payload: data,
+    payload: formData,
   };
 }
 

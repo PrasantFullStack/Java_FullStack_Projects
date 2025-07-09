@@ -1,18 +1,18 @@
 public class Variable {
   public static void main(String[] args) {
     // // Declare a variable
-    // int myNumber;
-    // myNumber = 10;
-    // // This is a comment explaining the variable
-    // // The variable myNumber is of type int and initialized to 10
+    int myNumber;
+    myNumber = 10;
+    // This is a comment explaining the variable
+    // The variable myNumber is of type int and initialized to 10
 
-    // // Print the variable
-    // System.out.println("The value of myNumber is: " + myNumber);
+    // Print the variable
+    System.out.println("The value of myNumber is: " + myNumber);
 
-    // // Change the value of the variable
-    // myNumber = 20;
-    // // Print the new value
-    // System.out.println("The new value of myNumber is: " + myNumber);
+    // Change the value of the variable
+    myNumber = 20;
+    // Print the new value
+    System.out.println("The new value of myNumber is: " + myNumber);
 
     // Nameing Rules
     // 1. Variable names must start with a letter, underscore (_), or dollar sign

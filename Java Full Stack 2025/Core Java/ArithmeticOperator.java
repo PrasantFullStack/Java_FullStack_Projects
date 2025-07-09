@@ -21,9 +21,9 @@ public class ArithmeticOperator {
     int sub = a - b;
     System.out.println("Subtraction: " + sub);
     // Multiplication
-    int multi = a * b;
+    int multi = a * b; // multi a *= b;
     System.out.println("Multiplication: " + multi);
-    // Division
+    // Divisiona
     System.out.println("Division: " + (a / b));
     // Modulus
     System.out.println("Modulus: " + (a % b));

@@ -1,5 +1,6 @@
 package com.prashant.apna.bazar.mapper;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import com.prashant.apna.bazar.entities.Testimonial;
 import com.prashant.apna.bazar.payload.request.TestimonialDto;
@@ -10,10 +11,11 @@ public class TestimonialMappar {
   // Dto to entity
   public Testimonial toEntity(TestimonialDto testDto) {
     Testimonial entity = new Testimonial();
-    entity.setName(testDto.getName());
-    entity.setMessage(testDto.getMessage());
-    entity.setPic(testDto.getPic());
-    entity.setActive(testDto.isActive());
+    BeanUtils.copyProperties(testDto, entity); // Same as fields in DTO and Entity
+    // entity.setName(testDto.getName());
+    // entity.setMessage(testDto.getMessage());
+    // entity.setPic(testDto.getPic());
+    // entity.setActive(testDto.isActive());
     return entity;
   }
 

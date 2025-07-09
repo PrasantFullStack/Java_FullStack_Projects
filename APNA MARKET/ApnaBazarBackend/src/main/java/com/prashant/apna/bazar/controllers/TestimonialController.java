@@ -49,7 +49,6 @@ public class TestimonialController {
 
   // GetAll Testimonials
   @GetMapping
-  @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
   ResponseEntity<List<TestimonialResponse>> getAllTestimonial() {
     return ResponseEntity.status(HttpStatus.OK).body(testimonialService.getAllTestimonial());
   }

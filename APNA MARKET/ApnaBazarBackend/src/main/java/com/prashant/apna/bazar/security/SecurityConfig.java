@@ -53,7 +53,7 @@ public class SecurityConfig {
 
             // Protected method only authentication Admin can delete
             .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial")
-            .hasAnyAuthority("Admin", "Buyer", "Super Admin")
+            .hasAnyAuthority("Admin", "Super Admin")
 
             // Buyer only
             .requestMatchers(HttpMethod.POST, "/checkout/**").hasAuthority("Buyer")

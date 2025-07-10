@@ -31,12 +31,13 @@ public class BrandService {
 
   public BrandResponse createBrand(BrandDto brandDto, MultipartFile file) throws IOException {
     // Validate the file if it is not null and upload image logic
-    if (file != null && file.isEmpty()) {
-      Map<String, String> result = cloudinaryService.uploadImage(file, "apna-bazar/brands");
+    if (file != null && !file.isEmpty()) {
+      Map<String, String> imgUrl = cloudinaryService.uploadImage(file, "apna-bazar/brands");
       // String raletivePath = saveFile(file); // save locally
-      brandDto.setPic(result.get("secure_url"));
-      brandDto.setPublicId(result.get("public_id"));
+      brandDto.setPic(imgUrl.get("secure_url"));
+      brandDto.setPublicId(imgUrl.get("public_id"));
     }
+
     // map dto to entity
     Brand brand = brandMapper.toEntity(brandDto);
     // save entity

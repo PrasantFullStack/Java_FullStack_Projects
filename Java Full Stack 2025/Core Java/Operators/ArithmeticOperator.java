@@ -1,3 +1,5 @@
+package Operators;
+
 public class ArithmeticOperator {
   // Arthmetic operators in Java
 

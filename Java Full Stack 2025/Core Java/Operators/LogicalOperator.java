@@ -1,3 +1,5 @@
+package Operators;
+
 public class LogicalOperator {
   // 1. What is a logical operator?
   // A logical operator is used to combine multiple boolean expressions and return

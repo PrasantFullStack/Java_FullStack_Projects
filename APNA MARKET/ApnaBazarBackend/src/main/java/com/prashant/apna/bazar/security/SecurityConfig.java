@@ -43,8 +43,6 @@ public class SecurityConfig {
             // .hasRole("Admin") => Looks for ROLE_Admin
             // .hasAnyRole("Admin", "Buyer", "Seller") => Looks for ROLE_Admin, ROLE_Buyer,
             // ROLE_Seller
-            // .requestMatchers(HttpMethod.POST, "/maincategory").hasAnyRole("Admin",
-            // "Buyer", "Seller")
 
             // Protected method only authentication Admin can modify
             .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory", "/subcategory", "/brand", "/testimonial")
@@ -55,7 +53,7 @@ public class SecurityConfig {
 
             // Protected method only authentication Admin can delete
             .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial")
-            .hasAnyRole("Admin", "Buyer", "Super Admin")
+            .hasAnyAuthority("Admin", "Buyer", "Super Admin")
 
             // Buyer only
             .requestMatchers(HttpMethod.POST, "/checkout/**").hasAuthority("Buyer")

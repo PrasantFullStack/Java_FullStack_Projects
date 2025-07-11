@@ -1,7 +1,9 @@
 package com.prashant.apna.bazar.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,15 @@ public class CloudinaryService {
   @Autowired
   private Cloudinary cloudinary;
 
-  // image upload on cloudinary
+  // Single image upload
   public Map<String, String> uploadImage(MultipartFile file, String folder) throws IOException {
-    // if image is null or empty, throw IOException
     if (file == null || file.isEmpty()) {
       throw new IOException("File is empty or null");
     }
-    // Check file size, if greater than 2MB, throw IOException
     if (file.getSize() > 2 * 1024 * 1024) {
       throw new IOException("File too large. Max 2MB allowed.");
     }
-    // Upload image to Cloudinary folder
+
     Map<?, ?> uploadResult = cloudinary.uploader().upload(
         file.getBytes(),
         ObjectUtils.asMap(
@@ -40,7 +40,35 @@ public class CloudinaryService {
     return result;
   }
 
-  // Update Image with existing public_id in Cloudinary
+  // Multiple image upload
+  public List<Map<String, String>> uploadMultipleImages(MultipartFile[] files, String folder) throws IOException {
+    List<Map<String, String>> uploadedImages = new ArrayList<>();
+
+    for (MultipartFile file : files) {
+      if (file == null || file.isEmpty()) {
+        throw new IOException("One or more files are empty");
+      }
+      if (file.getSize() > 2 * 1024 * 1024) {
+        throw new IOException("File too large: " + file.getOriginalFilename());
+      }
+
+      Map<?, ?> uploadResult = cloudinary.uploader().upload(
+          file.getBytes(),
+          ObjectUtils.asMap(
+              "folder", folder,
+              "resource_type", "auto"));
+
+      Map<String, String> result = new HashMap<>();
+      result.put("secure_url", uploadResult.get("secure_url").toString());
+      result.put("public_id", uploadResult.get("public_id").toString());
+
+      uploadedImages.add(result);
+    }
+
+    return uploadedImages;
+  }
+
+  // Update image with public ID
   public Map<String, String> updateImageWithPublicId(MultipartFile file, String folder, String oldPublicId)
       throws IOException {
 
@@ -52,27 +80,25 @@ public class CloudinaryService {
       throw new IOException("File too large. Max 2MB allowed.");
     }
 
-    // Optional: delete old image from Cloudinary before upload
     if (oldPublicId != null && !oldPublicId.isEmpty()) {
       cloudinary.uploader().destroy(oldPublicId, ObjectUtils.emptyMap());
     }
 
-    // Upload new image to Cloudinary folder
-    Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+    Map<?, ?> uploadResult = cloudinary.uploader().upload(
+        file.getBytes(),
         ObjectUtils.asMap(
             "folder", folder,
             "resource_type", "auto"));
 
-    // Return new secure_url and public_id
     Map<String, String> result = new HashMap<>();
     result.put("secure_url", uploadResult.get("secure_url").toString());
     result.put("public_id", uploadResult.get("public_id").toString());
     return result;
   }
 
-  // Delete image by id in Cloudinary
+  // Delete image
   public String deleteImage(String public_id) throws IOException {
-    Map result = cloudinary.uploader().destroy(public_id, ObjectUtils.emptyMap());
+    Map<?, ?> result = cloudinary.uploader().destroy(public_id, ObjectUtils.emptyMap());
     return result.get("result").toString(); // "ok" if deleted
   }
 

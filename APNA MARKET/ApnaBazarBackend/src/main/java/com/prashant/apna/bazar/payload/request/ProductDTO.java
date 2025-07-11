@@ -1,5 +1,7 @@
 package com.prashant.apna.bazar.payload.request;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -20,8 +22,9 @@ public class ProductDTO {
   private Boolean stock;
   private String stockQuantity;
   private String description;
+  private List<String> publicId;
   @NotBlank(message = "Product image is required!")
-  private String pic[];
+  private List<String> pic;
   private Boolean active;
 
 }

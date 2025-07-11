@@ -1,5 +1,7 @@
 package com.prashant.apna.bazar.payload.response;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -17,6 +19,7 @@ public class ProductResponseDto {
   private Boolean stock;
   private String stockQuantity;
   private String description;
-  private String pic[];
+  private String publicId;// cloudinary image ID
+  private List<String> pic;
   private Boolean active;
 }

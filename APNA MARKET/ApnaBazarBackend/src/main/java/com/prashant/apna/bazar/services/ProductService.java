@@ -50,4 +50,10 @@ public class ProductService {
 
   }
 
+  // Get All Product
+  public List<ProductResponseDto> getAllProduct() {
+    return productRepo.findAll().stream().map(productMapper::toResponseProduct).collect(Collectors.toList());
+
+  }
+
 }

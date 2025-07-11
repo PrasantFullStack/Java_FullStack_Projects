@@ -1,3 +1,5 @@
+package statements;
+
 public class Conditions {
   // If else conditions
   // This program demonstrates the use of if-else statements in Java.

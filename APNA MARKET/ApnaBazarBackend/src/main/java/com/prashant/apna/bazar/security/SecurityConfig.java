@@ -32,7 +32,7 @@ public class SecurityConfig {
             // here GET method public : Anyone can fatch data
             .requestMatchers("/user/signup", "/user/login").permitAll()
             .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**", "/brand/**",
-                "/newsletter/**", "/testimonial/**", "/product/**")
+                "/newsletter/**", "/testimonial/**", "/product/**", "/newsletter/**")
             .permitAll()
             // Admin and Super Admin can access these endpoints
             // Protected method only authentication Admin can create data and category

@@ -33,11 +33,11 @@ public class ProductService {
     List<Map<String, String>> imgUrls = cloudinaryService.uploadMultipleImages(files, "apna-bazar/products");
 
     // step: 2
-    List<String> imageUrl = imgUrls.stream().map(img -> img.get("secure_url")).collect(Collectors.toList());
+    List<String> imageUrls = imgUrls.stream().map(img -> img.get("secure_url")).collect(Collectors.toList());
 
     List<String> publicIds = imgUrls.stream().map(img -> img.get("public_id")).collect(Collectors.toList());
     // step 3
-    productDTO.setPic(imageUrl);
+    productDTO.setPic(imageUrls);
     productDTO.setPublicId(publicIds);
 
     // Convert DTO to entity

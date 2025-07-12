@@ -2,7 +2,6 @@ package com.prashant.apna.bazar.entities;
 
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +27,10 @@ public class Product {
   private String basePrice;
   private Integer discount;
   private String finalPrice;
-  private Boolean stock;
+  private boolean stock;
   private String stockQuantity;
   private String description;
-  @ElementCollection
+  private List<String> publicId;
   private List<String> pic;
   private Boolean active;
 }

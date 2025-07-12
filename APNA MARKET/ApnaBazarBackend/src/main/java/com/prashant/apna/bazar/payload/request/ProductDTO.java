@@ -19,12 +19,12 @@ public class ProductDTO {
   private String basePrice;
   private Integer discount;
   private String finalPrice;
-  private Boolean stock;
+  private boolean stock;
   private String stockQuantity;
   private String description;
   private List<String> publicId;
   @NotBlank(message = "Product image is required!")
   private List<String> pic;
-  private Boolean active;
+  private boolean active;
 
 }

@@ -19,7 +19,7 @@ public class ProductResponseDto {
   private Boolean stock;
   private String stockQuantity;
   private String description;
-  private String publicId;// cloudinary image ID
+  private List<String> publicId;// cloudinary image ID
   private List<String> pic;
   private Boolean active;
 }

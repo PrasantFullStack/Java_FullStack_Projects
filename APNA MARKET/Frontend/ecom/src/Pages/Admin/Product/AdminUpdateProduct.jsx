@@ -9,7 +9,7 @@ import ImageValidator from "../../../Validators/ImageValidator";
 
 import {
   getProduct,
-  updateProduct,
+  updateMultipartRecord,
 } from "../../../Redux/ActionCreators/ProductActionCreators";
 import { getMaincategory } from "../../../Redux/ActionCreators/MaincategoryActionCreators";
 import { getSubcategory } from "../../../Redux/ActionCreators/SubcategoryActionCreators";
@@ -172,7 +172,7 @@ export default function AdminUpdateProduct() {
       formData.append("pic", data.pic);
     }
 
-    dispatch(updateProduct(formData));
+    dispatch(updateMultipartRecord(formData));
     navigate("/admin/product");
   };
 

@@ -18,10 +18,10 @@ export function getProduct() {
   };
 }
 
-export function updateProduct(data) {
+export function updateMultipartRecord(formData) {
   return {
     type: UPDATE_PRODUCT,
-    payload: data,
+    payload: formData,
   };
 }
 

@@ -7,13 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import FormValidator from "../../../Validators/FormValidator";
 import ImageValidator from "../../../Validators/ImageValidator";
 
-import {
-  createMultipartRecord,
-  getMaincategory,
-} from "../../../Redux/ActionCreators/MaincategoryActionCreators";
+import { getMaincategory } from "../../../Redux/ActionCreators/MaincategoryActionCreators";
 import { getSubcategory } from "../../../Redux/ActionCreators/SubcategoryActionCreators";
 import { getBrand } from "../../../Redux/ActionCreators/BrandActionCreators";
 import { toast } from "react-toastify";
+import { createMultipartRecord } from "../../../Redux/ActionCreators/ProductActionCreators";
 
 let rte;
 
@@ -116,9 +114,9 @@ export default function AdminCreateProduct() {
 
     // Append all images (if multiple selected)
     if (Array.isArray(data.pic)) {
-      data.pic.forEach((file) => {
-        if (file instanceof File) {
-          formData.append("files", file); // "files" is the backend field
+      data.pic.forEach((files) => {
+        if (files instanceof File) {
+          formData.append("files", files); // "files" is the backend field
         }
       });
     }

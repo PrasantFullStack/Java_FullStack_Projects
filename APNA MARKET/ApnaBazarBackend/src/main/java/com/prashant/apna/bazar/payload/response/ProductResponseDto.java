@@ -13,11 +13,11 @@ public class ProductResponseDto {
   private String brand;
   private String color;
   private String size;
-  private String basePrice;
-  private Integer discount;
-  private String finalPrice;
+  private double basePrice;
+  private double discount;
+  private double finalPrice;
   private Boolean stock;
-  private String stockQuantity;
+  private Integer stockQuantity;
   private String description;
   private List<String> publicId;// cloudinary image ID
   private List<String> pic;

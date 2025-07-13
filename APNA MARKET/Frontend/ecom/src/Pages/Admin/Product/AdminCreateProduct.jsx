@@ -111,15 +111,22 @@ export default function AdminCreateProduct() {
       "data",
       new Blob([JSON.stringify(productInfo)], { type: "application/json" })
     );
-
-    // Append all images (if multiple selected)
     if (Array.isArray(data.pic)) {
-      data.pic.forEach((files) => {
-        if (files instanceof File) {
-          formData.append("files", files); // "files" is the backend field
+      data.pic.forEach((file) => {
+        if (file instanceof File) {
+          formData.append("files", file); // ✅ use same name as Spring Boot expects
         }
       });
     }
+
+    // // Append all images (if multiple selected)
+    // if (Array.isArray(data.pic)) {
+    //   data.pic.forEach((files) => {
+    //     if (files instanceof File) {
+    //       formData.append("files", files); // "files" is the backend field
+    //     }
+    //   });
+    // }
 
     dispatch(createMultipartRecord(formData));
     toast.success("Product created successfully✅");

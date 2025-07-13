@@ -24,11 +24,11 @@ public class Product {
   private String brand;
   private String color;
   private String size;
-  private String basePrice;
-  private Integer discount;
-  private String finalPrice;
+  private double basePrice;
+  private double discount;
+  private double finalPrice;
   private boolean stock;
-  private String stockQuantity;
+  private int stockQuantity;
   private String description;
   private List<String> publicId;
   private List<String> pic;

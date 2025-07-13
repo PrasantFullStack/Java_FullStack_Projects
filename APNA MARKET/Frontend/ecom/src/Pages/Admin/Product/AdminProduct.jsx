@@ -95,19 +95,17 @@ export default function AdminProduct() {
                         <td>{item.stockQuantity}</td>
                         <td>
                           <div className="product-table-images">
-                            {item.pic.map((pic, index) => {
-                              return (
-                                <Link to={item.pic} target="_blank">
-                                  <img
-                                    className="me-3 mb-3"
-                                    src={item.pic}
-                                    height={80}
-                                    width={80}
-                                    alt=""
-                                  />
-                                </Link>
-                              );
-                            })}
+                            return (
+                            <Link to={item.pic} target="_blank">
+                              <img
+                                className="me-3 mb-3"
+                                src={item.pic}
+                                height={80}
+                                width={80}
+                                alt=""
+                              />
+                            </Link>
+                            );
                           </div>
                         </td>
                         <td>{item.active ? "Yes" : "No"}</td>

@@ -9,17 +9,21 @@ import {
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_RED,
 } from "../Constants";
-import { deleteRecord, getRecord, updateRecord } from "./Services/index";
-import { createMultipartRecord } from "../ActionCreators/MaincategoryActionCreators";
-// import { createMultipartRecord, deleteRecord, getRecord, updateMultipartRecord } from "./Services/index"
+// import {createRecord, deleteRecord, getRecord, updateRecord } from "./Services/index";
+
+import {
+  createMultipartRecord,
+  deleteRecord,
+  getRecord,
+  updateMultipartRecord,
+} from "./Services/index";
 
 function* createSaga(action) {
   //Worker Saga
+  // let response = yield createRecord("product", action.payload);
+  // yield put({ type: CREATE_PRODUCT_RED, payload: response });
   let response = yield createMultipartRecord("product", action.payload);
   yield put({ type: CREATE_PRODUCT_RED, payload: response });
-
-  // let response = yield createMultipartRecord("product", action.payload)
-  // yield put({ type: CREATE_PRODUCT_RED, payload: response })
 }
 
 function* getSaga() {
@@ -30,11 +34,11 @@ function* getSaga() {
 
 function* updateSaga(action) {
   //Worker Saga
-  yield updateRecord("product", action.payload);
-  yield put({ type: UPDATE_PRODUCT_RED, payload: action.payload });
+  // yield updateRecord("product", action.payload);
+  // yield put({ type: UPDATE_PRODUCT_RED, payload: action.payload });
 
-  // let response = yield updateMultipartRecord("product", action.payload)
-  // yield put({ type: UPDATE_PRODUCT_RED, payload: response })
+  let response = yield updateMultipartRecord("product", action.payload);
+  yield put({ type: UPDATE_PRODUCT_RED, payload: response });
 }
 
 function* deleteSaga(action) {

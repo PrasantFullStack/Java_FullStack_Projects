@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class ProductController {
   @Autowired
   ObjectMapper mapper;
 
-  @PostMapping
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   ResponseEntity<ProductResponseDto> createProduct(@RequestPart("data") String jsonData,
       @RequestPart("files") MultipartFile[] files) throws IOException {
     ProductDTO productDTO = mapper.readValue(jsonData, ProductDTO.class);

@@ -13,6 +13,7 @@ import {
 } from "../../../Redux/ActionCreators/MaincategoryActionCreators";
 import { getSubcategory } from "../../../Redux/ActionCreators/SubcategoryActionCreators";
 import { getBrand } from "../../../Redux/ActionCreators/BrandActionCreators";
+import { toast } from "react-toastify";
 
 let rte;
 
@@ -78,81 +79,157 @@ export default function AdminCreateProduct() {
       };
     });
   }
-
   function postData(e) {
     e.preventDefault();
-    let bp = parseInt(data.basePrice);
-    let d = parseInt(data.discount);
-    let fp = parseInt(bp - (bp * d) / 100);
-    let stockQuantity = parseInt(data.stockQuantity);
 
-    let error = Object.values(errorMessage).find((x) => x !== "");
-    if (error) setShow(true);
-    else {
-      // dispatch(createProduct({
-      //     ...data,
-      //     basePrice: bp,
-      //     discount: d,
-      //     finalPrice: fp,
-      //     stockQuantity: stockQuantity,
-      //     maincategory: data.maincategory ? data.maincategory : MaincategoryStateData[0].name,
-      //     subcategory: data.subcategory ? data.subcategory : SubcategoryStateData[0].name,
-      //     brand: data.brand ? data.brand : BrandStateData[0].name,
-      //     description: rte.getHTMLCode()
+    const bp = parseFloat(data.basePrice) || 0;
+    const discount = parseFloat(data.discount) || 0;
+    const fp = bp - (bp * discount) / 100;
+    const stockQuantity = parseInt(data.stockQuantity) || 0;
 
-      // maincategory:data.maincategory?data.maincategory:MaincategoryStateData[0]._id,
-      // subcategory:data.subcategory?data.subcategory:SubcategoryStateData[0]._id,
-      // brand:data.brand?data.brand:BrandStateData[0]._id,
-      // }))
+    const error = Object.values(errorMessage).find((x) => x !== "");
+    if (error) return setShow(true);
 
-      let formData = new FormData();
-      const maincategory =
-        data.maincategory || MaincategoryStateData?.[0]?.name || "";
-      const subcategory =
-        data.subcategory || SubcategoryStateData?.[0]?.name || "";
-      const brand = data.brand || BrandStateData?.[0]?.name || "";
+    // Prepare JSON part
+    const productInfo = {
+      name: data.name,
+      maincategory: data.maincategory || MaincategoryStateData[0]?.id,
+      subcategory: data.subcategory || SubcategoryStateData[0]?.id,
+      brand: data.brand || BrandStateData[0]?.id,
+      color: data.color,
+      size: data.size,
+      basePrice: bp,
+      discount: discount,
+      finalPrice: fp,
+      stock: data.stock,
+      stockQuantity: stockQuantity,
+      description: rte.getHTMLCode() || "",
+      active: data.active,
+    };
 
-      const bp = parseFloat(data.basePrice) || 0;
-      const discount = parseFloat(data.discount) || 0;
-      const fp = parseFloat(data.finalPrice) || bp - (bp * discount) / 100;
-      const stockQuantity = parseInt(data.stockQuantity) || 0;
+    // Create FormData
+    const formData = new FormData();
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(productInfo)], { type: "application/json" })
+    );
 
-      formData.append(
-        "data",
-        new Blob(
-          [
-            JSON.stringify({
-              name: data.name,
-              maincategory,
-              subcategory,
-              brand,
-              color: data.color,
-              size: data.size,
-              basePrice: bp,
-              discount,
-              finalPrice: fp,
-              stock: data.stock,
-              stockQuantity,
-              description: rte?.getHTMLCode() || "",
-              active: data.active,
-            }),
-          ],
-          { type: "application/json" }
-        )
-      );
-
-      if (Array.isArray(data.pic)) {
-        data.pic.forEach((file) => {
-          if (file instanceof File) {
-            formData.append("files", file, file.name);
-          }
-        });
-      }
-
-      dispatch(createMultipartRecord(formData));
-      navigate("/admin/product");
+    // Append all images (if multiple selected)
+    if (Array.isArray(data.pic)) {
+      data.pic.forEach((file) => {
+        if (file instanceof File) {
+          formData.append("files", file); // "files" is the backend field
+        }
+      });
     }
+
+    dispatch(createMultipartRecord(formData));
+    toast.success("Product created successfully✅");
+    navigate("/admin/product");
   }
+
+  // function postData(e) {
+  //   e.preventDefault();
+  //   let bp = parseInt(data.basePrice);
+  //   let d = parseInt(data.discount);
+  //   let fp = parseInt(bp - (bp * d) / 100);
+  //   let stockQuantity = parseInt(data.stockQuantity);
+
+  //   let error = Object.values(errorMessage).find((x) => x !== "");
+  //   if (error) setShow(true);
+  //   else {
+  //     // dispatch(createProduct({
+  //     //     ...data,
+  //     //     basePrice: bp,
+  //     //     discount: d,
+  //     //     finalPrice: fp,
+  //     //     stockQuantity: stockQuantity,
+  //     //     maincategory: data.maincategory ? data.maincategory : MaincategoryStateData[0].name,
+  //     //     subcategory: data.subcategory ? data.subcategory : SubcategoryStateData[0].name,
+  //     //     brand: data.brand ? data.brand : BrandStateData[0].name,
+  //     //     description: rte.getHTMLCode()
+
+  //     // maincategory:data.maincategory?data.maincategory:MaincategoryStateData[0]._id,
+  //     // subcategory:data.subcategory?data.subcategory:SubcategoryStateData[0]._id,
+  //     // brand:data.brand?data.brand:BrandStateData[0]._id,
+  //     // }))
+
+  //     //     let formData = new FormData();
+  //     //     const maincategory =
+  //     //       data.maincategory || MaincategoryStateData?.[0]?.name || "";
+  //     //     const subcategory =
+  //     //       data.subcategory || SubcategoryStateData?.[0]?.name || "";
+  //     //     const brand = data.brand || BrandStateData?.[0]?.name || "";
+
+  //     //     const bp = parseFloat(data.basePrice) || 0;
+  //     //     const discount = parseFloat(data.discount) || 0;
+  //     //     const fp = parseFloat(data.finalPrice) || bp - (bp * discount) / 100;
+  //     //     const stockQuantity = parseInt(data.stockQuantity) || 0;
+
+  //     //     formData.append(
+  //     //       "data",
+  //     //       new Blob(
+  //     //         [
+  //     //           JSON.stringify({
+  //     //             name: data.name,
+  //     //             maincategory,
+  //     //             subcategory,
+  //     //             brand,
+  //     //             color: data.color,
+  //     //             size: data.size,
+  //     //             basePrice: bp,
+  //     //             discount,
+  //     //             finalPrice: fp,
+  //     //             stock: data.stock,
+  //     //             stockQuantity,
+  //     //             description: rte?.getHTMLCode() || "",
+  //     //             active: data.active,
+  //     //           }),
+  //     //         ],
+  //     //         { type: "application/json" }
+  //     //       )
+  //     //     );
+
+  //     //     if (Array.isArray(data.pic)) {
+  //     //       data.pic.forEach((file) => {
+  //     //         if (file instanceof File) {
+  //     //           formData.append("files", file, file.name);
+  //     //         }
+  //     //       });
+  //     //     }
+  //     const formData = new FormData();
+  //     formData.append(
+  //       "data",
+  //       new Blob(
+  //         [
+  //           JSON.stringify({
+  //             name: data.name,
+  //             maincategory: data.maincategory,
+  //             subcategory: data.subcategory,
+  //             brand: data.brand,
+  //             color: data.color,
+  //             size: data.size,
+  //             basePrice: bp,
+  //             discount: discount,
+  //             finalPrice: fp,
+  //             stock: data.stock,
+  //             stockQuantity: stockQuantity,
+  //             description: rte.getHTMLCode(),
+  //             active: data.active,
+  //           }),
+  //         ],
+  //         { type: "application/json" }
+  //       )
+  //     );
+
+  //     if (data.pic instanceof File) {
+  //       formData.append("files", data.pic);
+  //     }
+
+  //     dispatch(createMultipartRecord(formData));
+  //     navigate("/admin/product");
+  //   }
+  // }
 
   useEffect(() => {
     dispatch(getMaincategory());

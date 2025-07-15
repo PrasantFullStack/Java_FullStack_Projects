@@ -114,7 +114,7 @@ export default function AdminCreateProduct() {
     if (Array.isArray(data.pic)) {
       data.pic.forEach((file) => {
         if (file instanceof File) {
-          formData.append("files", file); // ✅ use same name as Spring Boot expects
+          formData.append("files", file); //use same name as Spring Boot expects
         }
       });
     }

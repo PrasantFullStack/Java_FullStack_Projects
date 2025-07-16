@@ -29,6 +29,7 @@ public class ProductService {
   private ProductMapper productMapper;
 
   public ProductResponseDto createProduct(ProductDTO productDTO, MultipartFile[] files) throws IOException {
+
     // step:1
     List<Map<String, String>> imgUrls = cloudinaryService.uploadMultipleImages(files, "apna-bazar/products");
 

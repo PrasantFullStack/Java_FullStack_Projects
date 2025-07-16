@@ -30,7 +30,7 @@ public class ProductController {
   ObjectMapper mapper;
 
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  ResponseEntity<ProductResponseDto> createProduct(@RequestPart("data") String jsonData,
+  ResponseEntity<ProductResponseDto> createProduct(@RequestPart("product") String jsonData,
       @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {
     ProductDTO productDTO = mapper.readValue(jsonData, ProductDTO.class);
     return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(productDTO, files));

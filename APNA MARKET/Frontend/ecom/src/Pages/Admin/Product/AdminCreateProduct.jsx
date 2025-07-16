@@ -91,9 +91,9 @@ export default function AdminCreateProduct() {
     // Prepare JSON part
     const productInfo = {
       name: data.name,
-      maincategory: data.maincategory || MaincategoryStateData[0]?.id,
-      subcategory: data.subcategory || SubcategoryStateData[0]?.id,
-      brand: data.brand || BrandStateData[0]?.id,
+      maincategory: data.maincategory || MaincategoryStateData[0]?.name || "",
+      subcategory: data.subcategory || SubcategoryStateData[0]?.name || "",
+      brand: data.brand || BrandStateData[0]?.name || "",
       color: data.color,
       size: data.size,
       basePrice: bp,
@@ -108,7 +108,7 @@ export default function AdminCreateProduct() {
     // Create FormData
     const formData = new FormData();
     formData.append(
-      "data",
+      "product",
       new Blob([JSON.stringify(productInfo)], { type: "application/json" })
     );
     if (Array.isArray(data.pic)) {

@@ -29,24 +29,29 @@ public class ProductService {
   private ProductMapper productMapper;
 
   public ProductResponseDto createProduct(ProductDTO productDTO, MultipartFile[] files) throws IOException {
+    if (files == null || files.length == 0) {
+      throw new IllegalArgumentException("At least one product image is required.");
+    }
 
     // step:1
     List<Map<String, String>> imgUrls = cloudinaryService.uploadMultipleImages(files, "apna-bazar/products");
+    if (imgUrls.isEmpty()) {
+      throw new IOException("No images were uploaded successfully.");
+    }
 
     // step: 2
     List<String> imageUrls = imgUrls.stream().map(img -> img.get("secure_url")).collect(Collectors.toList());
 
     List<String> publicIds = imgUrls.stream().map(img -> img.get("public_id")).collect(Collectors.toList());
-    // step 3
+    // step 3 update dto
     productDTO.setPic(imageUrls);
     productDTO.setPublicId(publicIds);
 
-    // Convert DTO to entity
+    // step:4 Convert DTO to entity and Save to entity
     Product product = productMapper.toProductEntity(productDTO);
-
-    // save to database
     Product saveProduct = productRepo.save(product);
 
+    // step: 5 convert entity to response dto and return
     return productMapper.toResponseProduct(saveProduct);
 
   }

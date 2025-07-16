@@ -45,27 +45,31 @@ public class CloudinaryService {
     List<Map<String, String>> uploadedImages = new ArrayList<>();
 
     for (MultipartFile file : files) {
-      if (file == null || file.isEmpty()) {
-        throw new IOException("One or more files are empty");
+      try {
+        if (file == null || file.isEmpty())
+          continue;
+        if (file.getSize() > 2 * 1024 * 1024)
+          continue;
+
+        Map<?, ?> uploadResult = cloudinary.uploader().upload(
+            file.getBytes(),
+            ObjectUtils.asMap(
+                "folder", folder,
+                "resource_type", "auto"));
+
+        Map<String, String> result = new HashMap<>();
+        result.put("secure_url", uploadResult.get("secure_url").toString());
+        result.put("public_id", uploadResult.get("public_id").toString());
+
+        uploadedImages.add(result);
+      } catch (Exception ex) {
+        System.out.println("Error uploading file: " + ex.getMessage());
+
       }
-      if (file.getSize() > 2 * 1024 * 1024) {
-        throw new IOException("File too large: " + file.getOriginalFilename());
-      }
-
-      Map<?, ?> uploadResult = cloudinary.uploader().upload(
-          file.getBytes(),
-          ObjectUtils.asMap(
-              "folder", folder,
-              "resource_type", "auto"));
-
-      Map<String, String> result = new HashMap<>();
-      result.put("secure_url", uploadResult.get("secure_url").toString());
-      result.put("public_id", uploadResult.get("public_id").toString());
-
-      uploadedImages.add(result);
     }
 
     return uploadedImages;
+
   }
 
   // Update image with public ID

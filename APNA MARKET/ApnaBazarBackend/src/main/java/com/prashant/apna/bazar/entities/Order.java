@@ -3,6 +3,7 @@ package com.prashant.apna.bazar.entities;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Order {
   private double total;
   private LocalDateTime data;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL)
   private List<CartItem> products;
 
 }

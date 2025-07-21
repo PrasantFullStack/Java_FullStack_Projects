@@ -21,7 +21,7 @@ public class CartController {
 
   @PostMapping
   ResponseEntity<CartItemResponse> addCartItem(@RequestBody CartItemDto cartItemDto) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(checkoutService.placeOrder(cartItemDto));
+    return ResponseEntity.status(HttpStatus.CREATED).body(checkoutService.addCart(cartItemDto));
   }
 
 }

@@ -9,5 +9,5 @@ public class CartItemResponse {
   private int qty;
   private int price;
   private int total;
-  private String picUrl;
+  private String pic;
 }

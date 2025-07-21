@@ -29,16 +29,12 @@ public class CheckoutService {
   // save the order to cart
 
   public OrderResponse placeOrder(OrderDto orderDto) {
-    //map dto to entity
+    // map dto to entity
     Order order = mapper.toEntityOrder(orderDto);
-   //save order
-   Order savedOreder = orderRepo.save(order);
+    // save order
+    Order savedOreder = orderRepo.save(order);
 
-
-   return mapper.toResponseOrder(orderDto)
-    
-
-
+    return mapper.toResponseOrder(savedOreder);
 
   }
 

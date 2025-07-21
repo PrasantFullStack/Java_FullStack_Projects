@@ -15,9 +15,9 @@ public class OrderMapper {
   }
 
   // map entity to response
-  public OrderResponse toResponseOrder(Order order) {
+  public OrderResponse toResponseOrder(Order savedOrder) {
     OrderResponse response = new OrderResponse();
-    BeanUtils.copyProperties(order, response);
+    BeanUtils.copyProperties(savedOrder, response);
     return response;
   }
 

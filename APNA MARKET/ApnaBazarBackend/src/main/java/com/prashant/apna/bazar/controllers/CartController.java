@@ -31,6 +31,7 @@ public class CartController {
 
   @PutMapping
   ResponseEntity<CartItemResponse> updateCartItem(@RequestBody CartItemDto cartItemDto) {
+    return ResponseEntity.status(HttpStatus.OK).body(cartService.updateCart(cartItemDto));
 
   }
 

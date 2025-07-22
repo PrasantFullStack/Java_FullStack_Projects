@@ -30,4 +30,9 @@ public class CartItem {
   private String color;
   private String size;
 
+  public void setTotal(int i) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setTotal'");
+  }
+
 }

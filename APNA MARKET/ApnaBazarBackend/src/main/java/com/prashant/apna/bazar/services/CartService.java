@@ -36,6 +36,12 @@ public class CartService {
   public CartItemResponse updateCart(CartItemDto cartItemDto) {
     CartItem item = cartItemRepo.findById(cartItemDto.getId())
         .orElseThrow(() -> new RuntimeException("Cart Item Not Found"));
+    item.setQty(cartItemDto.getQty());
+    item.setTotal(cartItemDto.getQty() * cartItemDto.getPrice());
+    CartItem savedCartItem = cartItemRepo.save(item);
+
+    return cartItemMapper.toCartItemResponse(savedCartItem);
+
   }
 
 }

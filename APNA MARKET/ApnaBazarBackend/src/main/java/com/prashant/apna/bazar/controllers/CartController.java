@@ -29,6 +29,7 @@ public class CartController {
     return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addCart(cartItemDto));
   }
 
+  // update cart
   @PutMapping
   ResponseEntity<CartItemResponse> updateCartItem(@RequestBody CartItemDto cartItemDto) {
     return ResponseEntity.status(HttpStatus.OK).body(cartService.updateCart(cartItemDto));

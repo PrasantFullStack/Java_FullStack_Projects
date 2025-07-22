@@ -22,6 +22,7 @@ public class CartService {
   @Autowired
   private ProductRepo productRepo;
 
+  // addCart method
   public CartItemResponse addCart(CartItemDto cartItemDto) {
     // map dto to entity
     CartItem cartItem = cartItemMapper.toEntityCartItem(cartItemDto);
@@ -30,5 +31,7 @@ public class CartService {
     // return response
     return cartItemMapper.toCartItemResponse(savedCartItem);
   }
+
+  // update cart
 
 }

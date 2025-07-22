@@ -10,4 +10,5 @@ public class CartItemDto {
   private int total;
   private String color;
   private String size;
+  private Long id;
 }

@@ -33,5 +33,9 @@ public class CartService {
   }
 
   // update cart
+  public CartItemResponse updateCart(CartItemDto cartItemDto) {
+    CartItem item = cartItemRepo.findById(cartItemDto.getId())
+        .orElseThrow(() -> new RuntimeException("Cart Item Not Found"));
+  }
 
 }

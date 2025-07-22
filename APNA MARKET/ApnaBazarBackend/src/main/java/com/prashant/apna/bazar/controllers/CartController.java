@@ -3,6 +3,7 @@ package com.prashant.apna.bazar.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,4 +37,10 @@ public class CartController {
 
   }
 
+  // delete cart
+  @DeleteMapping
+  ResponseEntity<?> deleteCart(Long id) {
+    cartService.deleteCart(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
 }

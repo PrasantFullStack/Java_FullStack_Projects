@@ -40,4 +40,5 @@ public class NewsletterService {
         .orElseThrow(() -> new ResourceNotFoundException("Newsletter not found by id:" + id));
     return newsletterMapper.toResponse(savedNewsletter);
   }
+
 }

@@ -1,5 +1,7 @@
 package com.prashant.apna.bazar.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +28,8 @@ public class NewsletterService {
     return newsletterMapper.toResponse(savedNewsletter);
   }
 
+  // GetAll newsletters
+  public List<NewsResponseDto> getAllNewsletters() {
+    return newsletterRepo.findAll().stream().map(newsletterMapper::toResponse).toList();
+  }
 }

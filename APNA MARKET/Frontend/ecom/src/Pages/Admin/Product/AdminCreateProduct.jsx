@@ -111,14 +111,11 @@ export default function AdminCreateProduct() {
       "product",
       new Blob([JSON.stringify(productInfo)], { type: "application/json" })
     );
-    if (Array.isArray(data.pic)) {
-      data.pic.forEach((file) => {
-        if (file instanceof File) {
-          formData.append("files", file); //use same name as Spring Boot expects
-        }
-      });
+    if (data.pic instanceof File) {
+      formData.append("files", data.pic);
     }
 
+    console.log("files", data.pic);
     // // Append all images (if multiple selected)
     // if (Array.isArray(data.pic)) {
     //   data.pic.forEach((files) => {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.prashant.apna.bazar.entities.Newsletter;
 import com.prashant.apna.bazar.payload.request.NewsletterDto;
+import com.prashant.apna.bazar.payload.response.NewsResponseDto;
 
 @Component
 public class NewsletterMapper {

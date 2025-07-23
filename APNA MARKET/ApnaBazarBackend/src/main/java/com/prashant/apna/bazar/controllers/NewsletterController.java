@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ public class NewsletterController {
   @Autowired
   private NewsletterService newsletterService;
 
+  // create Newsletter
   @PostMapping
   ResponseEntity<NewsResponseDto> createNewslettter(@RequestBody NewsletterDto newsletterDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(newsletterService.createNewsletter(newsletterDto));
@@ -33,4 +35,11 @@ public class NewsletterController {
   ResponseEntity<List<NewsResponseDto>> getAllNewsletters() {
     return ResponseEntity.status(HttpStatus.OK).body(newsletterService.getAllNewsletters());
   }
+
+  // Get Newsletter by id
+  @GetMapping("/{id}")
+  ResponseEntity<NewsResponseDto> getNewsletterById(@PathVariable Long id) {
+    return ResponseEntity.status(HttpStatus.OK).body(newsletterService.getNewsletter(id));
+  }
+
 }

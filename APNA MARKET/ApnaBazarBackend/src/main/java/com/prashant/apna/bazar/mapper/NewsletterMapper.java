@@ -14,4 +14,7 @@ public class NewsletterMapper {
     BeanUtils.copyProperties(newsletterDto, newsletter);
     return newsletter;
   }
+
+  //map entity to Response
+  p
 }

@@ -1,8 +1,12 @@
 package com.prashant.apna.bazar.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,8 +23,14 @@ public class NewsletterController {
   @Autowired
   private NewsletterService newsletterService;
 
+  @PostMapping
   ResponseEntity<NewsResponseDto> createNewslettter(@RequestBody NewsletterDto newsletterDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(newsletterService.createNewsletter(newsletterDto));
   }
 
+  // GetAll Newsletters
+  @GetMapping
+  ResponseEntity<List<NewsResponseDto>> getAllNewsletters() {
+    return ResponseEntity.status(HttpStatus.OK).body(newsletterService.getAllNewsletters());
+  }
 }

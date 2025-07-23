@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,15 +32,15 @@ public class CartController {
   }
 
   // update cart
-  @PutMapping
+  @PutMapping("/{id}")
   ResponseEntity<CartItemResponse> updateCartItem(@RequestBody CartItemDto cartItemDto) {
     return ResponseEntity.status(HttpStatus.OK).body(cartService.updateCart(cartItemDto));
 
   }
 
   // delete cart
-  @DeleteMapping
-  ResponseEntity<?> deleteCart(Long id) {
+  @DeleteMapping("/{id}")
+  ResponseEntity<?> deleteCart(@PathVariable Long id) {
     cartService.deleteCart(id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }

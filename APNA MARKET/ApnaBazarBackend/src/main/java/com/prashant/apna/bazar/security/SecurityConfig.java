@@ -38,7 +38,7 @@ public class SecurityConfig {
             // Protected method only authentication Admin can create data and category
             // .hasAuthority("Admin") => Looks for Admin as-is(jo tumhare DB me stored hai)
             .requestMatchers(HttpMethod.POST, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial",
-                "/product", "/cart")
+                "/product", "/cart", "/newsletter")
             .hasAnyAuthority("Admin", "Super Admin")
 
             // .hasRole("Admin") => Looks for ROLE_Admin
@@ -47,14 +47,15 @@ public class SecurityConfig {
 
             // Protected method only authentication Admin can modify
             .requestMatchers(HttpMethod.PUT, "/user/**", "/maincategory", "/subcategory", "/brand", "/testimonial",
-                "/product", "/cart")
+                "/product", "/cart", "/newsletter")
             .hasAnyAuthority("Admin", "Super Admin", "Buyer")
 
             // .requestMatchers(HttpMethod.PUT, "/user/**",
             // "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
 
             // Protected method only authentication Admin can delete
-            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial")
+            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial",
+                "/newsletter")
             .hasAnyAuthority("Admin", "Super Admin")
 
             // Buyer only

@@ -41,4 +41,12 @@ public class NewsletterService {
     return newsletterMapper.toResponse(savedNewsletter);
   }
 
+  // Delete newsletter by id
+  public NewsResponseDto deleteNewsletter(Long id) {
+    Newsletter exitNewsletter = newsletterRepo.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Newsletter not find by this id" + id));
+    newsletterRepo.delete(exitNewsletter);
+    return newsletterMapper.toResponse(exitNewsletter);
+  }
+
 }

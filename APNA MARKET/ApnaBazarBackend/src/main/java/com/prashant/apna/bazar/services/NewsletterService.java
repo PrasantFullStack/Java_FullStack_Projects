@@ -18,6 +18,7 @@ public class NewsletterService {
   @Autowired
   private NewsletterRepo newsletterRepo;
 
+  @Autowired
   private NewsletterMapper newsletterMapper;
 
   // create Newsletter

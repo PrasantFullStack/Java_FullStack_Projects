@@ -111,19 +111,19 @@ export default function AdminCreateProduct() {
       "product",
       new Blob([JSON.stringify(productInfo)], { type: "application/json" })
     );
-    if (data.pic instanceof File) {
-      formData.append("files", data.pic);
-    }
+    // if (data.pic instanceof File) {
+    //   formData.append("files", data.pic);
+    // }
 
     console.log("files", data.pic);
-    // // Append all images (if multiple selected)
-    // if (Array.isArray(data.pic)) {
-    //   data.pic.forEach((files) => {
-    //     if (files instanceof File) {
-    //       formData.append("files", files); // "files" is the backend field
-    //     }
-    //   });
-    // }
+    // Append all images (if multiple selected)
+    if (Array.isArray(data.pic)) {
+      data.pic.forEach((files) => {
+        if (files instanceof File) {
+          formData.append("files", files); // "files" is the backend field
+        }
+      });
+    }
 
     dispatch(createMultipartRecord(formData));
     toast.success("Product created successfully✅");

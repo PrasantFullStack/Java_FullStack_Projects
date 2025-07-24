@@ -44,5 +44,6 @@ public class ProfileDTO {
   @NotBlank(message = "Profile picture is required")
   private String pic;
   private String publicId; // image public id from cloudinary
+  private boolean active;
 
 }

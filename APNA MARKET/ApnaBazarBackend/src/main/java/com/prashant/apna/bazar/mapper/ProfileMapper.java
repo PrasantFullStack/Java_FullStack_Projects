@@ -21,6 +21,7 @@ public class ProfileMapper {
     entity.setCity(dto.getCity());
     entity.setState(dto.getState());
     entity.setAddress(dto.getAddress());
+    entity.setActive(dto.isActive());
     return entity;
   }
 
@@ -62,6 +63,7 @@ public class ProfileMapper {
     response.setPic(entity.getPic());
     response.setState(entity.getState());
     response.setRole(entity.getRole());
+    response.setActive(entity.isActive());
     return response;
   }
 }

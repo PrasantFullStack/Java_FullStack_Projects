@@ -32,7 +32,7 @@ public class Product {
   private double discount;
   private double finalPrice;
   private boolean stock;
-  private Long stockQuantity;
+  private Integer stockQuantity;
 
   @Column(columnDefinition = "TEXT")
   private String description;

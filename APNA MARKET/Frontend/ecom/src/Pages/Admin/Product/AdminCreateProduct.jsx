@@ -47,6 +47,7 @@ export default function AdminCreateProduct() {
 
   let [show, setShow] = useState(false);
   let navigate = useNavigate();
+  let [previewPics, setPreviewPics] = useState([]);
 
   let MaincategoryStateData = useSelector(
     (state) => state.MaincategoryStateData
@@ -70,6 +71,15 @@ export default function AdminCreateProduct() {
       if (name === "active") {
         value = value === "1" ? true : false;
       }
+    }
+
+    if (name === "pic") {
+      const files = Array.from(e.target.files);
+      value = files;
+
+      //show preview URLs
+      const previews = files.map((file) => URL.createObjectURL(file));
+      setPreviewPics(previews);
     }
 
     setErrorMessage((old) => {
@@ -123,9 +133,9 @@ export default function AdminCreateProduct() {
 
     // Append all images (if multiple selected)
     if (Array.isArray(data.pic)) {
-      data.pic.forEach((files) => {
-        if (files instanceof File) {
-          formData.append("files", files); // "files" is the backend field
+      data.pic.forEach((file) => {
+        if (file instanceof File) {
+          formData.append("files", file); // "files" is the backend field
         }
       });
     }
@@ -136,109 +146,6 @@ export default function AdminCreateProduct() {
     toast.success("Product created successfully✅");
     navigate("/admin/product");
   }
-
-  // function postData(e) {
-  //   e.preventDefault();
-  //   let bp = parseInt(data.basePrice);
-  //   let d = parseInt(data.discount);
-  //   let fp = parseInt(bp - (bp * d) / 100);
-  //   let stockQuantity = parseInt(data.stockQuantity);
-
-  //   let error = Object.values(errorMessage).find((x) => x !== "");
-  //   if (error) setShow(true);
-  //   else {
-  //     // dispatch(createProduct({
-  //     //     ...data,
-  //     //     basePrice: bp,
-  //     //     discount: d,
-  //     //     finalPrice: fp,
-  //     //     stockQuantity: stockQuantity,
-  //     //     maincategory: data.maincategory ? data.maincategory : MaincategoryStateData[0].name,
-  //     //     subcategory: data.subcategory ? data.subcategory : SubcategoryStateData[0].name,
-  //     //     brand: data.brand ? data.brand : BrandStateData[0].name,
-  //     //     description: rte.getHTMLCode()
-
-  //     // maincategory:data.maincategory?data.maincategory:MaincategoryStateData[0]._id,
-  //     // subcategory:data.subcategory?data.subcategory:SubcategoryStateData[0]._id,
-  //     // brand:data.brand?data.brand:BrandStateData[0]._id,
-  //     // }))
-
-  //     //     let formData = new FormData();
-  //     //     const maincategory =
-  //     //       data.maincategory || MaincategoryStateData?.[0]?.name || "";
-  //     //     const subcategory =
-  //     //       data.subcategory || SubcategoryStateData?.[0]?.name || "";
-  //     //     const brand = data.brand || BrandStateData?.[0]?.name || "";
-
-  //     //     const bp = parseFloat(data.basePrice) || 0;
-  //     //     const discount = parseFloat(data.discount) || 0;
-  //     //     const fp = parseFloat(data.finalPrice) || bp - (bp * discount) / 100;
-  //     //     const stockQuantity = parseInt(data.stockQuantity) || 0;
-
-  //     //     formData.append(
-  //     //       "data",
-  //     //       new Blob(
-  //     //         [
-  //     //           JSON.stringify({
-  //     //             name: data.name,
-  //     //             maincategory,
-  //     //             subcategory,
-  //     //             brand,
-  //     //             color: data.color,
-  //     //             size: data.size,
-  //     //             basePrice: bp,
-  //     //             discount,
-  //     //             finalPrice: fp,
-  //     //             stock: data.stock,
-  //     //             stockQuantity,
-  //     //             description: rte?.getHTMLCode() || "",
-  //     //             active: data.active,
-  //     //           }),
-  //     //         ],
-  //     //         { type: "application/json" }
-  //     //       )
-  //     //     );
-
-  //     //     if (Array.isArray(data.pic)) {
-  //     //       data.pic.forEach((file) => {
-  //     //         if (file instanceof File) {
-  //     //           formData.append("files", file, file.name);
-  //     //         }
-  //     //       });
-  //     //     }
-  //     const formData = new FormData();
-  //     formData.append(
-  //       "data",
-  //       new Blob(
-  //         [
-  //           JSON.stringify({
-  //             name: data.name,
-  //             maincategory: data.maincategory,
-  //             subcategory: data.subcategory,
-  //             brand: data.brand,
-  //             color: data.color,
-  //             size: data.size,
-  //             basePrice: bp,
-  //             discount: discount,
-  //             finalPrice: fp,
-  //             stock: data.stock,
-  //             stockQuantity: stockQuantity,
-  //             description: rte.getHTMLCode(),
-  //             active: data.active,
-  //           }),
-  //         ],
-  //         { type: "application/json" }
-  //       )
-  //     );
-
-  //     if (data.pic instanceof File) {
-  //       formData.append("files", data.pic);
-  //     }
-
-  //     dispatch(createMultipartRecord(formData));
-  //     navigate("/admin/product");
-  //   }
-  // }
 
   useEffect(() => {
     dispatch(getMaincategory());

@@ -60,6 +60,7 @@ export default function AdminCreateProduct() {
 
     // for dummyServer
     // var value = e.target.files && e.target.files.length ? Array.from(e.target.files).map(x => "product/" + x.name) : e.target.value
+
     var value;
     if (name === "pic") {
       // multiple image selection support
@@ -119,11 +120,7 @@ export default function AdminCreateProduct() {
       "product",
       new Blob([JSON.stringify(productInfo)], { type: "application/json" })
     );
-    // if (data.pic instanceof File) {
-    //   formData.append("files", data.pic);
-    // }
 
-    console.log("files", data.pic);
     // Append all images (if multiple selected)
     if (Array.isArray(data.pic)) {
       data.pic.forEach((files) => {
@@ -132,6 +129,8 @@ export default function AdminCreateProduct() {
         }
       });
     }
+
+    console.log("Final images going to backend:", data.pic);
 
     dispatch(createMultipartRecord(formData));
     toast.success("Product created successfully✅");

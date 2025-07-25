@@ -81,7 +81,7 @@ export default function AdminCreateProduct() {
     setData((old) => {
       return {
         ...old,
-        [name]: name === "active" ? (value === "1" ? true : false) : value,
+        [name]: value,
       };
     });
   }

@@ -66,6 +66,9 @@ export default function AdminCreateProduct() {
     if (name === "pic") {
       // multiple image selection support
       value = Array.from(e.target.files); // converts FileList to Array of File
+      //show preview URLs
+      const previews = files.map((file) => URL.createObjectURL(file));
+      setPreviewPics(previews);
     } else {
       value = e.target.value;
       if (name === "active") {
@@ -73,14 +76,14 @@ export default function AdminCreateProduct() {
       }
     }
 
-    if (name === "pic") {
-      const files = Array.from(e.target.files);
-      value = files;
+    // if (name === "pic") {
+    //   const files = Array.from(e.target.files);
+    //   value = files;
 
-      //show preview URLs
-      const previews = files.map((file) => URL.createObjectURL(file));
-      setPreviewPics(previews);
-    }
+    //   //show preview URLs
+    //   const previews = files.map((file) => URL.createObjectURL(file));
+    //   setPreviewPics(previews);
+    // }
 
     setErrorMessage((old) => {
       return {

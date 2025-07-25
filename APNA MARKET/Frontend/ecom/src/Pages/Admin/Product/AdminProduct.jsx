@@ -95,7 +95,6 @@ export default function AdminProduct() {
                         <td>{item.stockQuantity}</td>
                         <td>
                           <div className="product-table-images">
-                            return (
                             <Link to={item.pic} target="_blank">
                               <img
                                 className="me-3 mb-3"
@@ -105,7 +104,6 @@ export default function AdminProduct() {
                                 alt=""
                               />
                             </Link>
-                            );
                           </div>
                         </td>
                         <td>{item.active ? "Yes" : "No"}</td>

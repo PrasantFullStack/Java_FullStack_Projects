@@ -57,11 +57,19 @@ export default function AdminCreateProduct() {
 
   function getInputData(e) {
     var name = e.target.name;
+
+    // for dummyServer
     // var value = e.target.files && e.target.files.length ? Array.from(e.target.files).map(x => "product/" + x.name) : e.target.value
-    var value =
-      e.target.files && e.target.files.length
-        ? e.target.files[0]
-        : e.target.value;
+    var value;
+    if (name === "pic") {
+      // multiple image selection support
+      value = Array.from(e.target.files); // converts FileList to Array of File
+    } else {
+      value = e.target.value;
+      if (name === "active") {
+        value = value === "1" ? true : false;
+      }
+    }
 
     setErrorMessage((old) => {
       return {

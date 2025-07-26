@@ -27,6 +27,8 @@ public class NewsletterService {
     Newsletter newsletter = newsletterMapper.toEntity(newsletterDto);
     // save entity
     Newsletter savedNewsletter = newsletterRepo.save(newsletter);
+    System.out.println("Email: " + newsletterDto.getEmail());
+
     return newsletterMapper.toResponse(savedNewsletter);
   }
 

@@ -72,6 +72,7 @@ export default function AdminProduct() {
                     <th>Stock</th>
                     <th>Stock Quantity</th>
                     <th>Pic</th>
+
                     <th>Active</th>
                     <th></th>
                     <th></th>
@@ -115,6 +116,7 @@ export default function AdminProduct() {
                             ))}
                           </div>
                         </td>
+
                         <td>{item.active ? "Yes" : "No"}</td>
                         <td>
                           <Link

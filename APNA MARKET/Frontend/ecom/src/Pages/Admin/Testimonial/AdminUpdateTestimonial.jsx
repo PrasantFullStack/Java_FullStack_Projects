@@ -11,6 +11,7 @@ import {
   getTestimonial,
   updateMultipartRecord,
 } from "../../../Redux/ActionCreators/TestimonialActionCreators";
+import { createMultipartRecord } from "../../../Redux/ActionCreators/ProductActionCreators";
 export default function AdminUpdateTestimonial() {
   let { id } = useParams();
   let [data, setData] = useState({
@@ -34,11 +35,14 @@ export default function AdminUpdateTestimonial() {
 
   function getInputData(e) {
     var name = e.target.name;
+    // var value =
+    //   e.target.files && e.target.files.length
+    //     ? "testimonial/" + e.target.files[0].name
+    //     : e.target.value;
     var value =
       e.target.files && e.target.files.length
-        ? "testimonial/" + e.target.files[0].name
+        ? e.target.files[0]
         : e.target.value;
-    // var value = e.target.files && e.target.files.length ? e.target.files[0] : e.target.value
 
     setErrorMessage((old) => {
       return {
@@ -73,14 +77,22 @@ export default function AdminUpdateTestimonial() {
         });
         return;
       }
-      dispatch(updateMultipartRecord({ ...data }));
-      // let formData = new FormData()
-      // formData.append("_id", data._id)
-      // formData.append("name", data.name)
-      // formData.append("pic", data.pic)
-      // formData.append("message", data.message)
-      // formData.append("active", data.active)
-      // dispatch(createTestimonial(formData))
+
+      let formData = new FormData();
+      formData.append("id", data.id);
+      formData.append(
+        "data",
+        JSON.stringify({
+          name: data.name,
+          message: data.message,
+          active: data.active,
+        })
+      );
+
+      if (data.pic instanceof File) {
+        formData.append("pic", data.pic);
+      }
+      dispatch(createMultipartRecord(formData));
 
       navigate("/admin/testimonial");
     }

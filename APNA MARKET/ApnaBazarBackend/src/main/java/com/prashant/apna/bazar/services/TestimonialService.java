@@ -84,7 +84,10 @@ public class TestimonialService {
       dto.setPic(existTestimonial.getPic());
       dto.setPublicId(existTestimonial.getPublicId());
     }
-    testimonialMappar.updateEntityFromDto(dto, existTestimonial);
+    dto.setActive(dto.isActive());
+    dto.setName(dto.getName());
+    dto.setPic(dto.getPic());
+    testimonialMappar.toEntity(dto);
 
     // Save updated testimonial
     Testimonial updated = testimonialRepo.save(existTestimonial);

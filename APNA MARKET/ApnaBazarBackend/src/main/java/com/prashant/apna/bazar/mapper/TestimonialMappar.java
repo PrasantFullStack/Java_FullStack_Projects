@@ -31,12 +31,4 @@ public class TestimonialMappar {
     return response;
   }
 
-  // Update existing entity from DTO
-  public void updateEntityFromDto(TestimonialDto dto, Testimonial existTestimonial) {
-    if (dto.getName() != null) {
-      existTestimonial.setName(dto.getName());
-    }
-
-    existTestimonial.setActive(dto.isActive());
-  }
 }

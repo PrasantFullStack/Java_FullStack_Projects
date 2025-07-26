@@ -164,7 +164,7 @@ export default function ProductPage() {
                   return (
                     <img
                       key={index}
-                      src={`${process.env.REACT_APP_BACKEND_SERVER}${item}`}
+                      src={item.pic[0]}
                       data-bs-target="#carouselExampleIndicators"
                       data-bs-slide-to={index}
                       height={100}

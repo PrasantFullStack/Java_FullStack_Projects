@@ -34,7 +34,7 @@ export default function CategorySlider({ title }) {
     freeMode: true,
     loop: true,
     autoplay: {
-      delay: 3000, // 3 seconds auto-scroll
+      delay: 6000, // 6 seconds auto-scroll
       disableOnInteraction: false,
     },
     pagination: {

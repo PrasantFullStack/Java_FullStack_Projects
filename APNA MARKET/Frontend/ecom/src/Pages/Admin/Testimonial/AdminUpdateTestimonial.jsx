@@ -79,7 +79,7 @@ export default function AdminUpdateTestimonial() {
       }
 
       let formData = new FormData();
-      formData.append("id", data.id);
+      formData.append("id", id);
       formData.append(
         "data",
         JSON.stringify({
@@ -101,9 +101,9 @@ export default function AdminUpdateTestimonial() {
   useEffect(() => {
     dispatch(getTestimonial());
     if (TestimonialStateData.length) {
-      setData(TestimonialStateData.find((x) => x.id === id));
+      setData(TestimonialStateData.find((x) => x.id === Number(id)));
     }
-  }, [TestimonialStateData.length]);
+  }, [id, TestimonialStateData.length]);
   return (
     <>
       <Breadcrum title="Admin" />

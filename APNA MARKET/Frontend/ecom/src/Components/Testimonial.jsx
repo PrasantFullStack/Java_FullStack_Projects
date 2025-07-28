@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
+import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules"; // ✅ added Autoplay
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 import { getTestimonial } from "../Redux/ActionCreators/TestimonialActionCreators";
+
 export default function Testimonial() {
   let TestimonialStateData = useSelector((state) => state.TestimonialStateData);
   let dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function Testimonial() {
     pagination: {
       clickable: true,
     },
-    modules: [EffectCoverflow, Pagination, Autoplay],
+    modules: [EffectCoverflow, Pagination, Autoplay], // added Autoplay here
     className: "mySwiper",
   };
 
@@ -40,6 +41,7 @@ export default function Testimonial() {
   useEffect(() => {
     dispatch(getTestimonial());
   }, [TestimonialStateData.length]);
+
   return (
     <>
       <section id="testimonials" className="testimonials section">

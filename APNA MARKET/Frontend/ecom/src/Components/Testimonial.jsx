@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -20,10 +20,14 @@ export default function Testimonial() {
     spaceBetween: 50,
     freeMode: true,
     loop: true,
+    autoplay: {
+      delay: 3000, // 3 seconds auto-scroll
+      disableOnInteraction: false,
+    },
     pagination: {
       clickable: true,
     },
-    modules: [EffectCoverflow, Pagination],
+    modules: [EffectCoverflow, Pagination, Autoplay],
     className: "mySwiper",
   };
 

@@ -142,17 +142,8 @@ export default function Cart({ title, data }) {
                   return (
                     <tr key={item.id}>
                       <td>
-                        <Link
-                          to={`${process.env.REACT_APP_BACKEND_SERVER}${item.pic}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <img
-                            src={`${process.env.REACT_APP_BACKEND_SERVER}${item.pic}`}
-                            width={80}
-                            height={50}
-                            alt=""
-                          />
+                        <Link to={item.pic} target="_blank" rel="noreferrer">
+                          <img src={item.pic} width={80} height={50} alt="" />
                         </Link>
                       </td>
                       <td>{item.name}</td>

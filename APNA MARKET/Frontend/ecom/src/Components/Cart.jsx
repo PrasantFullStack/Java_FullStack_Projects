@@ -20,7 +20,8 @@ export default function Cart({ title, data }) {
   let [mode, setMode] = useState("COD");
 
   let CartStateData = useSelector((state) => state.CartStateData);
-  let ProductStateData = useSelector((state) => state.ProductStateData);
+  let ProductStateData = useSelector((state) => state.ProductStateData || []);
+
   let dispatch = useDispatch();
 
   let navigate = useNavigate();

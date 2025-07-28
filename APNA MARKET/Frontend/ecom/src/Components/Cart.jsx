@@ -40,11 +40,16 @@ export default function Cart({ title, data }) {
     dispatch(createCheckout(item));
 
     cart.forEach((cartItem) => {
-      let product = ProductStateData.find((x) => x.id === cartItem.product);
-      product.stockQuantity = product.stockQuantity - cartItem.qty;
-      product.stock = product.stockQuantity === 0 ? false : true;
-      dispatch(updateMultipartRecord({ ...product }));
-      dispatch(deleteCart({ id: cartItem.id }));
+      let product = ProductStateData.find(
+        (x) => x && x.id === cartItem.product
+      );
+      if (product) {
+        product.stockQuantity = product.stockQuantity - cartItem.qty;
+        product.stock = product.stockQuantity === 0 ? false : true;
+        dispatch(updateMultipartRecord({ ...product }));
+      } else {
+        console.warn("Product not found for cartItem:", cartItem);
+      }
     });
 
     navigate("/order-confirmation");

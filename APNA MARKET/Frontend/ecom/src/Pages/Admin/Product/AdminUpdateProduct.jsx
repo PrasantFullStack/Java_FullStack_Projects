@@ -62,13 +62,16 @@ export default function AdminUpdateProduct() {
 
   function getInputData(e) {
     var name = e.target.name;
-    var value =
-      e.target.files && e.target.files.length
-        ? data.pic.concat(
-            Array.from(e.target.files).map((x) => "product/" + x.name)
-          )
-        : e.target.value;
-    // var value = e.target.files && e.target.files.length ? e.target.files[0] : e.target.value
+    var value;
+    if (name === "pic") {
+      // multiple image selection support
+      value = Array.from(e.target.files); // converts FileList to Array of File
+    } else {
+      value = e.target.value;
+      if (name === "active") {
+        value = value === "1" ? true : false;
+      }
+    }
 
     setErrorMessage((old) => {
       return {
@@ -181,6 +184,14 @@ export default function AdminUpdateProduct() {
   };
 
   useEffect(() => {
+    if (!id) {
+      console.error("No product ID in URL");
+      return;
+    }
+    // fetch or find product with id
+  }, [id]);
+
+  useEffect(() => {
     dispatch(getMaincategory());
   }, [MaincategoryStateData.length]);
 
@@ -200,7 +211,7 @@ export default function AdminUpdateProduct() {
       rte = new window.RichTextEditor(refdiv.current);
       rte.setHTMLCode(item.description);
     }
-  }, [ProductStateData.length]);
+  }, [id, ProductStateData.length]);
   return (
     <>
       <Breadcrum title="Admin" />

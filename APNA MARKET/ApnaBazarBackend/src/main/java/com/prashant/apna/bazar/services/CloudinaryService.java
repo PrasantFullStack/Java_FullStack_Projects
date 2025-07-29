@@ -73,7 +73,7 @@ public class CloudinaryService {
   }
 
   // update multiple image wit public ids in cloudinary
-  public List<Map<String, String>> updateImage(MultipartFile[] files, String folder, List<String> oldPublicIds)
+  public List<Map<String, String>> updateImage(MultipartFile[] files, List<String> oldPublicIds, String folder)
       throws IOException {
     // step 1 delete publicIds
     for (String publicIds : oldPublicIds) {
@@ -128,12 +128,6 @@ public class CloudinaryService {
   public String deleteImage(String public_id) throws IOException {
     Map<?, ?> result = cloudinary.uploader().destroy(public_id, ObjectUtils.emptyMap());
     return result.get("result").toString(); // "ok" if deleted
-  }
-
-  public List<Map<String, String>> updateMultipleImages(MultipartFile[] newFiles, List<String> oldPublicIds,
-      String string) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'updateMultipleImages'");
   }
 
 }

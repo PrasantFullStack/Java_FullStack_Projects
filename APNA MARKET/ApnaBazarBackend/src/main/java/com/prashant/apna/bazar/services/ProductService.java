@@ -64,15 +64,15 @@ public class ProductService {
   }
 
   // update product logic
-  public List<ProductResponseDto> updateProduct(Long id, ProductDTO productDTO, MultipartFile[] newFiles) {
-    if (newFiles == null || newFiles.length == 0)
+  public ProductResponseDto updateProduct(Long id, ProductDTO productDTO, MultipartFile[] files) throws IOException {
+    if (files == null || files.length == 0)
       throw new IllegalArgumentException("At least one product image is required.");
     Product existProduct = productRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Product not by id"));
     // Delete and re-upload
     List<String> oldPublicIds = existProduct.getImagePublicIds(); // assume stored
-    List<Map<String, String>> newImageData = cloudinaryService.updateMultipleImages(
-        newFiles, oldPublicIds, "apna-bazar/products");
+    List<Map<String, String>> newImageData = cloudinaryService.updateImage(
+        files, oldPublicIds, "apna-bazar/products");
 
     List<String> imageUrls = newImageData.stream()
         .map(img -> img.get("secure_url"))
@@ -88,7 +88,7 @@ public class ProductService {
     Product product = productMapper.toProductEntity(productDTO);
     Product savedProduct = productRepo.save(product);
 
-    return (List<ProductResponseDto>) productMapper.toResponseProduct(savedProduct);
+    return productMapper.toResponseProduct(savedProduct);
 
   }
 

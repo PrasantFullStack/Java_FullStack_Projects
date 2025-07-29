@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prashant.apna.bazar.entities.Product;
+import com.prashant.apna.bazar.exception.ResourceNotFoundException;
 import com.prashant.apna.bazar.mapper.ProductMapper;
 import com.prashant.apna.bazar.payload.request.ProductDTO;
 import com.prashant.apna.bazar.payload.response.ProductResponseDto;
@@ -49,10 +50,10 @@ public class ProductService {
 
     // step:4 Convert DTO to entity and Save to entity
     Product product = productMapper.toProductEntity(productDTO);
-    Product saveProduct = productRepo.save(product);
+    Product savedProduct = productRepo.save(product);
 
     // step: 5 convert entity to response dto and return
-    return productMapper.toResponseProduct(saveProduct);
+    return productMapper.toResponseProduct(savedProduct);
 
   }
 
@@ -63,9 +64,31 @@ public class ProductService {
   }
 
   // update product logic
-  public ProductResponseDto updateProduct(Long id, ProductDTO productDTO, MultipartFile[] files) {
-    if (files == null || files.length == 0)
+  public List<ProductResponseDto> updateProduct(Long id, ProductDTO productDTO, MultipartFile[] newFiles) {
+    if (newFiles == null || newFiles.length == 0)
       throw new IllegalArgumentException("At least one product image is required.");
+    Product existProduct = productRepo.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Product not by id"));
+    // Delete and re-upload
+    List<String> oldPublicIds = existProduct.getImagePublicIds(); // assume stored
+    List<Map<String, String>> newImageData = cloudinaryService.updateMultipleImages(
+        newFiles, oldPublicIds, "apna-bazar/products");
+
+    List<String> imageUrls = newImageData.stream()
+        .map(img -> img.get("secure_url"))
+        .collect(Collectors.toList());
+
+    List<String> publicIds = newImageData.stream()
+        .map(img -> img.get("public_id"))
+        .collect(Collectors.toList());
+
+    productDTO.setImages(imageUrls);
+    productDTO.setImagePublicIds(publicIds);
+
+    Product product = productMapper.toProductEntity(productDTO);
+    Product savedProduct = productRepo.save(product);
+
+    return (List<ProductResponseDto>) productMapper.toResponseProduct(savedProduct);
 
   }
 

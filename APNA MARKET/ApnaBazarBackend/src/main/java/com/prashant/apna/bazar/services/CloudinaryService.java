@@ -130,4 +130,10 @@ public class CloudinaryService {
     return result.get("result").toString(); // "ok" if deleted
   }
 
+  public List<Map<String, String>> updateMultipleImages(MultipartFile[] newFiles, List<String> oldPublicIds,
+      String string) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'updateMultipleImages'");
+  }
+
 }

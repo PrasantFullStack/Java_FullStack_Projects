@@ -18,9 +18,9 @@ public class ProductMapper {
   }
 
   // Map Product Entity to ResponseDto
-  public ProductResponseDto toResponseProduct(Product product) {
+  public ProductResponseDto toResponseProduct(Product savedProduct) {
     ProductResponseDto response = new ProductResponseDto();
-    BeanUtils.copyProperties(product, response);
+    BeanUtils.copyProperties(savedProduct, response);
     return response;
   }
 }

@@ -62,4 +62,11 @@ public class ProductService {
 
   }
 
+  // update product logic
+  public ProductResponseDto updateProduct(Long id, ProductDTO productDTO, MultipartFile[] files) {
+    if (files == null || files.length == 0)
+      throw new IllegalArgumentException("At least one product image is required.");
+
+  }
+
 }

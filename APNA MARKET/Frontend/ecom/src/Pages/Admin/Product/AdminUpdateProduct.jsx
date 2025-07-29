@@ -145,7 +145,7 @@ export default function AdminUpdateProduct() {
 
     const formData = new FormData();
     formData.append(
-      "data",
+      "product",
       new Blob(
         [
           JSON.stringify({
@@ -160,7 +160,7 @@ export default function AdminUpdateProduct() {
             finalPrice: fp,
             stock: data.stock,
             stockQuantity: stockQuantity,
-            description: rte.getHTMLCode(),
+            description: rte.getHTMLCode() || data.description,
             active: data.active,
           }),
         ],
@@ -168,8 +168,12 @@ export default function AdminUpdateProduct() {
       )
     );
 
-    if (data.pic instanceof File) {
-      formData.append("pic", data.pic);
+    if (Array.isArray(data.pic)) {
+      data.pic.forEach((file) => {
+        if (file instanceof File) {
+          formData.append("files", file);
+        }
+      });
     }
 
     dispatch(updateMultipartRecord(formData));
@@ -191,7 +195,7 @@ export default function AdminUpdateProduct() {
   useEffect(() => {
     dispatch(getProduct());
     if (ProductStateData.length) {
-      let item = ProductStateData.find((x) => x.id === id);
+      let item = ProductStateData.find((x) => x.id === Number(id));
       setData({ ...item });
       rte = new window.RichTextEditor(refdiv.current);
       rte.setHTMLCode(item.description);
@@ -449,7 +453,7 @@ export default function AdminUpdateProduct() {
                             data.pic.splice(index, 1);
                             setFlag(!flag);
                           }}
-                          src={`${process.env.REACT_APP_BACKEND_SERVER}${item}`}
+                          src={item}
                           height={80}
                           width={80}
                           className="me-1 mb-1"

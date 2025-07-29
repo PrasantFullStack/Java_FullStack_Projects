@@ -72,6 +72,30 @@ public class CloudinaryService {
 
   }
 
+  // update multiple image wit public ids in cloudinary
+  public List<Map<String, String>> updateImage(MultipartFile[] files, String folder, List<String> oldPublicIds)
+      throws IOException {
+    // step 1 delete publicIds
+    for (String publicIds : oldPublicIds) {
+      deleteImageByPublicId(publicIds);
+    }
+    // Step 2: Upload new images
+    List<Map<String, String>> uploadedImages = new ArrayList<>();
+
+    for (MultipartFile file : files) {
+      Map uploadResult = uploadImage(file, folder);
+      uploadedImages.add(Map.of(
+          "secure_url", uploadResult.get("secure_url").toString(),
+          "public_id", uploadResult.get("public_id").toString()));
+    }
+    return uploadedImages;
+
+  }
+
+  public void deleteImageByPublicId(String publicIds) throws IOException {
+    cloudinary.uploader().destroy(publicIds, ObjectUtils.emptyMap());
+  }
+
   // Update image with public ID
   public Map<String, String> updateImageWithPublicId(MultipartFile file, String folder, String oldPublicId)
       throws IOException {

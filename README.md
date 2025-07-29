@@ -209,7 +209,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
  - 📧 Email: ps2702204@gmail.com
 - 🌐 GitHub: https://github.com/PrasantFullStack
 - 🔗 LinkedIn: https://www.linkedin.com/in/prasant-singh-745ba1353/
-- ▶️ YouTube: https://www.youtube.com/@LearnWithPrashantSingh
+- ▶️ YouTube: https://www.youtube.com/@PrashantFullStack
 - 💼 Naukri: https://www.naukri.com/mnjuser/profile
 - 🚀 Hiriest: https://www.hirist.tech/myprofile
  

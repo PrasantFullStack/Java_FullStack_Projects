@@ -46,7 +46,7 @@ public class ProductController {
 
   // update product
   @PutMapping("/{id}")
-  ResponseEntity<List<ProductResponseDto>> updateProduct(@PathVariable Long id,
+  ResponseEntity<ProductResponseDto> updateProduct(@PathVariable Long id,
       @RequestPart("product") ProductDTO productDTO,
       @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {
     return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, productDTO, files));

@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,4 +43,14 @@ public class ProductController {
   ResponseEntity<List<ProductResponseDto>> getAlProduct() {
     return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProduct());
   }
+
+  // update product
+  @PutMapping("/{id}")
+  ResponseEntity<List<ProductResponseDto>> updateProduct(@PathVariable Long id,
+      @RequestPart("product") ProductDTO productDTO,
+      @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {
+    return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, productDTO, files));
+
+  }
+
 }

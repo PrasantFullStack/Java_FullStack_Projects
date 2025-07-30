@@ -1,10 +1,18 @@
-package com.prashant.apna.bazar.payload.response;
+// package com.prashant.apna.bazar.payload.response;
 
-import java.util.List;
+// import java.util.List;
 
-import com.prashant.apna.bazar.payload.request.CloudinaryImageDto;
+// import com.prashant.apna.bazar.payload.request.CloudinaryImageDto;
 
-public class CloudinaryResponseDto {
-  private String message;
-  private List<CloudinaryImageDto> images;
-}
+// import lombok.AllArgsConstructor;
+// import lombok.Data;
+// import lombok.NoArgsConstructor;
+
+// @Data
+// @AllArgsConstructor
+// @NoArgsConstructor
+// public class CloudinaryResponseDto {
+// private String message;
+// private List<CloudinaryImageDto> images;
+
+// }

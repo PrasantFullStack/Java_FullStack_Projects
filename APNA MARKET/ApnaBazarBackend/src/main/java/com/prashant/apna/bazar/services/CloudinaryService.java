@@ -148,7 +148,7 @@ public class CloudinaryService {
 
   }
 
-  // update multiple image wit public ids in cloudinary
+  // update multiple image with public ids in cloudinary
   public List<Map<String, String>> updateImage(MultipartFile[] files, List<String> oldPublicIds, String folder)
       throws IOException {
     // step 1 delete publicIds
@@ -168,6 +168,7 @@ public class CloudinaryService {
 
   }
 
+  // delete image by public id
   public void deleteImageByPublicId(String publicIds) throws IOException {
     cloudinary.uploader().destroy(publicIds, ObjectUtils.emptyMap());
   }

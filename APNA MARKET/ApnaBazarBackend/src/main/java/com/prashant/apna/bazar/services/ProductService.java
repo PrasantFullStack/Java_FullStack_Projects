@@ -92,4 +92,11 @@ public class ProductService {
 
   }
 
+  // Get product by id
+  public ProductResponseDto getProductById(Long id) {
+    Product existproduct = productRepo.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Product not found by id"));
+    return productMapper.toResponseProduct(existproduct);
+  }
+
 }

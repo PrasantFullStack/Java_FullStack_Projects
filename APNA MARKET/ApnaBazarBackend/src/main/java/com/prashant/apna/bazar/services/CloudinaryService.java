@@ -37,11 +37,11 @@ public class CloudinaryService {
       throw new IOException("File too large. Max allowed: " + (maxSize / (1024 * 1024)) + "MB");
     }
 
-    Map<String, Object> options = new HashMap<>();
+    Map<String, String> options = new HashMap<>();
     options.put("folder", folder);
     options.put("resource_type", "auto"); // auto detect image or video
 
-    Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(), options);
+    Map<String, String> uploadResult = cloudinary.uploader().upload(file.getBytes(), options);
 
     return new CloudinaryImageDto(
         uploadResult.get("secure_url").toString(),

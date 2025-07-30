@@ -82,8 +82,8 @@ public class ProductService {
         .map(img -> img.get("public_id"))
         .collect(Collectors.toList());
 
-    productDTO.setImages(imageUrls);
-    productDTO.setImagePublicIds(publicIds);
+    productDTO.setPic(imageUrls);
+    productDTO.setPublicId(publicIds);
 
     Product product = productMapper.toProductEntity(productDTO);
     Product savedProduct = productRepo.save(product);

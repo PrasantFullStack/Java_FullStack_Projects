@@ -10,4 +10,9 @@ import lombok.NoArgsConstructor;
 public class CloudinaryImageDto {
   private String secureUrl;
   private String publicId;
+
+  public Object get(String string) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'get'");
+  }
 }

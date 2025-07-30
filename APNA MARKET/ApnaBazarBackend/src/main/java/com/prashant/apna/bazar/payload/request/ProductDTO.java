@@ -27,14 +27,4 @@ public class ProductDTO {
   private List<String> pic;
   private boolean active;
 
-  public void setImagePublicIds(List<String> publicIds) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setImagePublicIds'");
-  }
-
-  public void setImages(List<String> imageUrls) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setImages'");
-  }
-
 }

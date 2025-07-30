@@ -1,23 +1,21 @@
-// package com.prashant.apna.bazar.mapper;
+package com.prashant.apna.bazar.mapper;
 
-// import com.prashant.apna.bazar.payload.request.CloudinaryImageDto;
-// import com.prashant.apna.bazar.services.CloudinaryService;
-// import org.springframework.stereotype.Component;
+import com.prashant.apna.bazar.payload.request.CloudinaryImageDto;
 
-// import java.util.List;
-// import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
-// @Component
-// public class CloudinaryMapper {
+import java.util.List;
+import java.util.stream.Collectors;
 
-// public com.prashant.apna.bazar.payload.request.CloudinaryImageDto
-// toDto(CloudinaryService.CloudinaryImage image) {
-// return new CloudinaryImageDto(image.getSecureUrl(), image.getPublicId());
-// }
+@Component
+public class CloudinaryMapper {
 
-// public List<com.prashant.apna.bazar.payload.request.CloudinaryImageDto>
-// toDtoList(
-// List<CloudinaryService.CloudinaryImage> images) {
-// return images.stream().map(this::toDto).collect(Collectors.toList());
-// }
-// }
+  public CloudinaryImageDto toDto(CloudinaryImageDto image) {
+    return new CloudinaryImageDto(image.getSecureUrl(), image.getPublicId());
+  }
+
+  public List<CloudinaryImageDto> toDtoList(
+      List<CloudinaryImageDto> images) {
+    return images.stream().map(this::toDto).collect(Collectors.toList());
+  }
+}

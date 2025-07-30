@@ -70,7 +70,7 @@ public class ProductService {
     Product existProduct = productRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Product not by id"));
     // Delete and re-upload
-    List<String> oldPublicIds = existProduct.getImagePublicIds(); // assume stored
+    List<String> oldPublicIds = existProduct.getPublicId(); // assume stored
     List<Map<String, String>> newImageData = cloudinaryService.updateImage(
         files, oldPublicIds, "apna-bazar/products");
 

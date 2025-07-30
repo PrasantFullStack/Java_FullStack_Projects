@@ -147,6 +147,7 @@ export default function AdminUpdateProduct() {
     const fp = parseInt(bp - (bp * discount) / 100);
 
     const formData = new FormData();
+    formData.append("id", id);
     formData.append(
       "product",
       new Blob(
@@ -206,7 +207,7 @@ export default function AdminUpdateProduct() {
   useEffect(() => {
     dispatch(getProduct());
     if (ProductStateData.length) {
-      let item = ProductStateData.find((x) => x.id === Number(id));
+      let item = ProductStateData.find((x) => x.id === parseInt(id));
       setData({ ...item });
       rte = new window.RichTextEditor(refdiv.current);
       rte.setHTMLCode(item.description);

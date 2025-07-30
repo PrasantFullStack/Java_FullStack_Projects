@@ -97,22 +97,15 @@ export default function AdminProduct() {
                         <td>
                           <div className="product-table-images">
                             {item.pic?.map((imageUrl, index) => (
-                              <a
-                                href={imageUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                key={index}
-                              >
-                                <Link to={imageUrl} target="_blank">
-                                  <img
-                                    className="me-3 mb-3"
-                                    src={imageUrl}
-                                    height={80}
-                                    width={80}
-                                    alt={`Product image ${index + 1}`}
-                                  />
-                                </Link>
-                              </a>
+                              <Link to={imageUrl} target="_blank">
+                                <img
+                                  className="me-3 mb-3"
+                                  src={imageUrl}
+                                  height={80}
+                                  width={80}
+                                  alt={`Product image ${index + 1}`}
+                                />
+                              </Link>
                             ))}
                           </div>
                         </td>

@@ -49,8 +49,4 @@ public class Product {
 
   private Boolean active;
 
-  public List<String> getImagePublicIds() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getImagePublicIds'");
-  }
 }

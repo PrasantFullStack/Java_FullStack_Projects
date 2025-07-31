@@ -39,7 +39,7 @@ public class SecurityConfig {
             // .hasAuthority("Admin") => Looks for Admin as-is(jo tumhare DB me stored hai)
             .requestMatchers(HttpMethod.POST, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial",
                 "/product", "/cart", "/newsletter")
-            .hasAnyAuthority("Admin", "Super Admin")
+            .hasAnyAuthority("Admin", "Super Admin", "Buyer")
 
             // .hasRole("Admin") => Looks for ROLE_Admin
             // .hasAnyRole("Admin", "Buyer", "Seller") => Looks for ROLE_Admin, ROLE_Buyer,
@@ -54,8 +54,7 @@ public class SecurityConfig {
             // "/maincategory").hasAnyRole("Admin", "Buyer", "Seller")
 
             // Protected method only authentication Admin can delete
-            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial",
-                "/newsletter")
+            .requestMatchers(HttpMethod.DELETE, "/user", "/maincategory", "/subcategory", "/brand", "/testimonial")
             .hasAnyAuthority("Admin", "Super Admin")
 
             // Buyer only

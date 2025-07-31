@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.prashant.apna.bazar.payload.request.CloudinaryImageDto;
 
 @Service
 public class CloudinaryService {
@@ -21,96 +18,101 @@ public class CloudinaryService {
   @Autowired
   private Cloudinary cloudinary;
 
-  public CloudinaryImageDto uploadMedia(MultipartFile file, String folder)
-      throws IOException {
-    if (file == null || file.isEmpty()) {
-      throw new IOException("File is empty or null");
-    }
+  // public CloudinaryImageDto uploadMedia(MultipartFile file, String folder)
+  // throws IOException {
+  // if (file == null || file.isEmpty()) {
+  // throw new IOException("File is empty or null");
+  // }
 
-    // Max size check (Images: 2MB, Videos: 100MB)
-    long maxSize = file.getContentType() != null &&
-        file.getContentType().startsWith("video")
-            ? 100 * 1024 * 1024 // 100 MB for video
-            : 2 * 1024 * 1024; // 2 MB for images
+  // // Max size check (Images: 2MB, Videos: 100MB)
+  // long maxSize = file.getContentType() != null &&
+  // file.getContentType().startsWith("video")
+  // ? 100 * 1024 * 1024 // 100 MB for video
+  // : 2 * 1024 * 1024; // 2 MB for images
 
-    if (file.getSize() > maxSize) {
-      throw new IOException("File too large. Max allowed: " + (maxSize / (1024 * 1024)) + "MB");
-    }
+  // if (file.getSize() > maxSize) {
+  // throw new IOException("File too large. Max allowed: " + (maxSize / (1024 *
+  // 1024)) + "MB");
+  // }
 
-    Map<String, String> options = new HashMap<>();
-    options.put("folder", folder);
-    options.put("resource_type", "auto"); // auto detect image or video
+  // Map<String, String> options = new HashMap<>();
+  // options.put("folder", folder);
+  // options.put("resource_type", "auto"); // auto detect image or video
 
-    Map<String, String> uploadResult = cloudinary.uploader().upload(file.getBytes(), options);
+  // Map<String, String> uploadResult =
+  // cloudinary.uploader().upload(file.getBytes(), options);
 
-    return new CloudinaryImageDto(
-        uploadResult.get("secure_url").toString(),
-        uploadResult.get("public_id").toString());
-  }
+  // return new CloudinaryImageDto(
+  // uploadResult.get("secure_url").toString(),
+  // uploadResult.get("public_id").toString());
+  // }
 
-  public List<CloudinaryImageDto> uploadMultipleMedia(MultipartFile[] files,
-      String folder) throws IOException {
-    List<CloudinaryImageDto> uploaded = new ArrayList<>();
-    for (MultipartFile file : files) {
-      if (file != null && !file.isEmpty()) {
-        uploaded.add(uploadMedia(file, folder)); // call universal upload
-      }
-    }
-    return uploaded;
-  }
+  // public List<CloudinaryImageDto> uploadMultipleMedia(MultipartFile[] files,
+  // String folder) throws IOException {
+  // List<CloudinaryImageDto> uploaded = new ArrayList<>();
+  // for (MultipartFile file : files) {
+  // if (file != null && !file.isEmpty()) {
+  // uploaded.add(uploadMedia(file, folder)); // call universal upload
+  // }
+  // }
+  // return uploaded;
+  // }
 
-  public String deleteMedia(String publicId) throws IOException {
-    if (publicId == null || publicId.isBlank())
-      return "skipped";
-    Map<String, Object> result = cloudinary.uploader()
-        .destroy(publicId, ObjectUtils.asMap("resource_type", "auto")); // ✅ auto detect
-    return Objects.toString(result.get("result"), "unknown");
-  }
+  // public String deleteMedia(String publicId) throws IOException {
+  // if (publicId == null || publicId.isBlank())
+  // return "skipped";
+  // Map<String, Object> result = cloudinary.uploader()
+  // .destroy(publicId, ObjectUtils.asMap("resource_type", "auto")); // ✅ auto
+  // detect
+  // return Objects.toString(result.get("result"), "unknown");
+  // }
 
-  public CloudinaryImageDto updateMedia(MultipartFile newFile, String folder, String oldPublicId)
-      throws IOException {
-    if (newFile == null || newFile.isEmpty()) {
-      throw new IOException("New file is empty or null");
-    }
+  // public CloudinaryImageDto updateMedia(MultipartFile newFile, String folder,
+  // String oldPublicId)
+  // throws IOException {
+  // if (newFile == null || newFile.isEmpty()) {
+  // throw new IOException("New file is empty or null");
+  // }
 
-    // 1️⃣ Purani file delete karo (agar publicId mila ho)
-    if (oldPublicId != null && !oldPublicId.isBlank()) {
-      cloudinary.uploader().destroy(oldPublicId, ObjectUtils.asMap("resource_type",
-          "auto"));
-    }
+  // // 1️⃣ Purani file delete karo (agar publicId mila ho)
+  // if (oldPublicId != null && !oldPublicId.isBlank()) {
+  // cloudinary.uploader().destroy(oldPublicId, ObjectUtils.asMap("resource_type",
+  // "auto"));
+  // }
 
-    // 2️⃣ Nayi file upload karo (image/video auto detect)
-    Map<String, Object> options = new HashMap<>();
-    options.put("folder", folder);
-    options.put("resource_type", "auto");
+  // // 2️⃣ Nayi file upload karo (image/video auto detect)
+  // Map<String, Object> options = new HashMap<>();
+  // options.put("folder", folder);
+  // options.put("resource_type", "auto");
 
-    Map<String, Object> uploadResult = cloudinary.uploader().upload(newFile.getBytes(), options);
+  // Map<String, Object> uploadResult =
+  // cloudinary.uploader().upload(newFile.getBytes(), options);
 
-    return new CloudinaryImageDto(
-        uploadResult.get("secure_url").toString(),
-        uploadResult.get("public_id").toString());
-  }
+  // return new CloudinaryImageDto(
+  // uploadResult.get("secure_url").toString(),
+  // uploadResult.get("public_id").toString());
+  // }
 
-  public List<CloudinaryImageDto> updateMultipleMedia(MultipartFile[] newFiles,
-      List<String> oldPublicIds, String folder) throws IOException {
-    List<CloudinaryImageDto> updated = new ArrayList<>();
+  // public List<CloudinaryImageDto> updateMultipleMedia(MultipartFile[] newFiles,
+  // List<String> oldPublicIds, String folder) throws IOException {
+  // List<CloudinaryImageDto> updated = new ArrayList<>();
 
-    // 1️⃣ Purani files delete karo
-    for (String publicId : oldPublicIds) {
-      if (publicId != null && !publicId.isBlank()) {
-        deleteMedia(publicId);
-      }
-    }
+  // // 1️⃣ Purani files delete karo
+  // for (String publicId : oldPublicIds) {
+  // if (publicId != null && !publicId.isBlank()) {
+  // deleteMedia(publicId);
+  // }
+  // }
 
-    // 2️⃣ Nayi files upload karo
-    for (MultipartFile file : newFiles) {
-      if (file != null && !file.isEmpty()) {
-        updated.add(uploadMedia(file, folder));
-      }
-    }
+  // // 2️⃣ Nayi files upload karo
+  // for (MultipartFile file : newFiles) {
+  // if (file != null && !file.isEmpty()) {
+  // updated.add(uploadMedia(file, folder));
+  // }
+  // }
 
-    return updated;
-  }
+  // return updated;
+  // }
 
   // Single image upload
   public Map<String, String> uploadImage(MultipartFile file, String folder)

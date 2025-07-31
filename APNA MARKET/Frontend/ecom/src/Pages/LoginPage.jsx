@@ -60,7 +60,7 @@ export default function LoginPage() {
         if (res.role === "Buyer") {
           toast.success("Welcome to your profile!");
           navigate("/profile");
-        } else if (res.role === "Admin") {
+        } else if (res.role === "Admin" || res.role === "Super Admin") {
           toast.success("Welcome to the admin dashboard!");
           navigate("/admin");
         }

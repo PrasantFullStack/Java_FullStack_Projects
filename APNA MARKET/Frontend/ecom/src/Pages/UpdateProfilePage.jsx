@@ -120,10 +120,12 @@ export default function UpdateProfilePage() {
         );
 
         response = await response.json();
-
+        //Step handling Buyer and admin or super admin
         if (response.ok) {
-          if (data.role === "Buyer") navigate("/profile");
-          else navigate("/admin");
+          toast.success("Profile updated successfully! 🎉");
+          if (data.role === "Admin" || data.role === "Super Admin")
+            navigate("/admin");
+          else if (data.role === "Buyer") navigate("/profile");
         } else {
           console.error("Server error:", response.status);
         }

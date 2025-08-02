@@ -15,4 +15,11 @@ public class UserMapper {
     return user;
   }
 
+  // Converts User entity to Response DTO
+  public UserDto toResponseDto(User user) {
+    UserDto responseDto = new UserDto();
+    BeanUtils.copyProperties(user, responseDto);
+    return responseDto;
+
+  }
 }

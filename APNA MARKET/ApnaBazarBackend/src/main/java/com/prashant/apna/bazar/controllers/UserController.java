@@ -1,5 +1,7 @@
 package com.prashant.apna.bazar.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +45,9 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.OK).body(usersService.getUserById(userid));
   }
 
+  // get all users endpoint
+  @GetMapping
+  ResponseEntity<List<UserResponse>> getAllUsers() {
+    return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUsers());
+  }
 }

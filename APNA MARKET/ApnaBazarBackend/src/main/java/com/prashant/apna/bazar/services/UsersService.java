@@ -1,5 +1,8 @@
 package com.prashant.apna.bazar.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +39,13 @@ public class UsersService {
     User user = userRepo.findById(userId)
         .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
     return userMapper.toResponseDto(user);
+  }
+
+  // Get All Users
+  public List<UserResponse> getAllUsers() {
+    List<User> users = userRepo.findAll();
+    return users.stream()
+        .map(userMapper::toResponseDto)
+        .collect(Collectors.toList());
   }
 }

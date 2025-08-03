@@ -48,4 +48,21 @@ public class UsersService {
         .map(userMapper::toResponseDto)
         .collect(Collectors.toList());
   }
+
+  // Update User
+  public UserResponse updateUser(Long userId, UserDto userDto) {
+    User existingUser = userRepo.findById(userId)
+        .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+    // Update the existing user's properties
+    User updatedUser = userMapper.toEntity(userDto);
+    updatedUser.setUserid(existingUser.getUserid()); // Ensure the ID remains the same
+    updatedUser.setActive(existingUser.isActive()); // Preserve the active status
+
+    // Save the updated user entity to the database
+    User savedUser = userRepo.save(updatedUser);
+
+    // Convert the saved User entity to UserResponse DTO
+    return userMapper.toResponseDto(savedUser);
+  }
 }

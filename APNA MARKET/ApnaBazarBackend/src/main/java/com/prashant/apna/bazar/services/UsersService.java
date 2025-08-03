@@ -65,4 +65,11 @@ public class UsersService {
     // Convert the saved User entity to UserResponse DTO
     return userMapper.toResponseDto(savedUser);
   }
+
+  public void deleteUser(Long userid) {
+    User existUser = userRepo.findById(userid)
+        .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
+    userRepo.delete(existUser);
+    return;
+  }
 }

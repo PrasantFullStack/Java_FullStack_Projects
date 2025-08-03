@@ -30,4 +30,11 @@ public class UsersService {
     UserResponse userResponse = userMapper.toResponseDto(savedUser);
     return userResponse;
   }
+
+  // get user by id
+  public UserResponse getUserById(Long userId) {
+    User user = userRepo.findById(userId)
+        .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+    return userMapper.toResponseDto(user);
+  }
 }

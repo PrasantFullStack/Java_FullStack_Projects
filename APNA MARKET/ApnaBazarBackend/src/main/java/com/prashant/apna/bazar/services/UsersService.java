@@ -28,8 +28,6 @@ public class UsersService {
 
     // Convert the saved User entity to UserResponse DTO
     UserResponse userResponse = userMapper.toResponseDto(savedUser);
-    return userResponse
-
-    ;
+    return userResponse;
   }
 }

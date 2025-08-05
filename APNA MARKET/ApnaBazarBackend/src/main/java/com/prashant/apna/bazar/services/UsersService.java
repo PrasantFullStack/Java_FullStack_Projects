@@ -1,8 +1,5 @@
 package com.prashant.apna.bazar.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,38 +29,6 @@ public class UsersService {
     // Convert the saved User entity to UserResponse DTO
     UserResponse userResponse = userMapper.toResponseDto(savedUser);
     return userResponse;
-  }
-
-  // get user by id
-  public UserResponse getUserById(Long userid) {
-    User user = userRepo.findById(userid)
-        .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
-    return userMapper.toResponseDto(user);
-  }
-
-  // Get All Users
-  public List<UserResponse> getAllUsers() {
-    List<User> users = userRepo.findAll();
-    return users.stream()
-        .map(userMapper::toResponseDto)
-        .collect(Collectors.toList());
-  }
-
-  // Update User
-  public UserResponse updateUser(Long userid, UserDto userDto) {
-    User existingUser = userRepo.findById(userid)
-        .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
-
-    // Update the existing user's properties
-    User updatedUser = userMapper.toEntity(userDto);
-    updatedUser.setUserid(existingUser.getUserid()); // Ensure the ID remains the same
-    updatedUser.setActive(existingUser.isActive()); // Preserve the active status
-
-    // Save the updated user entity to the database
-    User savedUser = userRepo.save(updatedUser);
-
-    // Convert the saved User entity to UserResponse DTO
-    return userMapper.toResponseDto(savedUser);
   }
 
   public void deleteUser(Long userid) {

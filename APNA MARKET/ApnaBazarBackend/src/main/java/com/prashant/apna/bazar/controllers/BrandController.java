@@ -24,6 +24,8 @@ import com.prashant.apna.bazar.payload.request.BrandDto;
 import com.prashant.apna.bazar.payload.response.BrandResponse;
 import com.prashant.apna.bazar.services.BrandService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/brand")
 public class BrandController {
@@ -36,7 +38,7 @@ public class BrandController {
 
   // post brand
   @PostMapping
-  ResponseEntity<BrandResponse> createBrand(@RequestPart("data") String jsonData,
+  ResponseEntity<BrandResponse> createBrand(@Valid @RequestPart("data") String jsonData,
       @RequestPart("pic") MultipartFile file) throws IOException {
     BrandDto brandDto = mapper.readValue(jsonData, BrandDto.class);
     return ResponseEntity.status(HttpStatus.CREATED).body(brandService.createBrand(brandDto, file));

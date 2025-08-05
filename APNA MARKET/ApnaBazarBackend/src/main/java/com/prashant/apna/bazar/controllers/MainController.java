@@ -26,6 +26,8 @@ import com.prashant.apna.bazar.payload.request.MaincategoryDto;
 import com.prashant.apna.bazar.payload.response.MainResponseDto;
 import com.prashant.apna.bazar.services.MainService;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
     RequestMethod.DELETE })
 @RestController
@@ -41,7 +43,7 @@ public class MainController {
 
   // create maincategory
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<MainResponseDto> createMaincategory(@RequestPart("data") String jsonData,
+  public ResponseEntity<MainResponseDto> createMaincategory(@Valid @RequestPart("data") String jsonData,
       @RequestPart(value = "pic", required = false) MultipartFile file) throws IOException {
     // Convert Json String to MaincategoryDto, Java Object
     MaincategoryDto mainDto = mapper.readValue(jsonData, MaincategoryDto.class);
@@ -65,7 +67,8 @@ public class MainController {
   // Update Maincategory by Id
   @PutMapping("/{id}")
   public ResponseEntity<MainResponseDto> updateMaincategory(@PathVariable Long id,
-      @RequestPart("data") String jsonData, @RequestPart("pic") MultipartFile file) throws IOException {
+      @Valid @RequestPart("data") String jsonData, @RequestPart(value = "pic", required = false) MultipartFile file)
+      throws IOException {
     // Convert Json String to MaincategoryDto, Java Object
     MaincategoryDto mainDto = mapper.readValue(jsonData, MaincategoryDto.class);
     return ResponseEntity.status(HttpStatus.OK).body(mainService.updateMaincategory(id, mainDto, file));

@@ -15,6 +15,8 @@ import com.prashant.apna.bazar.payload.request.ContactDto;
 import com.prashant.apna.bazar.payload.response.ContactResDto;
 import com.prashant.apna.bazar.services.ContactService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/contactus")
 public class ContactController {
@@ -24,7 +26,7 @@ public class ContactController {
 
   // save Contactus post method
   @PostMapping
-  public ResponseEntity<ContactResDto> saveContactus(@RequestBody ContactDto contactDto) {
+  public ResponseEntity<ContactResDto> saveContactus(@RequestBody @Valid ContactDto contactDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(contactService.saveContactus(contactDto));
 
   }

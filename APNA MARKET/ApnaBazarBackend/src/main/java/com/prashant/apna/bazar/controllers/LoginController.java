@@ -13,6 +13,8 @@ import com.prashant.apna.bazar.payload.request.AuthRequest;
 import com.prashant.apna.bazar.payload.response.AuthResponse;
 import com.prashant.apna.bazar.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class LoginController {
@@ -22,7 +24,7 @@ public class LoginController {
 
   // login user
   @PostMapping("/login")
-  ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+  ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthRequest request) {
     AuthResponse response = userService.login(request);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

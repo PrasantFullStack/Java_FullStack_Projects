@@ -16,6 +16,8 @@ import com.prashant.apna.bazar.payload.response.CartItemResponse;
 import com.prashant.apna.bazar.services.CartService;
 import com.prashant.apna.bazar.services.CheckoutService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -27,7 +29,7 @@ public class CartController {
   private CartService cartService;
 
   @PostMapping
-  ResponseEntity<CartItemResponse> addCartItem(@RequestBody CartItemDto cartItemDto) {
+  ResponseEntity<CartItemResponse> addCartItem(@RequestBody @Valid CartItemDto cartItemDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addCart(cartItemDto));
   }
 

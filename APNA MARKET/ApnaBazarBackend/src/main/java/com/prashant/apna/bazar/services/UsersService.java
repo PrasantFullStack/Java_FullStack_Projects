@@ -35,9 +35,9 @@ public class UsersService {
   }
 
   // get user by id
-  public UserResponse getUserById(Long userId) {
-    User user = userRepo.findById(userId)
-        .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+  public UserResponse getUserById(Long userid) {
+    User user = userRepo.findById(userid)
+        .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
     return userMapper.toResponseDto(user);
   }
 
@@ -50,9 +50,9 @@ public class UsersService {
   }
 
   // Update User
-  public UserResponse updateUser(Long userId, UserDto userDto) {
-    User existingUser = userRepo.findById(userId)
-        .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+  public UserResponse updateUser(Long userid, UserDto userDto) {
+    User existingUser = userRepo.findById(userid)
+        .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
 
     // Update the existing user's properties
     User updatedUser = userMapper.toEntity(userDto);

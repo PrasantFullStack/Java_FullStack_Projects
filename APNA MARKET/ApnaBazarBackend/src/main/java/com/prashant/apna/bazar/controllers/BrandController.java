@@ -59,7 +59,7 @@ public class BrandController {
 
   // Put mapping method
   @PutMapping("/{id}")
-  ResponseEntity<BrandResponse> updateBrand(@PathVariable UUID id, @RequestPart("data") String jsonData,
+  ResponseEntity<BrandResponse> updateBrand(@PathVariable UUID id, @Valid @RequestPart("data") String jsonData,
       @RequestPart("pic") MultipartFile file)
       throws IOException {
     BrandDto brandDto = mapper.readValue(jsonData, BrandDto.class);

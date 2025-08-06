@@ -21,6 +21,8 @@ import com.prashant.apna.bazar.payload.request.ProductDTO;
 import com.prashant.apna.bazar.payload.response.ProductResponseDto;
 import com.prashant.apna.bazar.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -32,7 +34,7 @@ public class ProductController {
   ObjectMapper mapper;
 
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  ResponseEntity<ProductResponseDto> createProduct(@RequestPart("product") String jsonData,
+  ResponseEntity<ProductResponseDto> createProduct(@RequestPart("product") @Valid String jsonData,
       @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {
     ProductDTO productDTO = mapper.readValue(jsonData, ProductDTO.class);
     return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(productDTO, files));
@@ -47,7 +49,7 @@ public class ProductController {
   // update product
   @PutMapping("/{id}")
   ResponseEntity<ProductResponseDto> updateProduct(@PathVariable Long id,
-      @RequestPart("product") ProductDTO productDTO,
+      @RequestPart("product") @Valid ProductDTO productDTO,
       @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {
     return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, productDTO, files));
 

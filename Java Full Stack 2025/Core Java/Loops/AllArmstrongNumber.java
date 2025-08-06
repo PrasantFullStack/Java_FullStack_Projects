@@ -1,4 +1,4 @@
-package Loops;
+package loops;
 
 public class AllArmstrongNumber {
   // Program: Print All ArmstrongNumber from 1 to 1000;

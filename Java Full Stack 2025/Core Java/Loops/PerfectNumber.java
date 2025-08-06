@@ -1,4 +1,4 @@
-package Loops;
+package loops;
 
 //Perfect Number: Sum of divisors (excluding it self) = number
 //Example: 28 -> 1+2+4+7+14= 28

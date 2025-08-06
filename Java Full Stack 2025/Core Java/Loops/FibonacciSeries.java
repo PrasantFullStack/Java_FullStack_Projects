@@ -1,4 +1,4 @@
-package Loops;
+package loops;
 
 public class FibonacciSeries {
   // write a program print Fibonacci series up to N terms

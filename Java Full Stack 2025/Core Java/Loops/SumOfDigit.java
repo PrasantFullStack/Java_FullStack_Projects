@@ -1,4 +1,4 @@
-package Loops;
+package loops;
 
 public class SumOfDigit {
   // write a program: Find the sum of Digit a number using while loop.

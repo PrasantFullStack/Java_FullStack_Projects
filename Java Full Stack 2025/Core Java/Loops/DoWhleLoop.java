@@ -1,4 +1,4 @@
-package Loops;
+package loops;
 
 public class DoWhleLoop {
   // 1. What is do While loop?

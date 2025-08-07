@@ -4,8 +4,8 @@ public class AnagramsString {
 
   // Java program to determine if Two Strings are Anagrams
   public static void main(String[] args) {
-    String str1 = "listen";
-    String str2 = "silent";
+    String str1 = "Prashant";
+    String str2 = "Prashant";
 
     if (areAnagrams(str1, str2)) {
       System.out.println(str1 + " and " + str2 + " are anagrams.");
@@ -19,7 +19,7 @@ public class AnagramsString {
       return false;
     }
 
-    int[] charCount = new int[256]; // Assuming ASCII characters
+    int[] charCount = new int[256];
 
     for (int i = 0; i < str1.length(); i++) {
       charCount[str1.charAt(i)]++;

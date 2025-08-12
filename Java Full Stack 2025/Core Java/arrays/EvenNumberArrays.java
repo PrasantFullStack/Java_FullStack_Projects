@@ -21,4 +21,7 @@ public class EvenNumberArrays {
     System.out.println("Even count: " + evenCount);
     System.out.println("Odd count: " + oddCount);
   }
+
+  // explanation: This code counts the number of even and odd integers in a given
+  // array.
 }

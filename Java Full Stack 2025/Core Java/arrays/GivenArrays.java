@@ -38,6 +38,11 @@ public class GivenArrays {
     return uniqueElements;
   }
 
-  // explanation:
+  // explanation: this code finds unique elements in an array
+  // by using a boolean array to track seen numbers.
+  // It iterates through the input array, marking numbers as seen,
+  // and then collects the unique numbers into a new array.
+  // The result is printed to the console.
+  // This approach assumes the input numbers are within a specific range (0-99).
 
 }

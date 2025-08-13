@@ -16,4 +16,11 @@ public class AllArmstrongNumber {
       }
     }
   }
+  // explanation: This program checks each number from 1 to 1000 to see if it is
+  // an Armstrong number.
+  // An Armstrong number is a number that is equal to the sum of its digits raised
+  // to the power of the number of digits.
+  // For example, 153 is an Armstrong number because 1^3 + 5^3 + 3^3 = 153.
+  // The program iterates through each number, calculates the sum of the cubes of
+  // its digits
 }

@@ -18,4 +18,8 @@ public class TwoDArraySum {
 
     System.out.println("Sum of all elements: " + sum);
   }
+  // This code calculates the sum of all elements in a 2D array.
+  // It iterates through each row and column of the array,
+  // adding each element to a total sum variable.
+  // Finally, it prints the total sum to the console.
 }

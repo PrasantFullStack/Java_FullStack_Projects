@@ -26,5 +26,15 @@ public class DiamondPattern {
       System.out.println();
     }
   }
-
+  // explanation: This program prints a diamond pattern using asterisks (*).
+  // It first prints the upper half of the diamond by iterating through rows,
+  // printing spaces and stars accordingly.
+  // Then, it prints the lower half of the diamond in a similar manner.
+  // The number of rows in the diamond is determined by the variable myNumber.
+  // For myNumber = 5, the output will be:
+  // *
+  // *****
+  // *********
+  // *************
+  // ***************
 }

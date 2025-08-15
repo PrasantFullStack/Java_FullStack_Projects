@@ -20,5 +20,11 @@ public class FindArray {
     System.out.println("Minimum value: " + min);
     System.out.println("Maximum value: " + max);
   }
+  // explanation: This program finds the minimum and maximum values in an array.
+  // It initializes min and max with the first element of the array and iterates
+  // through the array to update min and max accordingly.
+  // For the input array {3, 5, 1, 8, 2}, the output will be "Minimum value: 1"
+  // and "Maximum value: 8".
+  // This code can be used to determine the range of values in any integer array.
 
 }

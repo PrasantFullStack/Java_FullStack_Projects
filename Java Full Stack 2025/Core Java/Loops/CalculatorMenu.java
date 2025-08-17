@@ -40,5 +40,25 @@ public class CalculatorMenu {
 
     System.out.println("Calculator closed.");
   }
+  // explanation: This program implements a simple menu-driven calculator.
+  // It allows the user to perform addition, subtraction, multiplication, and
+  // division
+  // of two integers.
+  // The user can choose an operation by entering a number from 1 to 4.
+  // The program continues to prompt for operations until the user chooses to exit
+  // by entering 5.
+  // For example, if the user chooses 1 for addition and inputs 5 and 3,
+  // the output will be "Sum: 8".
+  // This code can be used as a basic calculator in console applications.
+  // It demonstrates the use of methods for different operations and a loop for
+  // menu navigation.
+  // The program also handles division by zero by checking if the divisor is zero
+  // before performing the division and printing an appropriate message if it is.
+  // This can be extended to include more operations or features as needed.
+  // It is a good example of how to structure a simple console application in
+  // Java.
+  // The program uses a do-while loop to keep displaying the menu until the user
+  // chooses to exit.
+  // It also includes input validation to ensure the user enters a valid choice.
 
 }

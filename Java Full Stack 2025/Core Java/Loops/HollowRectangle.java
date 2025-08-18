@@ -16,4 +16,20 @@ public class HollowRectangle {
     }
   }
 
+  // explanation: This program prints a hollow rectangle pattern using asterisks
+  // (*).
+  // It uses nested loops to iterate through rows and columns.
+  // The outer loop iterates through each row, while the inner loop iterates
+  // through each column.
+  // If the current position is on the border of the rectangle (first or last
+  // row/column),
+  // it prints an asterisk; otherwise, it prints a space.
+  // For rows = 4 and cols = 5, the output will be:
+  // *****
+  // * *
+  // * *
+  // *****
+  // This code can be used to create a hollow rectangle pattern of any size by
+  // changing the values of rows and cols.
+  // It is a simple example of using loops to create patterns in Java.
 }

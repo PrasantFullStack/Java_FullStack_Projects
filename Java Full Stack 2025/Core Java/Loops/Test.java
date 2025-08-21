@@ -12,6 +12,10 @@ public class Test {
       b = c;
 
     }
+    // explanation: This program prints the Fibonacci series up to a given number
+    // using a for loop.
+    // It initializes the first two numbers of the series and then uses a loop to
+    // calculate the next numbers by summing the last two numbers.
 
   }
 }

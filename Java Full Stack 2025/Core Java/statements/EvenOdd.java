@@ -22,5 +22,10 @@ public class EvenOdd {
       System.out.println(num + " is Odd");
     }
   }
+  // explanation: This program checks if a number is even or odd.
+  // It uses the modulus operator (%) to determine if the number is divisible by
+  // 2.
+  // If the remainder is 0, the number is even; otherwise, it is odd.
+  // For example, if the input number is 7, the output will be:
 
 }

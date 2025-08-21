@@ -12,5 +12,11 @@ public class SumOfDigit {
     }
     System.out.println("Sum :" + " " + sum);
   }
+  // explanation: This program calculates the sum of the digits of a number using
+  // a while loop.
+  // It initializes a number and a sum variable, then repeatedly extracts the last
+  // digit of the number using the modulus operator, adds it to the sum, and
+  // removes the last digit from the number by dividing it by 10.
+  // For example, if num = 164, the output will be:
 
 }

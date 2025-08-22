@@ -22,4 +22,7 @@ public class MultiplicationTable {
     // 5 x 3 = 15
     // ...
     // This code can be used to generate multiplication tables for any integer input
+    // provided by the user.
+    // It utilizes the Scanner class to read input from the user and prints the
+    // results to the console.
 }

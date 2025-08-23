@@ -24,3 +24,4 @@ public class DigitCounter {
 // For example, if the input is 12345, the output will be "Total digits: 5".
 // This code can be used to determine the length of any integer input by the
 // user.
+// It utilizes the Scanner class to read input from the user.

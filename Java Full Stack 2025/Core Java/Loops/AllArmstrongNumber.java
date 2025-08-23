@@ -23,4 +23,7 @@ public class AllArmstrongNumber {
   // For example, 153 is an Armstrong number because 1^3 + 5^3 + 3^3 = 153.
   // The program iterates through each number, calculates the sum of the cubes of
   // its digits
+  // using a while loop, and compares the sum to the original number.
+  // If they are equal, it prints the number as an Armstrong number.
+  // The output will be printed to the console, listing all Armstrong numbers
 }

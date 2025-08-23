@@ -20,5 +20,7 @@ public class ForLoop {
   // less than or equal to 50, and increments it by 1 in each iteration.
   // The loop continues until the condition is no longer met.
   // This code can be modified to change the range or the message being printed.
+  // For example, changing the loop to count from 1 to 100 or printing a different
+  // message.
 
 }

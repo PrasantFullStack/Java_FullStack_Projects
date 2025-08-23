@@ -60,5 +60,7 @@ public class CalculatorMenu {
   // The program uses a do-while loop to keep displaying the menu until the user
   // chooses to exit.
   // It also includes input validation to ensure the user enters a valid choice.
+  // The output will be printed to the console, showing the results of the chosen
+  // operations.
 
 }

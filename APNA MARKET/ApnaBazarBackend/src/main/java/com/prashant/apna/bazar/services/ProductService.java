@@ -99,4 +99,9 @@ public class ProductService {
     return productMapper.toResponseProduct(existproduct);
   }
 
+  public void deleteProduct(Long id) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteProduct'");
+  }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,6 @@ public class ProductController {
   ObjectMapper mapper;
 
   // Create Product
-
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   ResponseEntity<ProductResponseDto> createProduct(@RequestPart("product") @Valid String jsonData,
       @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {
@@ -61,6 +61,13 @@ public class ProductController {
   @GetMapping("/{id}")
   ResponseEntity<ProductResponseDto> getProduct(@PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(productService.getProductById(id));
+  }
+
+  // delete product by id
+  @DeleteMapping("/{id}")
+  ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+    productService.deleteProduct(id);
+    return ResponseEntity.status(HttpStatus.OK).body("Product Deleted Successfully");
   }
 
 }

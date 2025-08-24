@@ -33,6 +33,8 @@ public class ProductController {
   @Autowired
   ObjectMapper mapper;
 
+  // Create Product
+
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   ResponseEntity<ProductResponseDto> createProduct(@RequestPart("product") @Valid String jsonData,
       @RequestPart(value = "files", required = false) MultipartFile[] files) throws IOException {

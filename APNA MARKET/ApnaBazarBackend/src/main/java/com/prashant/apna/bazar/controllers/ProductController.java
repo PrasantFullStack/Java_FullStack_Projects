@@ -65,7 +65,7 @@ public class ProductController {
 
   // delete product by id
   @DeleteMapping("/{id}")
-  ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+  ResponseEntity<String> deleteProduct(@PathVariable Long id) throws IOException {
     productService.deleteProduct(id);
     return ResponseEntity.status(HttpStatus.OK).body("Product Deleted Successfully");
   }

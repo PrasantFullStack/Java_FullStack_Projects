@@ -100,7 +100,12 @@ public class ProductService {
   }
 
   // delete product by id logic in service class
-  public void deleteProduct(Long id) {
+  public void deleteProduct(Long id) throws IOException {
+    Product existproduct = productRepo.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Product not found by id"));
+    if (existproduct.getPic() != null) {
+      cloudinaryService.deleteImage("public_id");
+    }
     productRepo.deleteById(id);
   }
 

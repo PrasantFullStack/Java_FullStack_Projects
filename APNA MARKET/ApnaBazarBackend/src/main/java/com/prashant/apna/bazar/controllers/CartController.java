@@ -28,6 +28,7 @@ public class CartController {
   @Autowired
   private CartService cartService;
 
+  // add to cart
   @PostMapping
   ResponseEntity<CartItemResponse> addCartItem(@RequestBody @Valid CartItemDto cartItemDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addCart(cartItemDto));

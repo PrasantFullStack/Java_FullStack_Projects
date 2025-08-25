@@ -88,11 +88,21 @@
 	<scope>runtime</scope>
 </dependency>
 
-
+<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-mcp-server</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-mcp-client</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -126,4 +136,10 @@
 		</plugins>
 	</build>
 
+
+	 
+		 
+
+	 
+		 
 </project>

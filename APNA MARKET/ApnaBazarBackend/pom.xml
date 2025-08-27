@@ -74,7 +74,6 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
-<!-- JWT Towen -->
 <dependency>
   <groupId>io.jsonwebtoken</groupId>
   <artifactId>jjwt-api</artifactId>
@@ -92,7 +91,7 @@
   <version>0.12.6</version>
 	<scope>runtime</scope>
 </dependency>
-<!-- Spring AI -->
+
 <dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-starter-mcp-server</artifactId>
@@ -103,13 +102,17 @@
 			<artifactId>spring-ai-starter-mcp-client</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-		 <dependency>
-  <groupId>org.springframework.ai</groupId>
-  <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-  <version>1.0.1</version>
+		<dependency>
+	<groupId>org.springframework.ai</groupId>
+	<artifactId>spring-ai-starter-model-anthropic</artifactId>
+	<version>1.0.1</version>
 </dependency>
-
 <dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-model-openai</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 
@@ -153,4 +156,20 @@
 
 	 
 		 
+
+	 
+		 
+ 
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.ai</groupId>
+				<artifactId>spring-ai-bom</artifactId>
+				<version>1.0.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

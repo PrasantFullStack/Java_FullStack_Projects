@@ -16,7 +16,7 @@ import lombok.Data;
 public class Order {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long orderId;
   private Long user;
   private String orderStatus;
   private String paymentMode;

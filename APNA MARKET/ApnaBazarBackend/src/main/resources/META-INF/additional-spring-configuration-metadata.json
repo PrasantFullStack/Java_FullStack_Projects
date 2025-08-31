@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "spring.ai.mcp.server.url",
-  "type": "java.lang.String",
-  "description": "A description for 'spring.ai.mcp.server.url'"
-}]}
+{"properties": [
+  {
+    "name": "spring.ai.mcp.server.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.ai.mcp.server.url'"
+  },
+  {
+    "name": "spring.ai.openai.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.ai.openai.api.key'"
+  }
+]}

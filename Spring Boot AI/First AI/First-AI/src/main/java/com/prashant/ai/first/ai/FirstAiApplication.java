@@ -10,11 +10,4 @@ public class FirstAiApplication {
 		SpringApplication.run(FirstAiApplication.class, args);
 	}
 
-	
-	}
-		
-			
-			
-			
-		
-	
+}

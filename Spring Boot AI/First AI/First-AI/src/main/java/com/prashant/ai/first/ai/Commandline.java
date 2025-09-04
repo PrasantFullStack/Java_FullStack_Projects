@@ -14,6 +14,8 @@ public class Commandline {
       ChatClient chatClient = builder.build();
       String response = chatClient.prompt("Tell me a joke").call().content();
       System.out.println(response);
+
     };
+
   }
 }

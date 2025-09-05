@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+//profile component
 export default function Profile({ title }) {
   let [data, setData] = useState({});
 

@@ -8,7 +8,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 import { getTestimonial } from "../Redux/ActionCreators/TestimonialActionCreators";
-
+//testimonial component
 export default function Testimonial() {
   let TestimonialStateData = useSelector((state) => state.TestimonialStateData);
   let dispatch = useDispatch();

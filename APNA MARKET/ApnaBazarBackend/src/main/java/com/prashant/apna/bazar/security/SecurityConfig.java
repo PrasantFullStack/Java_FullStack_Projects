@@ -33,7 +33,7 @@ public class SecurityConfig {
             .requestMatchers("/user/signup", "/user/login").permitAll()
             .requestMatchers(HttpMethod.GET, "/user/**", "/maincategory/**", "/subcategory/**", "/brand/**",
                 "/contactus/**",
-                "/newsletter/**", "/testimonial/**", "/product/**", "/cart/**")
+                "/newsletter/**", "/testimonial/**", "/product/**", "/cart/**", "/ai")
             .permitAll()
             // Admin and Super Admin can access these endpoints
             // Protected method only authentication Admin can create data and category

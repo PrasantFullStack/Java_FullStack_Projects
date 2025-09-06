@@ -16,6 +16,7 @@ public class ContactusServiceTools {
 
   private final ContactService contactService;
 
+  // Contactus Creation Tool
   @Tool(name = "createContactus", description = "Create a new contact us entry with the provided details.")
   public ContactResDto createContactus(@ToolParam ContactDto contactDto) {
     return contactService.saveContactus(contactDto);

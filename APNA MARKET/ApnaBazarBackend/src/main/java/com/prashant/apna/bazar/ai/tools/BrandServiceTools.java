@@ -19,6 +19,7 @@ public class BrandServiceTools {
 
   private final BrandService brandService;
 
+  // Brand Creation Tool
   @Tool(name = "createBrand", description = "Create a new brand with the provided details and image file.")
   public BrandResponse createBrand(@ToolParam BrandDto brandDto, @ToolParam MultipartFile file) throws IOException {
     return brandService.createBrand(brandDto, file);

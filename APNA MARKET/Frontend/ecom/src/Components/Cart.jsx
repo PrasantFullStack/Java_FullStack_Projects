@@ -25,7 +25,7 @@ export default function Cart({ title, data }) {
   let dispatch = useDispatch();
 
   let navigate = useNavigate();
-
+  // Place Order Function
   function placeOrder() {
     let item = {
       user: localStorage.getItem("userid"),

@@ -50,7 +50,7 @@ import ErrorPage from "./Pages/ErrorPage";
 
 import { ToastContainer } from "react-toastify"; // ✅ Step 1
 import "react-toastify/dist/ReactToastify.css";
-
+// Toast Notifications
 export default function App() {
   return (
     <BrowserRouter>

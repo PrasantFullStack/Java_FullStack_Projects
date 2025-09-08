@@ -4,8 +4,6 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.experimental.var;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +17,10 @@ public class ChatController {
   public ChatController(ChatClient.Builder builder) {
     this.chatClient = builder.build();
   }
+
   @GetMapping
   public ResponseEntity<String> chat(@RequestParam(value = "query", required = true) String query) {
     String resultResponse = chatClient.prompt(query).call().content();
     return ResponseEntity.ok(resultResponse);
   }
-  }
-
 }

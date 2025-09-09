@@ -44,7 +44,6 @@
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-starter-model-openai</artifactId>
-			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>

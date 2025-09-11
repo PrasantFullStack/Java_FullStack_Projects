@@ -37,7 +37,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-starter-model-ollama</artifactId>
+			<artifactId>spring-ai-starter-model-openai</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 
 		<dependency>

@@ -1,5 +1,6 @@
 package main.java.com.first.ai.project.firstai.controllers;
 
+//controller class
 @RestController
 @RequestMapping("/chat")
 public class ChatController {

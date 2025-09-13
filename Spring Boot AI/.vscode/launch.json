@@ -2,6 +2,12 @@
   "configurations": [
     {
       "type": "java",
+      "name": "FirstaiApplication",
+      "request": "launch",
+      "mainClass": "com.first.ai.project.firstai.FirstaiApplication"
+    },
+    {
+      "type": "java",
       "name": "FirstAiApplication",
       "request": "launch",
       "mainClass": "com.prashant.ai.first.ai.FirstAiApplication",

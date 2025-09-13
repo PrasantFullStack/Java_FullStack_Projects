@@ -1,4 +1,4 @@
-package com.prashant.ai.first.ai;
+package com.prashant.ai.first.ai.controllers;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.RequestMapping;

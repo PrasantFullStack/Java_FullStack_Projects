@@ -11,6 +11,7 @@ public class ChatController {
     this.chatClient = builder.build();
   }
 
+  // chat method
   @GetMapping
   public ResponseEntity<String> chat(@RequestParam(value = "query", required = true) String query) {
     String resultResponse = chatClient

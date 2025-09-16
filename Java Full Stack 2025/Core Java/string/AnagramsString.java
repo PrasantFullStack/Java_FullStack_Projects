@@ -34,5 +34,11 @@ public class AnagramsString {
 
     return true;
   }
-
+  // explanation: This program checks if two strings are anagrams of each other.
+  // It first checks if the lengths of the strings are equal. If not, they cannot
+  // be
+  // anagrams. Then, it uses an integer array to count the occurrences of each
+  // character in both strings. It increments the count for characters in the
+  // first string and decrements for characters in the second string. Finally, it
+  // checks if all counts are zero, indicating that both strings have the same
 }

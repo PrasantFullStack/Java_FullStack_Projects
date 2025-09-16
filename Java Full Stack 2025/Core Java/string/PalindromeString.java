@@ -1,6 +1,6 @@
 package string;
 
-public class PalindromString {
+public class PalindromeString {
 
   // Java program to check if a string is a palindrome
   public static void main(String[] args) {

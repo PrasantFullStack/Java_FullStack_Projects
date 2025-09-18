@@ -2,7 +2,7 @@ package string;
 
 public class PalindromeStringCheck {
   public static void main(String[] args) {
-    String word = "madam";
+    String word = "mad";
     String reversed = "";
 
     // Reverse the string

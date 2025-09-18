@@ -17,4 +17,6 @@ public class PalindromeStringCheck {
       System.out.println("Not Palindrome String");
     }
   }
+  // explanation: This program checks if a given string is a palindrome by
+  // reversing the string and comparing it to the original.
 }

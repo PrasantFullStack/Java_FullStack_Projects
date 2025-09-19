@@ -21,4 +21,8 @@ public class PalindromeStringCheck {
   // reversing the string and comparing it to the original.
   // It initializes an empty string to hold the reversed version, then uses a for
   // loop to iterate through the original string from the last character to the
+  // first, appending each character to the reversed string.
+  // Finally, it compares the original string with the reversed string using the
+  // equals method and prints whether the string is a palindrome or not.
+  // For example, if the input is "madam", the output will be "Palindrome String".
 }

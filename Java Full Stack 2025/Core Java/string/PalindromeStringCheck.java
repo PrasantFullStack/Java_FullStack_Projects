@@ -25,4 +25,5 @@ public class PalindromeStringCheck {
   // Finally, it compares the original string with the reversed string using the
   // equals method and prints whether the string is a palindrome or not.
   // For example, if the input is "madam", the output will be "Palindrome String".
+
 }

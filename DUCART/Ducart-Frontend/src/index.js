@@ -4,6 +4,8 @@ import App from './Pages/App'
 import { Provider } from 'react-redux'
 
 import Store from './Redux/Store'
+
+//what is the root of the app
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
 root.render(

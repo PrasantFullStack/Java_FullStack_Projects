@@ -1,3 +1,10 @@
+//why use saga?
+//1. Side effect management: Redux Saga is designed to handle side effects (like data fetching, API calls, and asynchronous operations) in a more manageable way compared to traditional Redux Thunk. It uses generator functions to make the code more readable and easier to test.
+//2. Better control over async flow: Sagas allow for more complex async flows, such as sequencing, parallel execution, and cancellation of tasks, which can be challenging with other middleware.
+//3. Improved error handling: Redux Saga provides a structured way to handle errors in asynchronous operations, making it easier to manage failures and retries.
+//4. Decoupling of business logic: By separating side effects from the UI components and Redux actions, Sagas help keep the codebase cleaner and more maintainable.
+//5. Testability: Sagas are easier to test because they are just generator functions, allowing you to step through the code and assert on the yielded effects without needing to mock the entire Redux store or middleware.
+
 import { put, takeEvery } from "redux-saga/effects";
 import {
   CREATE_BRAND,

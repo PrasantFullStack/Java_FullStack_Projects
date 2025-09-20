@@ -1,4 +1,10 @@
 //use this function if our form has only text data
+
+//Why use index.js in services folder?
+//1. Centralized API management: By having a single index.js file, you can manage all your API calls in one place, making it easier to maintain and update.
+//2. Reusability: Functions defined in index.js can be reused across different parts of the application, reducing code duplication.
+//3. Improved organization: Grouping related API functions together in a services folder helps keep the project structure organized and makes it easier to locate specific functions when needed.
+//4. Easier testing: With all API calls centralized, it becomes simpler to write unit tests for these functions, ensuring they work as expected.
 export async function createRecord(collection, payload) {
     let response = await fetch(`${process.env.REACT_APP_SERVER}/${collection}`, {
         method: "POST",

@@ -1,3 +1,5 @@
+//what is saga?
+//Redux Saga is a middleware library used in Redux applications to handle side effects, such as asynchronous operations (e.g., data fetching, API calls) and complex state management logic. It leverages ES6 generator functions to make the code more readable and easier to manage.
 //why use saga?
 //1. Side effect management: Redux Saga is designed to handle side effects (like data fetching, API calls, and asynchronous operations) in a more manageable way compared to traditional Redux Thunk. It uses generator functions to make the code more readable and easier to test.
 //2. Better control over async flow: Sagas allow for more complex async flows, such as sequencing, parallel execution, and cancellation of tasks, which can be challenging with other middleware.

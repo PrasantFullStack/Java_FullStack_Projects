@@ -1,58 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import $ from 'jquery';  // Import jQuery
-import 'datatables.net-dt/css/dataTables.dataTables.min.css'; // Import DataTables styles
-import 'datatables.net';
+import $ from "jquery"; // Import jQuery
+import "datatables.net-dt/css/dataTables.dataTables.min.css"; // Import DataTables styles
+import "datatables.net";
 
+import Sidebar from "../../Components/Sidebar";
+import HeroSection from "../../Components/HeroSection";
+import { Link } from "react-router-dom";
 
-import Sidebar from '../../Components/Sidebar'
-import HeroSection from '../../Components/HeroSection'
-import { Link } from 'react-router-dom'
-
-import { deleteBrand, getBrand } from "../../Redux/ActionCreators/BrandActionCreators"
+import {
+  deleteBrand,
+  getBrand,
+} from "../../Redux/ActionCreators/BrandActionCreators";
 export default function AdminBrand() {
-  let [data, setData] = useState([])
+  let [data, setData] = useState([]);
 
-  let dispatch = useDispatch()
-  let BrandStateData = useSelector((state) => state.BrandStateData)
+  let dispatch = useDispatch();
+  let BrandStateData = useSelector((state) => state.BrandStateData);
 
   function deleteRecord(id) {
     if (window.confirm("Are You Sure to Delete that Item : ")) {
-      dispatch(deleteBrand({ id: id }))
-      getAPIData()
+      dispatch(deleteBrand({ id: id }));
+      getAPIData();
     }
   }
 
   function getAPIData() {
-    dispatch(getBrand())
+    dispatch(getBrand());
 
-    if (BrandStateData.length)
-      setData(BrandStateData)
-    else
-      setData([])
+    if (BrandStateData.length) setData(BrandStateData);
+    else setData([]);
 
     let time = setTimeout(() => {
-      $('#DataTable').DataTable()
+      $("#DataTable").DataTable();
     }, 500);
-    return time
+    return time;
   }
   useEffect(() => {
-    let time = getAPIData()
-    return () => clearTimeout(time)
-  }, [BrandStateData.length])
-
+    let time = getAPIData();
+    return () => clearTimeout(time);
+  }, [BrandStateData.length]);
+  //brand state data length dependency is used to re render the component when brand state data length changes like after delete or add new brand
   return (
     <>
       <HeroSection title="Admin" />
       <div className="container-fluid">
-        <div className='row'>
+        <div className="row">
           <div className="col-md-3">
             <Sidebar />
           </div>
           <div className="col-md-9">
-            <h5 className='bg-primary text-center text-light p-2'>Brand <Link to="/admin/brand/create"> <i className='fa fa-plus text-light float-end'></i></Link></h5>
-            <table className='table table-bordered table-hover table-striped' id='DataTable'>
+            <h5 className="bg-primary text-center text-light p-2">
+              Brand{" "}
+              <Link to="/admin/brand/create">
+                {" "}
+                <i className="fa fa-plus text-light float-end"></i>
+              </Link>
+            </h5>
+            <table
+              className="table table-bordered table-hover table-striped"
+              id="DataTable"
+            >
               <thead>
                 <tr>
                   <th>ID</th>
@@ -64,40 +73,60 @@ export default function AdminBrand() {
                 </tr>
               </thead>
               <tbody>
-                {
-                  data.map((item, index) => {
-                    return <tr key={index}>
+                {data.map((item, index) => {
+                  return (
+                    <tr key={index}>
                       <td>{item.id}</td>
                       <td>{item.name}</td>
                       <td>
-                        <Link to={`${process.env.REACT_APP_SERVER}${item.pic}`} target='_blank' rel='noreferrer'>
-                          <img src={`${process.env.REACT_APP_SERVER}${item.pic}`} height={50} width={80} className='rounded' alt="Brand Image" />
+                        <Link
+                          to={`${process.env.REACT_APP_SERVER}${item.pic}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            src={`${process.env.REACT_APP_SERVER}${item.pic}`}
+                            height={50}
+                            width={80}
+                            className="rounded"
+                            alt="Brand Image"
+                          />
                         </Link>
                       </td>
                       <td>{item.active ? "Yes" : "No"}</td>
-                      <td><Link to={`/admin/brand/update/${item.id}`} className='btn btn-primary'><i className='fa fa-edit'></i></Link></td>
-                      <td><button className='btn btn-danger' onClick={() => deleteRecord(item.id)}><i className='fa fa-trash'></i></button></td>
+                      <td>
+                        <Link
+                          to={`/admin/brand/update/${item.id}`}
+                          className="btn btn-primary"
+                        >
+                          <i className="fa fa-edit"></i>
+                        </Link>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteRecord(item.id)}
+                        >
+                          <i className="fa fa-trash"></i>
+                        </button>
+                      </td>
                     </tr>
-                  })
-                }
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
-
-
-
 
 // import React, { useEffect, useState } from 'react'
 
 // import $ from 'jquery';  // Import jQuery
 // import 'datatables.net-dt/css/dataTables.dataTables.min.css'; // Import DataTables styles
 // import 'datatables.net';
-
 
 // import Sidebar from '../../Components/Sidebar'
 // import HeroSection from '../../Components/HeroSection'

@@ -46,7 +46,7 @@ export default function AdminUser() {
     let time = getAPIData();
     return () => clearTimeout(time);
   }, []);
-
+  //user admin page
   return (
     <>
       <HeroSection title="Admin" />

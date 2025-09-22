@@ -89,6 +89,8 @@ export default function AdminCreateTestimonial() {
       dispatch(getTestimonial());
     })();
   }, [TestimonialStateData.length]);
+
+  //testimonial admin create page
   return (
     <>
       <HeroSection title="Admin" />

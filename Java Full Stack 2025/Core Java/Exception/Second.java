@@ -20,6 +20,10 @@ public class Second {
     try {
       int[] arr = { 1, 2, 3 };
       System.out.println(arr[5]); // This will cause ArrayIndexOutOfBoundsException
+      // why we use catch block?
+      // A catch block is used to handle exceptions that may occur during the
+      // execution of a program
+
     } catch (ArrayIndexOutOfBoundsException e) {
       System.out.println("Exception caught: Array index is out of bounds.");
     }

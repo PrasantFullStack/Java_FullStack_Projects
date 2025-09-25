@@ -25,6 +25,13 @@ public class Second {
       // execution of a program
 
     } catch (ArrayIndexOutOfBoundsException e) {
+      // Handle the exception here
+      // what is an ArrayIndexOutOfBoundsException in java?
+      // ArrayIndexOutOfBoundsException is a runtime exception in Java that occurs
+      // when an attempt is made to access an array element with an index that is
+      // either negative or greater than or equal to the size of the array.
+      // This exception indicates that the specified index is out of the valid range
+      // for the array.
       System.out.println("Exception caught: Array index is out of bounds.");
     }
     System.out.println("Rest of the code...");

@@ -11,6 +11,11 @@ public class Second {
   // unavailability,
   // or programming errors.
   // what is ArrayIndexOutOfBoundsException in java?
+  // ArrayIndexOutOfBoundsException is a runtime exception in Java that occurs
+  // when an attempt is made to access an array element with an index that is
+  // either negative or greater than or equal to the size of the array.
+  // This exception indicates that the specified index is out of the valid range
+  // for the array.
   public static void main(String[] args) {
     try {
       int[] arr = { 1, 2, 3 };

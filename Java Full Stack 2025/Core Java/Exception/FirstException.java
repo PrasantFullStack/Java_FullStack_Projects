@@ -15,4 +15,5 @@ public class FirstException {
     }
     System.out.println("Rest of the code...");
   }
+
 }

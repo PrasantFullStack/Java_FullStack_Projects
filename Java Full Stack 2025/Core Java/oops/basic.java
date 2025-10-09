@@ -15,6 +15,13 @@ package oops;
 // Oops pillars
 //1. Abstraction
 //2. Encapsulation
+//3. Inheritance
+//4. Polymorphism
+//5. Association
+//6. Aggregation
+//7. Composition
+//8. Coupling
+
 public class basic {
   int x = 10; // non static variable
   static int y = 20; // static variable

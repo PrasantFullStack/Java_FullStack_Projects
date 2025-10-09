@@ -9,6 +9,12 @@ package oops;
 //class is a collection of variables and methods
 //class is a collection of data members and member functions
 //class is a collection of attributes and behaviors
+//OOPS is a programming paradigm
+////OOPS is a way of programming
+//OOPS is a way of designing software
+// Oops pillars
+//1. Abstraction
+//2. Encapsulation
 public class basic {
   int x = 10; // non static variable
   static int y = 20; // static variable

@@ -34,7 +34,7 @@ public class Encapsulation {
   }
 
   public static void main(String[] args) {
-    Encaosulation obj = new Encaosulation();
+    Encapsulation obj = new Encapsulation();
     obj.setName("John");
     obj.setAge(25);
     System.out.println("Name: " + obj.getName());

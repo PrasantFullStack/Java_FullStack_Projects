@@ -10,7 +10,9 @@ public class Abstraction {
   // Abstraction is used to focus on what the object does instead of how it does
   // it.
   public static void main(String[] args) {
+
     System.out.println("Abstraction in Java");
+
   }
 
 }

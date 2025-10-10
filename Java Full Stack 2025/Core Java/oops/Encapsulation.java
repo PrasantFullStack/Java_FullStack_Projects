@@ -1,6 +1,6 @@
 package oops;
 
-public class Encaosulation {
+public class Encapsulation {
   // Encapsulation is the process of wrapping data and code together as a single
   // unit.
   // In encapsulation, the variables of a class will be hidden from other classes,

@@ -7,6 +7,11 @@ public class Coupling {
   // are.
   // There are two types of coupling:
   // 1. Tight Coupling: In tight coupling, classes or modules are highly dependent
-  // on each other. Changes in one class may require
+  // on each other. Changes in one class may require changes in other classes.
+  // Example: A class that directly accesses the data members of another class.
+  // Tight coupling can make the system less flexible and harder to maintain.
+  // 2. Loose Coupling: In loose coupling, classes or modules are less dependent
+  // on
+  // each other. Changes in one class do not significantly affect other classes.
 
 }

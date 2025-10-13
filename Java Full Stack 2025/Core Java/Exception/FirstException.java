@@ -35,3 +35,12 @@ public class FirstException {
 // Examples of unchecked exceptions include ArithmeticException,
 // NullPointerException,
 // ArrayIndexOutOfBoundsException, and IllegalArgumentException.
+// what is error in java?
+// Errors are serious problems that are not meant to be caught by the program.
+// They are usually caused by issues outside the control of the program, such as
+// hardware failures or resource exhaustion.
+// Examples of errors include OutOfMemoryError, StackOverflowError, and
+// VirtualMachineError.
+// Note: It is generally recommended to handle checked exceptions and
+// unchecked exceptions appropriately in your code, while errors are usually not
+// meant to be caught or handled.

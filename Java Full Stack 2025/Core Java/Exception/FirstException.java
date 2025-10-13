@@ -27,3 +27,11 @@ public class FirstException {
 // the throws keyword.
 // Examples of checked exceptions include IOException, SQLException, and
 // ClassNotFoundException.
+
+// what is unchecked exception in java?
+// Unchecked exceptions are exceptions that are not checked at compile-time.
+// These
+// exceptions do not need to be declared in the method signature or caught.
+// Examples of unchecked exceptions include ArithmeticException,
+// NullPointerException,
+// ArrayIndexOutOfBoundsException, and IllegalArgumentException.

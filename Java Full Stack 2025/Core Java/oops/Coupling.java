@@ -30,5 +30,10 @@ public class Coupling {
   public static void main(String[] args) {
     System.out.println("Coupling in OOPS");
   }
+  // Coupling is an important concept in software design and architecture as it
+  // directly impacts the maintainability, flexibility, and scalability of a
+  // software system.
+  // By striving for loose coupling, developers can create systems that are
+  // easier to understand, modify, and extend over time.
 
 }

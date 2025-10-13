@@ -17,3 +17,13 @@ public class FirstException {
   }
 
 }
+// how many types of exception in java?
+// 1. Checked Exception
+// 2. Unchecked Exception
+// 3. Error
+// what is checked exception in java?
+// Checked exceptions are exceptions that are checked at compile-time. These
+// exceptions must be either caught or declared in the method signature using
+// the throws keyword.
+// Examples of checked exceptions include IOException, SQLException, and
+// ClassNotFoundException.

@@ -42,4 +42,19 @@ public class Second {
   // be executed, regardless of whether an exception is thrown or caught in the
   // try-catch block.
   // It is typically used for cleanup operations, such as closing resources like
+}// files, database connections, or network sockets, to ensure that they are
+  // properly released.
+  // The code inside the finally block will execute after the try block and any
+  // associated catch blocks, even if an exception occurs or if a return
+  // statement is encountered in the try or catch blocks.
+  // Example:
+  /*
+   * try {
+   * // code that may throw an exception
+   * } catch (ExceptionType e) {
+   * // code to handle the exception
+   * } finally {
+   * // code that will always be executed
+   * }
+   */
 }

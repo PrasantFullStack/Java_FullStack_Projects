@@ -44,3 +44,17 @@ public class FirstException {
 // Note: It is generally recommended to handle checked exceptions and
 // unchecked exceptions appropriately in your code, while errors are usually not
 // meant to be caught or handled.
+// why we use try and catch block in java?
+// The try-catch block is used to handle exceptions in Java. It allows you to
+// write code that may potentially throw an exception and provides a way to
+// handle that exception gracefully without crashing the program.
+// The code that may throw an exception is placed inside the try block, and the
+// catch block is used to catch and handle the exception if it occurs.
+// This helps in maintaining the normal flow of the program even when an
+// exception occurs.
+// Example:
+// try {
+// // code that may throw an exception
+// } catch (ExceptionType e) {
+// // code to handle the exception
+// }

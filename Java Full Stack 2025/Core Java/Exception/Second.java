@@ -36,4 +36,10 @@ public class Second {
     }
     System.out.println("Rest of the code...");
   }
+
+  // why we use finally block in java?
+  // The finally block is used in Java to define a block of code that will always
+  // be executed, regardless of whether an exception is thrown or caught in the
+  // try-catch block.
+  // It is typically used for cleanup operations, such as closing resources like
 }

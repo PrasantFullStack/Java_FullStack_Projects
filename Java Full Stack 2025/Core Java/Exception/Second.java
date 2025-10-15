@@ -75,3 +75,11 @@ public class Second {
 // errors, such as logic errors or improper use of an API. Examples of unchecked
 // exceptions include NullPointerException, ArrayIndexOutOfBoundsException, and
 // ArithmeticException.
+// 3. Errors:
+// Errors are serious issues that are not meant to be caught or handled by the
+// application. They usually indicate problems with the Java Virtual Machine
+// (JVM) itself, such as OutOfMemoryError or StackOverflowError. Errors are not
+// subclasses of Exception and are not meant to be caught or handled in typical
+// application code.
+// In summary, the main types of exceptions in Java are checked exceptions,
+// unchecked exceptions, and errors.

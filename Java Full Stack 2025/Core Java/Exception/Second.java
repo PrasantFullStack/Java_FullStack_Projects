@@ -74,3 +74,4 @@ public class Second {
 // programming
 // errors, such as logic errors or improper use of an API. Examples of unchecked
 // exceptions include NullPointerException, ArrayIndexOutOfBoundsException, and
+// ArithmeticException.

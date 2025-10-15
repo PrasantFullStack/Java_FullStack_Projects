@@ -69,3 +69,8 @@ public class Second {
 // the method signature using the throws keyword. Examples of checked exceptions
 // include IOException, SQLException, and ClassNotFoundException.
 // 2. Unchecked Exceptions:
+// These are exceptions that are not checked at compile-time. They are also
+// known as runtime exceptions. Unchecked exceptions typically indicate
+// programming
+// errors, such as logic errors or improper use of an API. Examples of unchecked
+// exceptions include NullPointerException, ArrayIndexOutOfBoundsException, and

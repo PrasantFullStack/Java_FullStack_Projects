@@ -58,3 +58,14 @@ public class Second {
  * // code that will always be executed
  * }
  */
+// how many types of exception are there in java?
+// In Java, exceptions can be broadly categorized into two main types: checked
+// exceptions and unchecked exceptions. Additionally, there are errors, which
+// are
+// distinct from exceptions. Here are the main types:
+// 1. Checked Exceptions:
+// These are exceptions that are checked at compile-time. The compiler requires
+// that these exceptions be either caught using a try-catch block or declared in
+// the method signature using the throws keyword. Examples of checked exceptions
+// include IOException, SQLException, and ClassNotFoundException.
+// 2. Unchecked Exceptions:

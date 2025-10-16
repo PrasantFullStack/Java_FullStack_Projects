@@ -17,4 +17,8 @@ public class WhatsDsa {
   // making it easier to handle large datasets and perform operations on them.
   // Understanding DSA is crucial for software development, competitive
   // programming, and technical interviews.
+  public static void main(String[] args) {
+    System.out.println("What is Data Structures and Algorithms (DSA)?");
+
+  }
 }

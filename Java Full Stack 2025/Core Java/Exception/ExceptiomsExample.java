@@ -14,8 +14,7 @@ public class ExceptiomsExample {
     String s = "abc";
     int num = Integer.parseInt(s); // This will cause NumberFormatException
     System.out.println("Number: " + num);
-    Object x = new Integer(0);
-    System.out.println((String) x); // This will cause ClassCastException
+
   }
 
 }

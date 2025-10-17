@@ -17,6 +17,29 @@ public class WhatsDsa {
   // making it easier to handle large datasets and perform operations on them.
   // Understanding DSA is crucial for software development, competitive
   // programming, and technical interviews.
+  // It provides a strong foundation for building efficient and scalable
+  // software systems.
+  // Example:
+  /*
+   * // Example of a simple algorithm to find the maximum element in an array
+   * public class MaxElement {
+   * public static void main(String[] args) {
+   * int[] arr = { 3, 5, 2, 8, 1 };
+   * int max = findMax(arr);
+   * System.out.println("Maximum element: " + max);
+   * }
+   * 
+   * public static int findMax(int[] arr) {
+   * int max = arr[0];
+   * for (int i = 1; i < arr.length; i++) {
+   * if (arr[i] > max) {
+   * max = arr[i];
+   * }
+   * }
+   * return max;
+   * }
+   * }
+   */
   public static void main(String[] args) {
     System.out.println("What is Data Structures and Algorithms (DSA)?");
 

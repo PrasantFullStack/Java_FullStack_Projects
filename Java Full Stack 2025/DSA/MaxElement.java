@@ -22,5 +22,7 @@ public class MaxElement {
   // findMax method.
   // In the main method, an array of integers is created and initialized with some
   // values.
+  // The findMax method is called with the array as an argument, and the maximum
+  // element is returned and printed to the console.
 
 }

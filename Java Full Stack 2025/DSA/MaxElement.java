@@ -26,5 +26,6 @@ public class MaxElement {
   // element is returned and printed to the console.
   // The findMax method iterates through the array, comparing each element to the
   // current maximum value.
+  // If a larger element is found, it updates the maximum value.
 
 }

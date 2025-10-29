@@ -13,7 +13,7 @@ public class Stringhj {
     }
     return reversed.toString();
   }
-  // explanation simple code to reverse a string
+  // explaination simple code to reverse a string
   // The code defines a class named Stringhj that contains a main method and a
   // reverseString method.
   // In the main method, a string is created and initialized with some text.

@@ -30,6 +30,11 @@ public class basic {
     basic obj = new basic(); // creating object of class
     System.out.println("Non static variable: " + obj.x);
     System.out.println("Static variable: " + y);
-  }
+  }// end of main
+   // end of class
+   // explaination of code
+   // The code defines a class named basic that contains a non-static variable x
+   // and a
+   // static variable y.
 
 }

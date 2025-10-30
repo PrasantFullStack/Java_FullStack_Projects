@@ -36,5 +36,8 @@ public class basic {
    // The code defines a class named basic that contains a non-static variable x
    // and a
    // static variable y.
+   // In the main method, an object of the basic class is created to access the
+   // non-static variable x.
+   // The static variable y is accessed directly using the class name.
 
 }

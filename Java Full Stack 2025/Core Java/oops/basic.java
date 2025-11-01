@@ -51,5 +51,10 @@ public class basic {
   /// modules.
   /// Java 17: Released in September 2021, Java 17 is also an LTS version. It
   /// includes features like sealed classes, pattern matching for switch
+  /// expressions, and enhanced pseudo-random number generators.
+  /// Java 21: Released in September 2023, Java 21 is the latest LTS version. It
+  /// introduces features like record patterns, virtual threads (Project Loom),
+  /// and structured concurrency, enhancing the language's capabilities for
+  /// modern application development.
 
 }

@@ -40,4 +40,10 @@ public class basic {
    // non-static variable x.
    // The static variable y is accessed directly using the class name.
 
+  /// what is defference between java 8, java 11, java 17, 21?
+  /// Java 8: Released in March 2014, Java 8 introduced significant features such
+  /// as lambda expressions, the Stream API, and the new Date and Time API. It
+  /// also brought default methods in interfaces and the Nashorn JavaScript
+  /// engine.
+
 }

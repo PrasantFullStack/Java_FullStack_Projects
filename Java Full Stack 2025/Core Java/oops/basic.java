@@ -45,5 +45,11 @@ public class basic {
   /// as lambda expressions, the Stream API, and the new Date and Time API. It
   /// also brought default methods in interfaces and the Nashorn JavaScript
   /// engine.
+  /// Java 11: Released in September 2018, Java 11 is a Long-Term Support (LTS)
+  /// version. It introduced features like the HTTP Client API, local-variable
+  /// syntax for lambda parameters, and the removal of the Java EE and CORBA
+  /// modules.
+  /// Java 17: Released in September 2021, Java 17 is also an LTS version. It
+  /// includes features like sealed classes, pattern matching for switch
 
 }

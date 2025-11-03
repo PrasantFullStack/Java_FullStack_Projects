@@ -15,6 +15,8 @@ public class ExceptiomsExample {
     int num = Integer.parseInt(s); // This will cause NumberFormatException
     System.out.println("Number: " + num);
 
+    // what is exception in java?s
+
   }
 
 }

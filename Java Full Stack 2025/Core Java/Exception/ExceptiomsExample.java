@@ -15,7 +15,9 @@ public class ExceptiomsExample {
     int num = Integer.parseInt(s); // This will cause NumberFormatException
     System.out.println("Number: " + num);
 
-    // what is exception in java?s
+    // what is exception in java?
+    // An exception is an event that occurs during the execution of a program that
+    // disrupts the normal flow of instructions.
 
   }
 

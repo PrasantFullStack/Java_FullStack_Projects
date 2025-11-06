@@ -29,5 +29,11 @@ public class ReverseArrays {
     }
     System.out.println();
   }
-
+  // explanation: This code defines a Java class ReverseArrays that contains
+  // methods to reverse an array and print its elements. The main method
+  // initializes an array, prints the original array, reverses it using the
+  // reverseArray method, and then prints the reversed array. The reverseArray
+  // method swaps elements from the start and end of the array moving towards the
+  // center, effectively reversing the array in place. The printArray method
+  // iterates through the array and prints each element.
 }

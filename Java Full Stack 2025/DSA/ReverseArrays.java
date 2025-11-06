@@ -36,4 +36,6 @@ public class ReverseArrays {
   // method swaps elements from the start and end of the array moving towards the
   // center, effectively reversing the array in place. The printArray method
   // iterates through the array and prints each element.
+  //// Time Complexity: O(n) - where n is the number of elements in the array.
+  //// Space Complexity: O(1) - no additional space is used that scales with input
 }

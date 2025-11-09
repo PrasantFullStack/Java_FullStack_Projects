@@ -20,6 +20,13 @@ public class ExceptiomsExample {
     // disrupts the normal flow of instructions.
     // Types of Exceptions in Java:
     // 1. Checked Exceptions: These are exceptions that are checked at compile-time.
+    // Examples: IOException, SQLException
+    // 2. Unchecked Exceptions: These are exceptions that are not checked at
+    // compile-time. Examples: ArithmeticException, NullPointerException,
+    // ArrayIndexOutOfBoundsException, NumberFormatException
+    // 3. Errors: These are serious problems that a reasonable application should
+    // not
+    // try to catch. Examples: OutOfMemoryError, StackOverflowError
   }
 
 }

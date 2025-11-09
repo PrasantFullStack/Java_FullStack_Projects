@@ -18,7 +18,8 @@ public class ExceptiomsExample {
     // what is exception in java?
     // An exception is an event that occurs during the execution of a program that
     // disrupts the normal flow of instructions.
-
+    // Types of Exceptions in Java:
+    // 1. Checked Exceptions: These are exceptions that are checked at compile-time.
   }
 
 }

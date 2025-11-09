@@ -27,6 +27,8 @@ public class ExceptiomsExample {
     // 3. Errors: These are serious problems that a reasonable application should
     // not
     // try to catch. Examples: OutOfMemoryError, StackOverflowError
+    // Exception Handling in Java:
+    // Java provides a robust exception handling mechanism using the try, catch,
   }
 
 }

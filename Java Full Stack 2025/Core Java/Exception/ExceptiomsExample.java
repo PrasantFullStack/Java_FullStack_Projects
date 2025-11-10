@@ -32,3 +32,5 @@ public class ExceptiomsExample {
   }
 
 }
+// finally, throw, and throws keywords.
+// try block is used to enclose the code that may throw an exception.

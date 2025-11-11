@@ -45,3 +45,12 @@ public class ExceptiomsExample {
 // System.out.println("Result: " + result);
 // } catch (ArithmeticException e) {
 // System.out.println("Error: Division by zero is not allowed.");
+// } finally {
+// System.out.println("Execution completed.");
+// }
+// Explanation: This code defines a Java class ExceptiomsExample that
+// demonstrates
+// various types of exceptions in Java, including ArithmeticException,
+// NullPointerException, ArrayIndexOutOfBoundsException, and
+// NumberFormatException.
+// The main method contains code that will throw these exceptions when executed.

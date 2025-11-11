@@ -34,3 +34,12 @@ public class ExceptiomsExample {
 }
 // finally, throw, and throws keywords.
 // try block is used to enclose the code that may throw an exception.
+// catch block is used to handle the exception.
+// finally block is used to execute the code that must be executed whether an
+// exception occurs or not.
+// throw keyword is used to explicitly throw an exception.
+// throws keyword is used to declare the exceptions that a method may throw.
+// Example of Exception Handling in Java:
+// try {
+// int result = a / b; // This may throw ArithmeticException
+// System.out.println("Result: " + result);

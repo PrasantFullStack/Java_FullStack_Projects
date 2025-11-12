@@ -54,3 +54,4 @@ public class ExceptiomsExample {
 // NullPointerException, ArrayIndexOutOfBoundsException, and
 // NumberFormatException.
 // The main method contains code that will throw these exceptions when executed.
+//  It also provides a brief explanation of exceptions in Java, their types,

@@ -40,6 +40,8 @@ public class WhatsDsa {
    * }
    * }
    */
+  // In this example, we define a simple algorithm to find the maximum element in
+  // an array.
   public static void main(String[] args) {
     System.out.println("What is Data Structures and Algorithms (DSA)?");
 

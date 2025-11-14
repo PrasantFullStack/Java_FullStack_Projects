@@ -43,6 +43,8 @@ public class ReverseArrays {
   /// // Use Cases: This method can be used in scenarios where array manipulation
   // is
   /// // required, such as in algorithms that need to reverse data order.
-  /// // Example: Input Array: [1, 2, 3, 4, 5] Output Array: [5, 4, 3, 2, 1]
-  ///
+  /// // Example: Input Array: [1, 2, 3, 4, 5] Output Array: [5, 4, 3, 2, 1].
+  /// // Note: This implementation works for arrays of any data type by changing
+  // the
+  /// // array type in the method signatures.
 }

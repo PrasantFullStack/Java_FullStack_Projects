@@ -41,7 +41,9 @@ public class WhatsDsa {
    * }
    */
   // In this example, we define a simple algorithm to find the maximum element in
-  // an array.
+  // an array. The findMax method iterates through the array and keeps track of
+  // the
+  // maximum value found. This demonstrates the use of a basic algorithm to solve
   public static void main(String[] args) {
     System.out.println("What is Data Structures and Algorithms (DSA)?");
 

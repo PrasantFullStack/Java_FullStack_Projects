@@ -53,6 +53,9 @@ public class Variable {
     // | Collection | `List<String> list = new ArrayList<>();` |
     // | Map | `Map<String, Integer> map = new HashMap<>();` |
     // // Example of a class in Java
+    // class Person {
+    // String name; // Non-primitive data type
+    // int age; // Primitive data type
 
   }
 

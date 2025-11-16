@@ -220,4 +220,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-Let me know if you want to split this into multiple `README.md` files inside each project folder or need individual feature explanations per project.
+Let me know if you want to split this into multiple `README.md` files inside each project folder or need individual feature explanations per project. thank you.

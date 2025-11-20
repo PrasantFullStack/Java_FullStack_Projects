@@ -25,4 +25,9 @@ public class Conditions {
     }
 
   }
+  // Output: The number is positive.
+  // Explanation: The program checks the value of the variable 'number'.
+  // Since it is greater than 0, the first condition is true, and the
+  // corresponding
+  // block is executed, printing "The number is positive."
 }

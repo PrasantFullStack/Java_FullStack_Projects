@@ -12,6 +12,7 @@ public class Abstraction {
   public static void main(String[] args) {
     // example of abstraction in java
 
+    // using abstract class
     System.out.println("Abstraction in Java");
 
   }

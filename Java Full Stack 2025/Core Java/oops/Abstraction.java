@@ -15,6 +15,8 @@ public class Abstraction {
     // using abstract class
     System.out.println("Abstraction in Java");
 
+    // using interface
+    System.out.println("Abstraction using Interface in Java");
   }
 
 }

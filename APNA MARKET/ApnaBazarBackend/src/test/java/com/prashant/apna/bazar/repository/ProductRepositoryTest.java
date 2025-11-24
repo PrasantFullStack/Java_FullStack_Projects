@@ -33,8 +33,7 @@ public class ProductRepositoryTest {
   @Test
   void testFindByCategory() {
     Product p1 = new Product();
-    p1.setName(  
-      +"Phone");
+    p1.setName("Phone");
     p1.setBasePrice(30000.0);
     p1.setMaincategory("Mobiles");
 

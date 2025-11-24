@@ -33,7 +33,8 @@ public class ProductRepositoryTest {
   @Test
   void testFindByCategory() {
     Product p1 = new Product();
-    p1.setName("Phone");
+    p1.setName(  
+      +"Phone");
     p1.setBasePrice(30000.0);
     p1.setMaincategory("Mobiles");
 
@@ -45,7 +46,7 @@ public class ProductRepositoryTest {
     productRepository.save(p1);
     productRepository.save(p2);
 
-    List<Product> mobiles = productRepository.findByCategory("Mobiles");
+    List<Product> mobiles = productRepository.findByMaincategory("Mobiles");
 
     assertThat(mobiles).hasSize(2);
   }

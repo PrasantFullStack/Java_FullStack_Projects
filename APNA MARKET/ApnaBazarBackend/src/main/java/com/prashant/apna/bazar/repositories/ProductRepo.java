@@ -10,8 +10,17 @@ import com.prashant.apna.bazar.entities.Product;
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
 
-  List<Product> findByCategory(String string);
-  // prebuilt mehods are available in JpaRepository
-  // findById, save, deleteById, findAll, count, existsById etc.
+  List<Product> findByMaincategory(String maincategory);
 
+  // or if you need both:
+  List<Product> findBySubcategory(String subcategory);
 }
+
+// @Repository
+// public interface ProductRepo extends JpaRepository<Product, Long> {
+
+// List<Product> findByCategory(String string);
+// // prebuilt mehods are available in JpaRepository
+// // findById, save, deleteById, findAll, count, existsById etc.
+
+// }

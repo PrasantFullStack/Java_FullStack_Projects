@@ -23,118 +23,116 @@ import com.prashant.apna.bazar.services.ProductService;
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @MockBean
-  private ProductService productService;
+    @MockBean
+    private ProductService productService;
 
-  @MockBean
-  private ObjectMapper mapper;
+    @MockBean
+    private ObjectMapper mapper;
 
-  // Create Product Test (Multipart + JSON)
-  @Test
-  void testCreateProduct() throws Exception {
+    // Create Product Test (Multipart + JSON)
+    @Test
+    void testCreateProduct() throws Exception {
 
-    ProductDTO dto = new ProductDTO();
-    ProductResponseDto response = new ProductResponseDto();
+        ProductDTO dto = new ProductDTO();
+        ProductResponseDto response = new ProductResponseDto();
 
-    String productJson = "{\"name\":\"Mobile\"}";
+        String productJson = "{\"name\":\"Mobile\"}";
 
-    MockMultipartFile jsonPart = new MockMultipartFile(
-        "product",
-        "",
-        "application/json",
-        productJson.getBytes());
+        MockMultipartFile jsonPart = new MockMultipartFile(
+                "product",
+                "",
+                "application/json",
+                productJson.getBytes());
 
-    MockMultipartFile filePart = new MockMultipartFile(
-        "files",
-        "img.jpg",
-        "image/jpeg",
-        "dummy".getBytes());
+        MockMultipartFile filePart = new MockMultipartFile(
+                "files",
+                "img.jpg",
+                "image/jpeg",
+                "dummy".getBytes());
 
-    when(mapper.readValue(anyString(), eq(ProductDTO.class)))
-        .thenReturn(dto);
+        when(mapper.readValue(anyString(), eq(ProductDTO.class)))
+                .thenReturn(dto);
 
-    when(productService.createProduct(any(), any()))
-        .thenReturn(response);
+        when(productService.createProduct(any(), any()))
+                .thenReturn(response);
 
-    mockMvc.perform(multipart("/product")
-        .file(jsonPart)
-        .file(filePart)
-        .contentType(MediaType.MULTIPART_FORM_DATA))
-        .andExpect(status().isCreated());
-  }
+        mockMvc.perform(multipart("/product")
+                .file(jsonPart)
+                .file(filePart)
+                .contentType(MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isCreated());
+    }
 
-  // Get All Products
+    // Get All Products
 
-  @Test
-  void testGetAllProducts() throws Exception {
+    @Test
+    void testGetAllProducts() throws Exception {
 
-    when(productService.getAllProduct())
-        .thenReturn(List.of(new ProductResponseDto()));
+        when(productService.getAllProduct())
+                .thenReturn(List.of(new ProductResponseDto()));
 
-    mockMvc.perform(get("/product"))
-        .andExpect(status().isOk());
-  }
+        mockMvc.perform(get("/product"))
+                .andExpect(status().isOk());
+    }
 
-  // Get Product By ID
-  @Test
-  void testGetProductById() throws Exception {
+    // Get Product By ID
+    @Test
+    void testGetProductById() throws Exception {
 
-    ProductResponseDto dto = new ProductResponseDto();
+        ProductResponseDto dto = new ProductResponseDto();
 
-    when(productService.getProductById(1L))
-        .thenReturn(dto);
+        when(productService.getProductById(1L))
+                .thenReturn(dto);
 
-    mockMvc.perform(get("/product/1"))
-        .andExpect(status().isOk());
-  }
+        mockMvc.perform(get("/product/1"))
+                .andExpect(status().isOk());
+    }
 
-  // Update Product (Multipart + JSON)
-  @Test
-  void testUpdateProduct() throws Exception {
+    // Update Product (Multipart + JSON)
+    @Test
+    void testUpdateProduct() throws Exception {
 
-    ProductDTO dto = new ProductDTO();
-    ProductResponseDto response = new ProductResponseDto();
+        ProductResponseDto response = new ProductResponseDto();
 
-    // JSON part for productDTO
-    MockMultipartFile jsonPart = new MockMultipartFile(
-        "product",
-        "",
-        "application/json",
-        "{\"name\":\"Laptop\"}".getBytes());
+        // JSON part for productDTO
+        MockMultipartFile jsonPart = new MockMultipartFile(
+                "product",
+                "",
+                "application/json",
+                "{\"name\":\"Laptop\"}".getBytes());
 
-    MockMultipartFile filePart = new MockMultipartFile(
-        "files",
-        "file.jpg",
-        "image/jpeg",
-        "dummy".getBytes());
+        MockMultipartFile filePart = new MockMultipartFile(
+                "files",
+                "file.jpg",
+                "image/jpeg",
+                "dummy".getBytes());
 
-    when(productService.updateProduct(anyLong(), any(), any()))
-        .thenReturn(response);
+        when(productService.updateProduct(anyLong(), any(), any()))
+                .thenReturn(response);
 
-    mockMvc.perform(
-        multipart("/product/1")
-            .file(jsonPart)
-            .file(filePart)
-            .with(request -> {
-              request.setMethod("PUT");
-              return request;
-            }))
-        .andExpect(status().isOk());
-  }
+        mockMvc.perform(
+                multipart("/product/1")
+                        .file(jsonPart)
+                        .file(filePart)
+                        .with(request -> {
+                            request.setMethod("PUT");
+                            return request;
+                        }))
+                .andExpect(status().isOk());
+    }
 
-  // -------------------------------------------------------------------------
-  // Delete Product
-  // -------------------------------------------------------------------------
-  @Test
-  void testDeleteProduct() throws Exception {
+    // Delete Product
 
-    doNothing().when(productService).deleteProduct(1L);
+    @Test
+    void testDeleteProduct() throws Exception {
 
-    mockMvc.perform(delete("/product/1"))
-        .andExpect(status().isOk())
-        .andExpect(content().string("Product Deleted Successfully"));
-  }
+        doNothing().when(productService).deleteProduct(1L);
+
+        mockMvc.perform(delete("/product/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Product Deleted Successfully"));
+    }
 }

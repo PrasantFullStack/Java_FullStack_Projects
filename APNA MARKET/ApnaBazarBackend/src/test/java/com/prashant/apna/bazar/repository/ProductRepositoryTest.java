@@ -14,6 +14,9 @@ import com.prashant.apna.bazar.repositories.ProductRepo;
 @DataJpaTest
 public class ProductRepositoryTest {
 
+  // Inject the ProductRepo to test its methods
+  //
+
   @Autowired
   private ProductRepo productRepository;
 
@@ -65,5 +68,5 @@ public class ProductRepositoryTest {
     assertThat(exists).isFalse();
   }
   // Additional tests can be added here for more coverage
-  // like update, findAll, etc.
+  // like update, findAll, etc
 }

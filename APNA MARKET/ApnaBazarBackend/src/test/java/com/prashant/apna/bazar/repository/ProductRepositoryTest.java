@@ -64,4 +64,6 @@ public class ProductRepositoryTest {
     boolean exists = productRepository.existsById(saved.getId());
     assertThat(exists).isFalse();
   }
+  // Additional tests can be added here for more coverage
+  // like update, findAll, etc.
 }

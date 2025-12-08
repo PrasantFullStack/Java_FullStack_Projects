@@ -15,7 +15,9 @@ import com.prashant.apna.bazar.repositories.ProductRepo;
 public class ProductRepositoryTest {
 
   // Inject the ProductRepo to test its methods
-  //
+  // Use @DataJpaTest for JPA repository testing
+  // This annotation configures an in-memory database, scans for @Entity classes
+  // and configures Spring Data JPA repositories
 
   @Autowired
   private ProductRepo productRepository;

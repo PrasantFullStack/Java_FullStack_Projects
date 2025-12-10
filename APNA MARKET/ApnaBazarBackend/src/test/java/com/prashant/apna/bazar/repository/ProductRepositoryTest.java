@@ -18,6 +18,8 @@ public class ProductRepositoryTest {
   // Use @DataJpaTest for JPA repository testing
   // This annotation configures an in-memory database, scans for @Entity classes
   // and configures Spring Data JPA repositories
+  // It also disables full auto-configuration and instead applies only
+  // configuration relevant to JPA tests
 
   @Autowired
   private ProductRepo productRepository;

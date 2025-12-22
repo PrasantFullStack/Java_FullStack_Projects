@@ -24,6 +24,8 @@ import com.prashant.api.ecom.ducart.modal.BrandResponseDTO;
 import com.prashant.api.ecom.ducart.services.BrandService;
 
 // Brand Controller
+//what is controller?
+// A controller is a class in a web application that handles incoming HTTP requests, processes them, and returns appropriate HTTP responses. It acts as an intermediary between the client (such as a web browser or mobile app) and the server-side application logic. Controllers are responsible for managing the flow of data and coordinating actions based on user interactions.
 @RestController
 @RequestMapping("/brand")
 public class BrandController {

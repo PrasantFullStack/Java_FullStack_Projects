@@ -23,6 +23,7 @@ import com.prashant.api.ecom.ducart.modal.BrandDTO;
 import com.prashant.api.ecom.ducart.modal.BrandResponseDTO;
 import com.prashant.api.ecom.ducart.services.BrandService;
 
+// Brand Controller
 @RestController
 @RequestMapping("/brand")
 public class BrandController {

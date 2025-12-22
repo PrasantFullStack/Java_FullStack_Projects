@@ -20,6 +20,7 @@ public class ProductRepositoryTest {
   // and configures Spring Data JPA repositories
   // It also disables full auto-configuration and instead applies only
   // configuration relevant to JPA tests
+  //
 
   @Autowired
   private ProductRepo productRepository;

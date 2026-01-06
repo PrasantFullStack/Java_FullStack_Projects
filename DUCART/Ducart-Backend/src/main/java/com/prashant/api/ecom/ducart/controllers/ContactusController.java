@@ -36,5 +36,6 @@ public class ContactusController {
   public ResponseEntity<List<ContactusResponseDTO>> getAllContactus() {
     return ResponseEntity.status(HttpStatus.OK).body(contactusService.getAllContactus());
   }
+  // Additional endpoints (e.g., update, delete) can be added here as neededs
 
 }

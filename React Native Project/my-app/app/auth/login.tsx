@@ -54,7 +54,7 @@ export default function Login() {
       <Text onPress={() => router.push("/auth/register")} style={styles.link}>
         New user? Register
       </Text>
-    </View>
+    </View>               
   );
 }
 

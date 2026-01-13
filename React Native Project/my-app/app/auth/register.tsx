@@ -40,7 +40,7 @@ export default function Register() {
       />
 
       <TextInput
-        placeholder="Role (BUYER / SELLER)"
+        placeholder="Role"
         value={role}
         onChangeText={setRole}
         style={styles.input}

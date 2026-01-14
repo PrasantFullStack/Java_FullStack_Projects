@@ -4,22 +4,21 @@ import api from "../../services/api";
 import { router } from "expo-router";
 
 export default function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("BUYER");
+  const [role, setRole] = useState("");
 
   const handleRegister = async () => {
     try {
       await api.post("/auth/register", {
-        name,
-        email,
+         
+        phoneNumber,
         password,
         role,
       });
 
       alert("Registration successful");
-      router.replace("../login");
+      router.replace("/auth/login");
     } catch (err) {
       alert("Registration failed");
     }
@@ -28,7 +27,7 @@ export default function Register() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
-      <TextInput placeholder="phone number" value={email} onChangeText={setEmail} style={styles.input} />
+      <TextInput placeholder="Phone number" value={phoneNumber} onChangeText={setPhone} style={styles.input} />
       <TextInput
         placeholder="Password"
         secureTextEntry
@@ -69,7 +68,7 @@ export default function Register() {
           />
         )}
       </View>
-      <Text>Buyer</Text>
+      <Text>Buyer </Text>
     </TouchableOpacity>
     <TouchableOpacity
       style={{
@@ -101,7 +100,7 @@ export default function Register() {
           />
         )}
       </View>
-      <Text>Seller</Text>
+      <Text>Seller  </Text>
     </TouchableOpacity>
   </View>
 
@@ -117,6 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
+    
   },
   title: {
     fontSize: 26,

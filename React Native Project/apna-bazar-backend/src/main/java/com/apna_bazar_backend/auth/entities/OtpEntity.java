@@ -1,4 +1,4 @@
-package com.apna_bazar_backend.entities;
+package com.apna_bazar_backend.auth.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

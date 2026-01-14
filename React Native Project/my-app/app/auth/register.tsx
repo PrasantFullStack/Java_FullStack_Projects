@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-import { useState } from "react";
+import React, { useState } from "react";
 import api from "../../services/api";
 import { router } from "expo-router";
 
@@ -28,9 +28,7 @@ export default function Register() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
-
-      <TextInput placeholder="Name" value={name} onChangeText={setName} style={styles.input} />
-      <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} />
+      <TextInput placeholder="phone number" value={email} onChangeText={setEmail} style={styles.input} />
       <TextInput
         placeholder="Password"
         secureTextEntry
@@ -39,12 +37,73 @@ export default function Register() {
         style={styles.input}
       />
 
-      <TextInput
-        placeholder="Role"
-        value={role}
-        onChangeText={setRole}
-        style={styles.input}
-      />
+  <View style={{ flexDirection: "row", marginBottom: 15 }}>
+    <TouchableOpacity
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        marginRight: 20,
+      }}
+      onPress={() => setRole("BUYER")}
+    >
+      <View
+        style={{
+          height: 20,
+          width: 20,
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: "#16a34a",
+          alignItems: "center",
+          justifyContent: "center",
+          marginRight: 6,
+        }}
+      >
+        {role === "BUYER" && (
+          <View
+            style={{
+              height: 12,
+              width: 14,
+              borderRadius: 6,
+              backgroundColor: "#16a34a",
+            }}
+          />
+        )}
+      </View>
+      <Text>Buyer</Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+      onPress={() => setRole("SELLER")}
+    >
+      <View
+        style={{
+          height: 20,
+          width: 20,
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: "#16a34a",
+          alignItems: "center",
+          justifyContent: "center",
+          marginRight: 6,
+        }}
+      >
+        {role === "SELLER" && (
+          <View
+            style={{
+              height: 12,
+              width: 12,
+              borderRadius: 6,
+              backgroundColor: "#16a34a",
+            }}
+          />
+        )}
+      </View>
+      <Text>Seller</Text>
+    </TouchableOpacity>
+  </View>
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.btnText}>Register</Text>

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
-export default function BuyerProfile() {
+export default function UserProfile() {
   return (
     <View style={styles.container}>
       {/* Header */}

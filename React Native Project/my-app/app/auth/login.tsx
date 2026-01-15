@@ -1,4 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { globalStyles } from "@/styles/globalStyles";
 import { useState } from "react";
 import api from "../../services/api";
 import { router } from "expo-router";
@@ -27,9 +28,9 @@ export default function Login() {
       alert("Invalid email or password");
     }
   };
-
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
+    <View style={globalStyles.card}>
       <Text style={styles.title}>Login</Text>
 
       <TextInput
@@ -54,7 +55,8 @@ export default function Login() {
       <Text onPress={() => router.push("/auth/register")} style={styles.link}>
         New user? Register
       </Text>
-    </View>               
+    </View>   
+    </View>            
   );
 }
 

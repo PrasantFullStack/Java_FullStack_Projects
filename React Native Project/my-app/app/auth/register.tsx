@@ -26,6 +26,7 @@ export default function Register() {
 
   return (
     <View style={styles.container}>
+    <View style={styles.card}>
       <Text style={styles.title}>Register</Text>
       <TextInput placeholder="Phone number" value={phoneNumber} onChangeText={setPhone} style={styles.input} />
       <TextInput
@@ -43,7 +44,7 @@ export default function Register() {
         alignItems: "center",
         marginRight: 20,
       }}
-      onPress={() => setRole("BUYER")}
+      onPress={() => setRole("Buyer")}
     >
       <View
         style={{
@@ -57,7 +58,7 @@ export default function Register() {
           marginRight: 6,
         }}
       >
-        {role === "BUYER" && (
+        {role === "Buyer" && (
           <View
             style={{
               height: 12,
@@ -75,7 +76,7 @@ export default function Register() {
         flexDirection: "row",
         alignItems: "center",
       }}
-      onPress={() => setRole("SELLER")}
+      onPress={() => setRole("Seller")}
     >
       <View
         style={{
@@ -89,7 +90,7 @@ export default function Register() {
           marginRight: 6,
         }}
       >
-        {role === "SELLER" && (
+        {role === "Seller" && (
           <View
             style={{
               height: 12,
@@ -108,16 +109,28 @@ export default function Register() {
         <Text style={styles.btnText}>Register</Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    
-  },
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#f5f5f5",
+},
+  card: {
+  width: "100%",
+  maxWidth: 420,         
+  backgroundColor: "#fff",
+  padding: 20,
+  borderRadius: 10,
+  elevation: 3,        // Android shadow
+  shadowColor: "#000", // iOS/Web shadow
+  shadowOpacity: 0.1,
+  shadowRadius: 6,
+},
   title: {
     fontSize: 26,
     fontWeight: "bold",

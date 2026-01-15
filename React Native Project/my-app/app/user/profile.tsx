@@ -22,21 +22,21 @@ export default function BuyerProfile() {
       {/* Actions */}
       <TouchableOpacity
         style={styles.actionBtn}
-        onPress={() => router.push("/(buyer)/orders")}
+        onPress={() => router.push("/user/orders")}
       >
         <Text style={styles.actionText}>My Orders</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.actionBtn}
-        onPress={() => router.push("/(buyer)/cart")}
+        onPress={() => router.push("/user/cart")}
       >
         <Text style={styles.actionText}>My Cart</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.actionBtn}
-        onPress={() => router.push("/(buyer)/address")}
+        onPress={() => router.push("/user/address")}
       >
         <Text style={styles.actionText}>Saved Addresses</Text>
       </TouchableOpacity>

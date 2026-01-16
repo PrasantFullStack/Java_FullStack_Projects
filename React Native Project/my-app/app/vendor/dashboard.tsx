@@ -15,21 +15,21 @@ export default function SellerDashboard() {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/(seller)/products")}
+        onPress={() => router.push("/vendor/products")}
       >
         <Text style={styles.buttonText}>My Products</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/(seller)/add-product" as any)}
+        onPress={() => router.push("/vendor/add-product" as any)}
       >
         <Text style={styles.buttonText}>Add New Product</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.button, styles.logout]}
-        onPress={() => router.replace("/login")}
+        onPress={() => router.replace("/auth/login")}
       >
         <Text style={styles.buttonText}>Logout</Text>
       </TouchableOpacity>

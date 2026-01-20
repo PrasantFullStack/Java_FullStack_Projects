@@ -53,7 +53,7 @@ export default function Products() {
   const renderItem = ({ item }: { item: Product }) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => router.push(`/(buyer)/product-details?id=${item.id}`)}
+      onPress={() => router.push(`//product-details?id=${item.id}`)}
     >
       <Image source={{ uri: item.image }} style={styles.image} />
 

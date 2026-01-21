@@ -60,21 +60,21 @@ export default function AdminDashboard() {
 
       <TouchableOpacity
         style={styles.action}
-        onPress={() => router.push("/(admin)/users")}
+        onPress={() => router.push("/admin/users")}
       >
         <Text style={styles.actionText}>Manage Users</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.action}
-        onPress={() => router.push("/(admin)/products")}
+        onPress={() => router.push("/admin/products")}
       >
         <Text style={styles.actionText}>Manage Products</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.action}
-        onPress={() => router.push("/(admin)/orders")}
+        onPress={() => router.push("/user/orders")}
       >
         <Text style={styles.actionText}>Manage Orders</Text>
       </TouchableOpacity>

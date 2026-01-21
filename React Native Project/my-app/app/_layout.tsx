@@ -18,12 +18,12 @@ export default function RootLayout() {
         <Stack.Screen name="auth/otp" />
 
         {/* Buyer */}
-        <Stack.Screen name="(buyer)/home" />
+        <Stack.Screen name="(screen)/home" />
         <Stack.Screen name="(buyer)/product" />
         <Stack.Screen name="(user)/cart" />
         <Stack.Screen name="(user)/checkout" />
-        <Stack.Screen name="(buyer)/orders" />
-        <Stack.Screen name="(buyer)/address" />
+        <Stack.Screen name="(user)/orders" />
+        <Stack.Screen name="(user)/address" />
 
         {/* Seller */}
         <Stack.Screen name="/dashboard" />

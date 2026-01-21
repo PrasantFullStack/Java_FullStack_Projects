@@ -26,10 +26,10 @@ export default function RootLayout() {
         <Stack.Screen name="(buyer)/address" />
 
         {/* Seller */}
-        <Stack.Screen name="(seller)/dashboard" />
+        <Stack.Screen name="/dashboard" />
 
         {/* Admin */}
-        <Stack.Screen name="(admin)/dashboard" />
+        <Stack.Screen name="vender/dashboard" />
       </Stack>
     </>
   );

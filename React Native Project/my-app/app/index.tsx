@@ -1,9 +1,9 @@
  
-import HomeScreen from "../app/screen/HomeScreen";
+// import HomeScreen from "../app/screen/HomeScreen";
 
-export default function Index() {
-  return <HomeScreen />;
-} 
+// export default function Index() {
+//   return <HomeScreen />;
+// } 
 
 
 

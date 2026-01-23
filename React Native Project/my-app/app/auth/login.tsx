@@ -59,6 +59,7 @@ export default function Login() {
     </View>            
   );
 }
+// Styles for the login screen
 
 const styles = StyleSheet.create({
   container: {

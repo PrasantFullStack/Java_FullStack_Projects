@@ -3,7 +3,7 @@ import { globalStyles } from "@/styles/globalStyles";
 import { useState } from "react";
 import api from "../../services/api";
 import { router } from "expo-router";
-
+// Login screen component
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

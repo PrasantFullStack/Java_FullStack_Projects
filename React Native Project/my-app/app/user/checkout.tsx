@@ -24,7 +24,7 @@ type Address = {
   pincode: string;
   addressLine: string;
 };
-
+// Checkout screen component
 export default function Checkout() {
   const router = useRouter();
   const [cart, setCart] = useState<CartItem[]>([]);

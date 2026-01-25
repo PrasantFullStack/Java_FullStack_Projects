@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import api from "../../services/api";
-
+// Admin dashboard component
 export default function AdminDashboard() {
   const router = useRouter();
 

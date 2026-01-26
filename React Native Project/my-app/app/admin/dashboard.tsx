@@ -44,7 +44,7 @@ export default function AdminDashboard() {
       </View>
     );
   }
-
+//
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Admin Dashboard</Text>

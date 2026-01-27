@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-
+// Define props for CategoryCard component
 interface CategoryCardProps {
   icon: React.ReactNode;
   name: string;

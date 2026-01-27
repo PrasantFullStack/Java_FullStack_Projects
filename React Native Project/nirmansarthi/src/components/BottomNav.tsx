@@ -3,7 +3,7 @@ import { Home, Search, ShoppingCart, ClipboardList, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
-
+// Define navigation items with their paths, icons, and labels
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/search", icon: Search, label: "Search" },

@@ -15,7 +15,7 @@ export default function SellerDashboard() {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/vendor/products")}
+        onPress={() => router.push("/vendor/products" as any)}
       >
         <Text style={styles.buttonText}>My Products</Text>
       </TouchableOpacity>

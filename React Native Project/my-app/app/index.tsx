@@ -1,8 +1,8 @@
  
-    // import HomeScreen from "../app/screen/HomeScreen";
-  import SellerDashboard from "./vendor/dashboard";
+    import HomeScreen from "../app/screen/HomeScreen";
+ 
 export default function Index() {
-  return <SellerDashboard />;
+  return <HomeScreen />;
 } 
 
 

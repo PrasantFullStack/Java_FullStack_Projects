@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Building2, Package, Truck, Shield } from "lucide-react";
-
+// Define features to showcase in the onboarding carousel
 const features = [
   {
     icon: Building2,

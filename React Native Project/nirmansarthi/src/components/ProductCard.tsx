@@ -3,7 +3,7 @@ import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
-
+// Define props for ProductCard component
 interface ProductCardProps {
   id: string;
   name: string;

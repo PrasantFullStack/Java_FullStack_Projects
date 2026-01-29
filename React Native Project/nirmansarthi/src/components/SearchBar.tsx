@@ -1,6 +1,6 @@
 import { Search, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-
+// Define props for SearchBar component
 interface SearchBarProps {
   placeholder?: string;
   location?: string;

@@ -14,7 +14,7 @@ export default function RootLayout() {
         }}
       >
         {/* Auth */}
-        <Stack.Screen name="splash" />
+        <Stack.Screen name="(screens)/splashscreen" />
         <Stack.Screen name="login" />
         <Stack.Screen name="register" />
         <Stack.Screen name="otp" />

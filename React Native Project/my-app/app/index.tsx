@@ -1,5 +1,5 @@
  
-    import HomeScreen from "../app/screen/HomeScreen";
+    import HomeScreen from "./screens/HomeScreen";
  
 export default function Index() {
   return <HomeScreen />;

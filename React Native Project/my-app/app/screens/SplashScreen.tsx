@@ -17,10 +17,10 @@ const SplashScreen = ({ navigation }: SplashScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         source={require("../../assets/logo.png")}
         style={styles.logo}
-      />
+      /> */}
 
       <Text style={styles.title}>Nirmansarthi</Text>
       <Text style={styles.tagline}>Smart Way To Build Smarter</Text>

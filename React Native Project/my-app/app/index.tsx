@@ -1,9 +1,8 @@
- 
-    import HomeScreen from "./screens/HomeScreen";
- 
+ import SplashScreen from "./screens/SplashScreen";
+
 export default function Index() {
-  return <HomeScreen />;
-} 
+  return <SplashScreen />;
+}
 
 
 // import { useEffect } from "react";

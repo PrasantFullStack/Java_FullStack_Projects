@@ -18,12 +18,12 @@ export default function Home() {
           India ka apna e-commerce platform
         </Text>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={globalStyles.button}
           onPress={() => router.push("/auth/login")}
-        >
-          <Text style={globalStyles.btnText}>Login</Text>
-        </TouchableOpacity>
+        > */}
+          {/* <Text style={globalStyles.btnText}>Login</Text>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           style={styles.outlineBtn}

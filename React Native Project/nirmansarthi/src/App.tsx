@@ -15,6 +15,7 @@ import Login from "./pages/auth/Login";
 import Otp from "./pages/auth/Otp";
 import Register from "./pages/auth/Register";
 import { ProtectedRoute } from "./pages/auth/ProtectedRoute";
+import VendorProfile from "./pages/vendor/VendorProfile";
 
 const queryClient = new QueryClient();
 

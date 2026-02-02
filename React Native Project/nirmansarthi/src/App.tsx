@@ -11,9 +11,10 @@ import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
 import SearchPage from "./pages/Search";
 import NotFound from "./pages/NotFound";
-import Login from "./components/Login";
-import Otp from "./components/Otp";
-import Register from "./components/Register";
+import Login from "./pages/auth/Login";
+import Otp from "./pages/auth/Otp";
+import Register from "./pages/auth/Register";
+import { ProtectedRoute } from "./pages/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,21 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/vendor/profile" element={<ProtectedRoute role="SELLER">
+      <VendorProfile />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/buyer/profile"
+  element={
+    <ProtectedRoute role="BUYER">
+      <BuyerProfile />
+    </ProtectedRoute>
+  }
+/>
+
             <Route path="/home" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />

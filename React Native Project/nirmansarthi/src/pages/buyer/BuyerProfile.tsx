@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ShoppingBag, Package, Heart, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function BuyerDashboard() {
+export default function BuyerProfile() {
   const navigate = useNavigate();
 
   const logout = () => {

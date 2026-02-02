@@ -11,6 +11,8 @@ import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
 import SearchPage from "./pages/Search";
 import NotFound from "./pages/NotFound";
+import Login from "./components/Login";
+import Otp from "./components/Otp";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/otp" element={<Otp />} />
             <Route path="/home" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />

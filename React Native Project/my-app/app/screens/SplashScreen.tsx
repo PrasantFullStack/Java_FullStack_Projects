@@ -7,7 +7,7 @@ export default function SplashScreen() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.replace("/home"); // ya /home
+      return router.replace("/screens/HomeScreen"); // update to valid route
     }, 2500);
   }, []);
 

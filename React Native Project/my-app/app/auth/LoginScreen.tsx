@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { router } from "@/.expo/types/router";
 
 type RootStackParamList = {
   Login: undefined;
@@ -51,6 +52,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={handleGetOtp}>
         <Text style={styles.buttonText}>Get OTP</Text>
       </TouchableOpacity>
+      <Text onPress={() => router.push("/auth/register")} style={styles.link}>
+        New user? Register
+       </Text>
     </View>
   );
 };
@@ -99,6 +103,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+  },
+  link: {
+    marginTop: 16,
+    color: "#2563eb",
+    textAlign: "center",
+    textDecorationLine: "underline",
+    fontSize: 16,
+    fontWeight: "500",
   },
 });
 

@@ -8,16 +8,15 @@ export default function RootLayout() {
       <StatusBar style="dark" />
 
       <Stack
-        initialRouteName="splash"
         screenOptions={{
           headerShown: false,
         }}
       >
         {/* Auth */}
         <Stack.Screen name="(screens)/splashscreen" />
-        <Stack.Screen name="login" />
-        <Stack.Screen name="register" />
-        <Stack.Screen name="otp" />
+        <Stack.Screen name="(auth)/login" />
+        <Stack.Screen name="(auth)/register" />
+        <Stack.Screen name="(auth)/otp" />
 
         {/* Buyer */}
         <Stack.Screen name="(buyer)/home" />

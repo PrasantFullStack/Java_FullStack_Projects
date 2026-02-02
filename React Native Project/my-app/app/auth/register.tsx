@@ -18,7 +18,7 @@ export default function Register() {
       });
 
       alert("Registration successful");
-      router.replace("/auth/login");
+      router.replace("/auth/LoginScreen");
     } catch (err) {
       alert("Registration failed");
     }

@@ -38,15 +38,25 @@ export const Onboarding = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleGetStarted = () => {
-    setShowOnboarding(false);
-    setTimeout(() => navigate("/home"), 300);
-  };
+  useEffect(() => {
+  const redirectTimer = setTimeout(() => {
+    navigate("/login");
+  }, 5000); // 5 sec
+
+  return () => clearTimeout(redirectTimer);
+}, []);
+
+
 
   if (!showOnboarding) {
     return null;
   }
 
+  function handleGetStarted(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    event.preventDefault();
+    setShowOnboarding(false);
+    navigate("/login");
+  }
   return (
     <motion.div
       initial={{ opacity: 1 }}

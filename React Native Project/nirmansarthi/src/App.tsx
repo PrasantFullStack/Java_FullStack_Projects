@@ -32,12 +32,12 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/vendor/profile" element={<ProtectedRoute role="SELLER"><VendorProfile /> </ProtectedRoute>
+            <Route path="/vendor/dashboard" element={<ProtectedRoute role="SELLER"><VendorProfile /> </ProtectedRoute>
   }
 />
 
 <Route
-  path="/buyer/profile"
+  path="/buyer/dashboard"
   element={
     <ProtectedRoute role="BUYER">
       <BuyerProfile />

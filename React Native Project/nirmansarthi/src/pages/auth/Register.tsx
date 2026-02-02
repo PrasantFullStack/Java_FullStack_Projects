@@ -49,7 +49,14 @@ export default function Register() {
 
     // TODO: API call here
 
-    navigate("/home");
+   if (payload.role === "SELLER") {
+  navigate("/vendor/dashboard");
+} else if (payload.role === "BUYER") {
+  navigate("/buyer/dashboard");
+} else {
+  navigate("/admin/dashboard");
+}
+
   };
 
   return (

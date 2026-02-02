@@ -11,7 +11,7 @@ export default function Otp() {
   const location = useLocation();
   const mobile = location.state?.mobile || "XXXXXXXXXX";
 
-  // ⏱ Timer
+  //  Timer
   useEffect(() => {
     if (timer === 0) return;
     const interval = setInterval(() => {
@@ -20,7 +20,7 @@ export default function Otp() {
     return () => clearInterval(interval);
   }, [timer]);
 
-  // 👉 Handle Input
+  //  Handle Input
   const handleChange = (value: string, index: number) => {
     if (!/^\d?$/.test(value)) return;
 
@@ -47,10 +47,11 @@ export default function Otp() {
       alert("Enter complete OTP");
       return;
     }
-    navigate("/home");
+    navigate("/register", { state: { mobile } });
+
   };
 
-  // 🔁 Resend
+  // Resend
   const handleResend = () => {
     setOtp(["", "", "", ""]);
     setTimer(30);

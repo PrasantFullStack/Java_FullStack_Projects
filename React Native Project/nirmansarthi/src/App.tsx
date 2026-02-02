@@ -17,6 +17,7 @@ import Register from "./pages/auth/Register";
 import  {ProtectedRoute } from "./pages/auth/ProtectedRoute";
 import VendorProfile from "./pages/vendor/VendorProfile"
 import BuyerProfile from "./pages/buyer/BuyerProfile";
+import AdminDashboard from "./pages/admin/AdminDeshboard";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/register" element={<Register />} />
             <Route path="/vendor/dashboard" element={<VendorProfile />} />
             <Route path="/buyer/dashboard" element={<BuyerProfile />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             {/* <Route path="/vendor/dashboard" element={<ProtectedRoute role="SELLER"><VendorProfile /> </ProtectedRoute> */}
 
   {/* }

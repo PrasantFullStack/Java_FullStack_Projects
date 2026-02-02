@@ -21,8 +21,16 @@ export default function Register() {
 
   const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    let value = e.target.value;
+
+    if (e.target.name === "email") {
+      value = value.trim();
+    }
+
+    setForm({ ...form, [e.target.name]: value });
     setError("");
   };
 
@@ -30,12 +38,22 @@ export default function Register() {
     if (!form.firstName.trim()) return "First name required";
     if (!form.lastName.trim()) return "Last name required";
     if (!mobile) return "Mobile missing";
-    if (!form.email.includes("@")) return "Invalid email";
+    if (!/^\S+@\S+\.\S+$/.test(form.email)) return "Invalid email";
     if (form.password.length < 6) return "Password min 6 chars";
-    if (form.password !== form.confirmPassword) return "Passwords do not match";
+    if (form.password !== form.confirmPassword)
+      return "Passwords do not match";
     if (!form.role) return "Select role";
     return "";
   };
+
+  const isFormValid =
+    form.firstName &&
+    form.lastName &&
+    form.email &&
+    form.password &&
+    form.confirmPassword &&
+    form.password === form.confirmPassword &&
+    form.password.length >= 6;
 
   const handleSubmit = () => {
     const msg = validate();
@@ -49,14 +67,11 @@ export default function Register() {
 
     // TODO: API call here
 
-   if (payload.role === "SELLER") {
-  navigate("/vendor/dashboard");
-} else if (payload.role === "BUYER") {
-  navigate("/buyer/dashboard");
-} else {
-  navigate("/admin/dashboard");
-}
-
+    if (payload.role === "SELLER") {
+      navigate("/vendor/dashboard");
+    } else {
+      navigate("/buyer/dashboard");
+    }
   };
 
   return (
@@ -66,7 +81,9 @@ export default function Register() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white w-full max-w-sm p-6 rounded-2xl shadow"
       >
-        <h2 className="text-2xl font-bold text-center mb-4">Create Account</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">
+          Create Account
+        </h2>
 
         {error && (
           <p className="bg-red-100 text-red-600 p-2 rounded mb-3 text-sm">
@@ -131,12 +148,16 @@ export default function Register() {
         >
           <option value="BUYER">Buyer</option>
           <option value="SELLER">Seller</option>
-          <option value="ADMIN">Admin</option>
         </select>
 
         <button
+          disabled={!isFormValid}
           onClick={handleSubmit}
-          className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold"
+          className={`w-full py-3 rounded-xl font-semibold transition ${
+            isFormValid
+              ? "bg-blue-600 text-white"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
         >
           Register
         </button>

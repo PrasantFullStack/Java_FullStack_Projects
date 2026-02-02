@@ -6,13 +6,18 @@ export default function Login() {
   const [mobile, setMobile] = useState("");
   const navigate = useNavigate();
 
-  const handleGetOtp = () => {
-    if (mobile.length !== 10) {
-      alert("Enter valid 10 digit number");
-      return;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, ""); // only numbers
+    if (value.length <= 10) {
+      setMobile(value);
     }
+  };
+
+  const handleGetOtp = () => {
     navigate("/otp", { state: { mobile } });
   };
+
+  const isValid = mobile.length === 10;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -30,15 +35,20 @@ export default function Login() {
           <input
             type="tel"
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter Mobile Number"
             className="flex-1 p-3 outline-none"
           />
         </div>
 
         <button
+          disabled={!isValid}
           onClick={handleGetOtp}
-          className="w-full bg-orange-500 text-white py-3 rounded-xl font-semibold"
+          className={`w-full py-3 rounded-xl font-semibold transition ${
+            isValid
+              ? "bg-orange-500 text-white"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
         >
           Get OTP
         </button>

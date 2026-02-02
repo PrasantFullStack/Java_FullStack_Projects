@@ -14,8 +14,9 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/auth/Login";
 import Otp from "./pages/auth/Otp";
 import Register from "./pages/auth/Register";
-import { ProtectedRoute } from "./pages/auth/ProtectedRoute";
-import VendorProfile from "./pages/vendor/VendorProfile";
+import  {ProtectedRoute } from "./pages/auth/ProtectedRoute";
+import VendorProfile from "./pages/vendor/VendorProfile"
+import BuyerProfile from "./pages/buyer/BuyerProfile";
 
 const queryClient = new QueryClient();
 
@@ -31,9 +32,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/vendor/profile" element={<ProtectedRoute role="SELLER">
-      <VendorProfile />
-    </ProtectedRoute>
+            <Route path="/vendor/profile" element={<ProtectedRoute role="SELLER"><VendorProfile /> </ProtectedRoute>
   }
 />
 

@@ -40,7 +40,7 @@ export default function Otp() {
     }
   };
 
-  // ✅ Verify
+  //Verify
   const handleVerify = () => {
     const finalOtp = otp.join("");
     if (finalOtp.length !== 4) {

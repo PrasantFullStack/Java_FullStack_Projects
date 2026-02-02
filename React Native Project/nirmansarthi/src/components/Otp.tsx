@@ -1,19 +1,60 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Otp() {
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
+  const [timer, setTimer] = useState(30);
+  const inputs = useRef<Array<HTMLInputElement | null>>([]);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const mobile = location.state?.mobile;
+  const mobile = location.state?.mobile || "XXXXXXXXXX";
 
+  // ⏱ Timer
+  useEffect(() => {
+    if (timer === 0) return;
+    const interval = setInterval(() => {
+      setTimer((t) => t - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  // 👉 Handle Input
+  const handleChange = (value: string, index: number) => {
+    if (!/^\d?$/.test(value)) return;
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    if (value && index < 3) {
+      inputs.current[index + 1]?.focus();
+    }
+  };
+
+  // ⬅ Handle Backspace
+  const handleKeyDown = (e: any, index: number) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputs.current[index - 1]?.focus();
+    }
+  };
+
+  // ✅ Verify
   const handleVerify = () => {
-    if (otp.length !== 4) {
-      alert("Enter valid OTP");
+    const finalOtp = otp.join("");
+    if (finalOtp.length !== 4) {
+      alert("Enter complete OTP");
       return;
     }
-    navigate("/register");
+    navigate("/home");
+  };
+
+  // 🔁 Resend
+  const handleResend = () => {
+    setOtp(["", "", "", ""]);
+    setTimer(30);
+    inputs.current[0]?.focus();
   };
 
   return (
@@ -23,22 +64,40 @@ export default function Otp() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white w-full max-w-sm p-6 rounded-2xl shadow"
       >
-        <h2 className="text-2xl font-bold text-center mb-2">
-          Verify OTP
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-2">Verify OTP</h2>
 
         <p className="text-center text-gray-500 mb-6">
           Sent to +91 {mobile}
         </p>
 
-        <input
-          type="text"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          placeholder="Enter OTP"
-          maxLength={4}
-          className="w-full text-center tracking-widest text-xl border p-3 rounded-lg mb-4"
-        />
+        {/* OTP BOXES */}
+        <div className="flex justify-between mb-6">
+          {otp.map((digit, index) => (
+            <input
+              key={index}
+              ref={(el) => (inputs.current[index] = el)}
+              value={digit}
+              maxLength={1}
+              onChange={(e) => handleChange(e.target.value, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className="w-14 h-14 text-center text-xl border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          ))}
+        </div>
+
+        {/* TIMER */}
+        <p className="text-center text-sm text-gray-500 mb-4">
+          {timer > 0 ? `Resend OTP in 00:${timer}` : "Didn't receive OTP?"}
+        </p>
+
+        {timer === 0 && (
+          <button
+            onClick={handleResend}
+            className="w-full text-blue-600 mb-4 font-medium"
+          >
+            Resend OTP
+          </button>
+        )}
 
         <button
           onClick={handleVerify}

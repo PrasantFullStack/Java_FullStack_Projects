@@ -13,6 +13,7 @@ import SearchPage from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import Login from "./components/Login";
 import Otp from "./components/Otp";
+import Register from "./components/Register";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/otp" element={<Otp />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />

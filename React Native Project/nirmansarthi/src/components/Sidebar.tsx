@@ -1,50 +1,76 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import { useState } from "react";
+import {
+  LayoutDashboard,
+  ShoppingCart,
+  Users,
+  Store,
+  Settings,
+  Menu,
+  X,
+} from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-type Menu = {
-  label: string;
-  path: string;
-};
+const menus = [
+  { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
+  { name: "Orders", path: "/admin/orders", icon: ShoppingCart },
+  { name: "Vendors", path: "/admin/vendors", icon: Store },
+  { name: "Buyers", path: "/admin/buyers", icon: Users },
+  { name: "Settings", path: "/admin/settings", icon: Settings },
+];
 
-type Props = {
-  title: string;
-  menus: Menu[];
-};
-
-export default function Sidebar({ title, menus }: Props) {
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+export default function Sidebar() {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <aside className="w-64 bg-white shadow-lg p-5 min-h-screen">
-      <h2 className="text-xl font-bold mb-6">{title}</h2>
-
-      <nav className="space-y-2">
-        {menus.map((menu, i) => (
-          <NavLink
-            key={i}
-            to={menu.path}
-            className={({ isActive }) =>
-              `block p-2 rounded ${
-                isActive ? "bg-blue-100 font-semibold" : "hover:bg-gray-100"
-              }`
-            }
-          >
-            {menu.label}
-          </NavLink>
-        ))}
-      </nav>
-
+    <>
+      {/* Mobile Toggle */}
       <button
-        onClick={logout}
-        className="flex items-center gap-2 mt-10 text-red-500"
+        onClick={() => setOpen(true)}
+        className="md:hidden p-3 fixed top-3 left-3 z-50 bg-white shadow rounded"
       >
-        <LogOut size={18} /> Logout
+        <Menu />
       </button>
-    </aside>
+
+      {/* Overlay */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/30 z-40 md:hidden"
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed md:static z-50 top-0 left-0 h-full w-64 bg-blue-700 text-white transform transition-transform duration-300
+        ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+      >
+        <div className="p-5 text-2xl font-bold border-b flex justify-between">
+          NirmanSarthi
+          <button onClick={() => setOpen(false)} className="md:hidden">
+            <X />
+          </button>
+        </div>
+
+        <nav className="p-4 space-y-2">
+          {menus.map((m) => {
+            const active = location.pathname === m.path;
+            return (
+              <Link
+                key={m.name}
+                to={m.path}
+                onClick={() => setOpen(false)}
+                className={`flex items-center gap-3 p-3 rounded transition ${
+                  active ? "bg-blue-600" : "hover:bg-blue-600"
+                }`}
+              >
+                <m.icon size={20} />
+                {m.name}
+              </Link>
+            );
+          })}
+        </nav>
+      </aside>
+    </>
   );
 }

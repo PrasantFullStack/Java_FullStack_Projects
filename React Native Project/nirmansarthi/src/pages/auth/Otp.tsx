@@ -6,6 +6,8 @@ export default function Otp() {
   const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const [timer, setTimer] = useState(30);
   const inputs = useRef<Array<HTMLInputElement | null>>([]);
+  const isOtpValid = otp.every((digit) => digit !== "");
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -100,12 +102,18 @@ export default function Otp() {
           </button>
         )}
 
-        <button
-          onClick={handleVerify}
-          className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold"
-        >
-          Verify
-        </button>
+       <button
+  disabled={!isOtpValid}
+  onClick={handleVerify}
+  className={`w-full py-3 rounded-xl font-semibold transition ${
+    isOtpValid
+      ? "bg-blue-600 text-white"
+      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+  }`}
+>
+  Verify
+</button>
+
       </motion.div>
     </div>
   );

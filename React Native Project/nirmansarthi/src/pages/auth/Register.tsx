@@ -47,8 +47,8 @@ export default function Register() {
   };
 
   const isFormValid =
-    form.firstName &&
-    form.lastName &&
+    form.firstName.length >= 16 &&
+    form.lastName.length >= 8 &&
     form.email &&
     form.password &&
     form.confirmPassword &&

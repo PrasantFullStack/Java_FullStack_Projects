@@ -13,7 +13,7 @@ export default function TopNavbar() {
 
       {/* Right */}
       <View style={styles.right}>
-        <TouchableOpacity onPress={() => router.push("/auth/login")}>
+        <TouchableOpacity onPress={() => router.push("/auth/login" as any)}>
           <Ionicons name="log-in-outline" size={22} color="#333" />
         </TouchableOpacity>
       </View>

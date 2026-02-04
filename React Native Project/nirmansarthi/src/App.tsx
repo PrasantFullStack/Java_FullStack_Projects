@@ -17,7 +17,7 @@ import Register from "./pages/auth/Register";
 import  {ProtectedRoute } from "./pages/auth/ProtectedRoute";
 import VendorProfile from "./pages/vendor/VendorProfile"
 import BuyerProfile from "./pages/buyer/BuyerProfile";
-import AdminDashboard from "./pages/admin/AdminDeshboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 const queryClient = new QueryClient();
 

@@ -92,7 +92,6 @@ export default function Otp() {
         <p className="text-center text-sm text-gray-500 mb-4">
           {timer > 0 ? `Resend OTP in 00:${timer}` : "Didn't receive OTP?"}
         </p>
-
         {timer === 0 && (
           <button
             onClick={handleResend}
@@ -102,17 +101,16 @@ export default function Otp() {
           </button>
         )}
 
-       <button
-  disabled={!isOtpValid}
-  onClick={handleVerify}
-  className={`w-full py-3 rounded-xl font-semibold transition ${
-    isOtpValid
-      ? "bg-blue-600 text-white"
-      : "bg-gray-300 text-gray-500 cursor-not-allowed"
-  }`}
->
-  Verify
-</button>
+        <button
+          disabled={!isOtpValid}
+          onClick={handleVerify}
+          className={`w-full py-3 rounded-xl font-semibold transition ${isOtpValid
+            ? "bg-blue-600 text-white"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}
+        >
+          Verify
+        </button>
 
       </motion.div>
     </div>

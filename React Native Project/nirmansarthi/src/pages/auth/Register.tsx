@@ -50,7 +50,7 @@ export default function Register() {
     form.password &&
     form.confirmPassword &&
     form.password === form.confirmPassword &&
-    form.password.length >= 6 && 
+    form.password.length >= 6 &&
     form.role;
 
   const handleSubmit = () => {
@@ -62,8 +62,8 @@ export default function Register() {
 
     const payload = { ...form, mobile };
     console.log("Register Payload:", payload);
-      console.log(form);
-       console.log(isFormValid);
+    console.log(form);
+    console.log(isFormValid);
 
     // TODO: API call here
 
@@ -71,7 +71,7 @@ export default function Register() {
       navigate("/vendor/dashboard");
     } else {
       navigate("/buyer/dashboard");
-    }   
+    }
   };
 
   return (
@@ -142,26 +142,20 @@ export default function Register() {
           className="w-full p-3 border rounded-xl mb-4"
         />
 
-        <select
-          name="role"
-          value={form.role}
-          onChange={handleChange}
-          className="w-full p-3 border rounded-xl mb-4"
-        >
-          
+        <select name="role" value={form.role} onChange={handleChange} className="w-full p-3 border rounded-xl mb-4">
+
           <option value="BUYER">Buyer</option>
           <option value="SELLER">Seller</option>
         </select>
 
         <button
-  disabled={!isFormValid}
-  onClick={handleSubmit}
-  className={`w-full py-3 rounded-xl font-semibold transition ${
-    isFormValid
-      ? "bg-blue-600 text-white"
-      : "bg-gray-300 text-gray-500 cursor-not-allowed"
-  }`}> Register
-</button>
+          disabled={!isFormValid}
+          onClick={handleSubmit}
+          className={`w-full py-3 rounded-xl font-semibold transition ${isFormValid
+              ? "bg-blue-600 text-white"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }`}> Register
+        </button>
 
       </motion.div>
     </div>

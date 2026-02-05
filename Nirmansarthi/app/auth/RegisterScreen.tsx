@@ -7,15 +7,12 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useLocalSearchParams, router } from "expo-router";
 
 type Role = "BUYER" | "SELLER";
 
 export default function RegisterScreen() {
-  const navigation = useNavigation<any>();
-  const route = useRoute<any>();
-
-  const mobile = route.params?.mobile || "";
+  const { mobile } = useLocalSearchParams<{ mobile?: string }>();
 
   const [form, setForm] = useState({
     fullName: "",
@@ -60,18 +57,12 @@ export default function RegisterScreen() {
     const payload = { ...form, mobile };
     console.log("Register Payload:", payload);
 
-    if (payload.role === "SELLER") {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "VendorDashboard" }],
-      });
-    } else {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "BuyerDashboard" }],
-      });
-    }
-  };
+  //   if (payload.role === "SELLER") {
+  //     router.replace("/(tabs)/vendor");
+  //   } else {
+  //     router.replace("/(tabs)/home");
+  //   }
+   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -87,14 +78,11 @@ export default function RegisterScreen() {
           style={styles.input}
         />
 
-        {/* <TextInput
-          placeholder="Last Name"
-          value={form.lastName}
-          onChangeText={(v) => handleChange("lastName", v)}
-          style={styles.input}
-        /> */}
-
-        <TextInput value={mobile} editable={false} style={styles.inputDisabled} />
+        <TextInput
+          value={mobile}
+          editable={false}
+          style={styles.inputDisabled}
+        />
 
         <TextInput
           placeholder="Email"

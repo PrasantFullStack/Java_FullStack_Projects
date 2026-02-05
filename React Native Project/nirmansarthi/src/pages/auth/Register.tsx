@@ -11,8 +11,7 @@ export default function Register() {
   const mobile = location.state?.mobile || "";
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -35,8 +34,7 @@ export default function Register() {
   };
 
   const validate = () => {
-    if (!form.firstName.trim()) return "First name required";
-    if (!form.lastName.trim()) return "Last name required";
+    if (!form.fullName.trim()) return "Full name required";
     if (!mobile) return "Mobile missing";
     if (!/^\S+@\S+\.\S+$/.test(form.email)) return "Invalid email";
     if (form.password.length < 6) return "Password min 6 chars";
@@ -47,13 +45,13 @@ export default function Register() {
   };
 
   const isFormValid =
-    form.firstName.length >= 16 &&
-    form.lastName.length >= 8 &&
+    form.fullName.length >= 20 &&
     form.email &&
     form.password &&
     form.confirmPassword &&
     form.password === form.confirmPassword &&
-    form.password.length >= 6; 
+    form.password.length >= 6 && 
+    form.role;
 
   const handleSubmit = () => {
     const msg = validate();
@@ -94,20 +92,20 @@ export default function Register() {
         )}
 
         <input
-          name="firstName"
-          placeholder="First Name"
-          value={form.firstName}
+          name="fullName"
+          placeholder="Full Name"
+          value={form.fullName}
           onChange={handleChange}
           className="w-full p-3 border rounded-xl mb-3"
         />
 
-        <input
+        {/* <input
           name="lastName"
           placeholder="Last Name"
           value={form.lastName}
           onChange={handleChange}
           className="w-full p-3 border rounded-xl mb-3"
-        />
+        /> */}
 
         <input
           value={mobile}
@@ -150,6 +148,7 @@ export default function Register() {
           onChange={handleChange}
           className="w-full p-3 border rounded-xl mb-4"
         >
+          
           <option value="BUYER">Buyer</option>
           <option value="SELLER">Seller</option>
         </select>
@@ -161,9 +160,7 @@ export default function Register() {
     isFormValid
       ? "bg-blue-600 text-white"
       : "bg-gray-300 text-gray-500 cursor-not-allowed"
-  }`}
->
-  Register
+  }`}> Register
 </button>
 
       </motion.div>

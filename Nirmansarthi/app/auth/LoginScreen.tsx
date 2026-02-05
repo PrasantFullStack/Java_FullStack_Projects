@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 
 export default function LoginScreen() {
   const [mobile, setMobile] = useState("");
-  const navigation = useNavigation<any>();
 
   const handleChange = (text: string) => {
     const value = text.replace(/\D/g, "");
@@ -20,7 +19,10 @@ export default function LoginScreen() {
   };
 
   const handleGetOtp = () => {
-    navigation.navigate("Otp", { mobile });
+    router.push({
+      pathname: "/auth/Otp",
+      params: { mobile },
+    });
   };
 
   const isValid = mobile.length === 10;
@@ -54,6 +56,7 @@ export default function LoginScreen() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

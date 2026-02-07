@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
-
+// 4 digit OTP component with timer and resend functionality
 export default function Otp() {
   const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const [timer, setTimer] = useState(30);
   const inputs = useRef<Array<HTMLInputElement | null>>([]);
   const isOtpValid = otp.every((digit) => digit !== "");
 
-
+//  Router
   const navigate = useNavigate();
   const location = useLocation();
   const mobile = location.state?.mobile || "XXXXXXXXXX";

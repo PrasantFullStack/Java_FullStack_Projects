@@ -7,7 +7,7 @@ export default function Otp() {
   const [timer, setTimer] = useState(30);
   const inputs = useRef<Array<HTMLInputElement | null>>([]);
   const isOtpValid = otp.every((digit) => digit !== "");
-// 
+//
 //  Router
   const navigate = useNavigate();
   const location = useLocation();

@@ -22,7 +22,7 @@ export const BottomNav = () => {
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
-
+//  what 
           return (
             <Link
               key={item.path}

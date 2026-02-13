@@ -21,6 +21,7 @@ interface CartContextType {
   subtotal: number;
   gstAmount: number;
   total: number;
+  
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);

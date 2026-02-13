@@ -1,3 +1,4 @@
+import Sidebar from "@/components/Sidebar";
 import { motion } from "framer-motion";
 import { ShoppingBag, Package, Heart, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -13,31 +14,7 @@ export default function BuyerProfile() {
   return (
     <div className="min-h-screen flex bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg p-5">
-        <h2 className="text-xl font-bold mb-6">NirmanSarthi</h2>
-
-        <nav className="space-y-3">
-          <button className="w-full text-left p-2 rounded hover:bg-gray-100">
-            Dashboard
-          </button>
-          <button className="w-full text-left p-2 rounded hover:bg-gray-100">
-            Shop
-          </button>
-          <button className="w-full text-left p-2 rounded hover:bg-gray-100">
-            My Orders
-          </button>
-          <button className="w-full text-left p-2 rounded hover:bg-gray-100">
-            Wishlist
-          </button>
-        </nav>
-
-        <button
-          onClick={logout}
-          className="flex items-center gap-2 mt-10 text-red-500"
-        >
-          <LogOut size={18} /> Logout
-        </button>
-      </aside>
+        <Sidebar />
 
       {/* Main */}
       <main className="flex-1 p-6">

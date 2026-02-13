@@ -1,3 +1,4 @@
+import { SearchBar } from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import { motion } from "framer-motion";
 import { LayoutDashboard, ShoppingCart, Users, Store, Settings } from "lucide-react";
@@ -21,6 +22,7 @@ export default function AdminDashboard() {
         {/* Topbar */}
         <header className="bg-white shadow p-4 flex justify-between items-center">
           <h2 className="text-xl font-semibold">Admin Dashboard</h2>
+          <SearchBar  />
           <div className="flex items-center gap-3">
             <span className="font-medium">Hello, Admin</span>
             <img

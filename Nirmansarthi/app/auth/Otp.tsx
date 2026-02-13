@@ -61,7 +61,7 @@ export default function OtpScreen() {
       return;
     }
 
-    navigation.navigate("Register", { mobile });
+    navigation.navigate("RegisterScreen", { mobile });
   };
 
   // 🔁 Resend
@@ -133,12 +133,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f3f4f6",
     justifyContent: "center",
-    padding: 20,
+    alignItems: "center",
+    padding: 16,
   },
   card: {
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 24,
+     textAlign: "center"
   },
   title: {
     fontSize: 22,

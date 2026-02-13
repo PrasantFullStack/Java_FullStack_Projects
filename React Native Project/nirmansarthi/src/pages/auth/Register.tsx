@@ -23,13 +23,13 @@ export default function Register() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    let value = e.target.value;
+    const { name, value } = e.target;
 
-    if (e.target.name === "email") {
-      value = value.trim();
-    }
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === "email" ? value.trim() : value,
+    }));
 
-    setForm({ ...form, [e.target.name]: value });
     setError("");
   };
 
@@ -44,14 +44,8 @@ export default function Register() {
     return "";
   };
 
-  const isFormValid =
-    form.fullName.length >= 20 &&
-    form.email &&
-    form.password &&
-    form.confirmPassword &&
-    form.password === form.confirmPassword &&
-    form.password.length >= 6 &&
-    form.role;
+  // 🔥 Single source of truth
+  const isFormValid = validate() === "";
 
   const handleSubmit = () => {
     const msg = validate();
@@ -62,10 +56,8 @@ export default function Register() {
 
     const payload = { ...form, mobile };
     console.log("Register Payload:", payload);
-    console.log(form);
-    console.log(isFormValid);
 
-    // TODO: API call here
+    // TODO: API call
 
     if (payload.role === "SELLER") {
       navigate("/vendor/dashboard");
@@ -99,14 +91,6 @@ export default function Register() {
           className="w-full p-3 border rounded-xl mb-3"
         />
 
-        {/* <input
-          name="lastName"
-          placeholder="Last Name"
-          value={form.lastName}
-          onChange={handleChange}
-          className="w-full p-3 border rounded-xl mb-3"
-        /> */}
-
         <input
           value={mobile}
           disabled
@@ -127,7 +111,6 @@ export default function Register() {
           type="password"
           placeholder="Password"
           value={form.password}
-          maxLength={6}
           onChange={handleChange}
           className="w-full p-3 border rounded-xl mb-3"
         />
@@ -136,14 +119,17 @@ export default function Register() {
           name="confirmPassword"
           type="password"
           placeholder="Confirm Password"
-          maxLength={6}
           value={form.confirmPassword}
           onChange={handleChange}
           className="w-full p-3 border rounded-xl mb-4"
         />
 
-        <select name="role" value={form.role} onChange={handleChange} className="w-full p-3 border rounded-xl mb-4">
-
+        <select
+          name="role"
+          value={form.role}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-xl mb-4"
+        >
           <option value="BUYER">Buyer</option>
           <option value="SELLER">Seller</option>
         </select>
@@ -151,12 +137,14 @@ export default function Register() {
         <button
           disabled={!isFormValid}
           onClick={handleSubmit}
-          className={`w-full py-3 rounded-xl font-semibold transition ${isFormValid
+          className={`w-full py-3 rounded-xl font-semibold transition ${
+            isFormValid
               ? "bg-blue-600 text-white"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}> Register
+          }`}
+        >
+          Register
         </button>
-
       </motion.div>
     </div>
   );

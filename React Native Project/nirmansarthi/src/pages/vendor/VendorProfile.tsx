@@ -1,3 +1,4 @@
+import Sidebar from "@/components/Sidebar";
 import { motion } from "framer-motion";
 import { Package, ShoppingCart, Users, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,8 @@ export default function VendorProfile() {
   return (
     <div className="min-h-screen flex bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg p-5">
+       <Sidebar />
+      {/* <aside className="w-64 bg-white shadow-lg p-5">
         <h2 className="text-xl font-bold mb-6">NirmanSarthi</h2>
 
         <nav className="space-y-3">
@@ -37,7 +39,7 @@ export default function VendorProfile() {
         >
           <LogOut size={18} /> Logout
         </button>
-      </aside>
+      </aside> */}
 
       {/* Main */}
       <main className="flex-1 p-6">

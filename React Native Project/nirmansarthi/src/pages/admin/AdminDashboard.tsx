@@ -1,3 +1,4 @@
+import Sidebar from "@/components/Sidebar";
 import { motion } from "framer-motion";
 import { LayoutDashboard, ShoppingCart, Users, Store, Settings } from "lucide-react";
 
@@ -12,17 +13,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen flex bg-gray-100">
 
       {/* Sidebar */}
-      <aside className="w-64 bg-blue-700 text-white hidden md:flex flex-col">
-        <h1 className="text-2xl font-bold p-5 border-b">NirmanSarthi</h1>
-
-        <nav className="flex-1 p-4 space-y-4">
-          <Menu icon={<LayoutDashboard />} label="Dashboard" />
-          <Menu icon={<ShoppingCart />} label="Orders" />
-          <Menu icon={<Store />} label="Vendors" />
-          <Menu icon={<Users />} label="Buyers" />
-          <Menu icon={<Settings />} label="Settings" />
-        </nav>
-      </aside>
+        <Sidebar />
 
       {/* Main */}
       <div className="flex-1 flex flex-col">

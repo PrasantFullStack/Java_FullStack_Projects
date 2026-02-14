@@ -127,7 +127,7 @@ export default function OtpScreen() {
   );
 }
 
-
+///
 const styles = StyleSheet.create({
   container: {
     flex: 1,

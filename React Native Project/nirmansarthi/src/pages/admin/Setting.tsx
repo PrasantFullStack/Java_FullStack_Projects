@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "./AdminSettings.css";
 export default function AdminSettings() {
   const [name, setName] = useState("Admin User");
   const [email, setEmail] = useState("admin@email.com");

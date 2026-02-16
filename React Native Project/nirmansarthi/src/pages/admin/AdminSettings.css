@@ -1,0 +1,72 @@
+
+.settings-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4f46e5, #9333ea, #0ea5e9);
+  padding: 20px;
+}
+.settings-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.settings-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section h4 {
+  margin-bottom: 5px;
+}
+
+.section input[type="text"],
+.section input[type="email"],
+.section input[type="password"] {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.row {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: white;
+  color: #6d28d9;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.logout-btn {
+  width: 100%;
+  margin-top: 15px;
+  background: transparent;
+  border: none;
+  color: #fecaca;
+  font-weight: bold;
+  cursor: pointer;
+}

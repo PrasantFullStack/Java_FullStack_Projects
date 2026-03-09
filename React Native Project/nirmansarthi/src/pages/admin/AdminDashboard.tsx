@@ -9,6 +9,7 @@ const orders = [
   { id: "ORD103", customer: "Neha", vendor: "Singh Bricks", amount: "₹3,100", pay: "Paid", status: "Shipped" },
 ];
 
+// add more dummy data as needed
 export default function AdminDashboard() {
   return (
     <div className="min-h-screen flex bg-gray-100">

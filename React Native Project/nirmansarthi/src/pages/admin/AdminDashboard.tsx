@@ -2,7 +2,7 @@ import { SearchBar } from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import { motion } from "framer-motion";
 import { LayoutDashboard, ShoppingCart, Users, Store, Settings } from "lucide-react";
-
+// Dummy Data
 const orders = [
   { id: "ORD101", customer: "Rahul", vendor: "Sharma Traders", amount: "₹7,200", pay: "Paid", status: "Delivered" },
   { id: "ORD102", customer: "Amit", vendor: "Verma Cement", amount: "₹5,300", pay: "COD", status: "Pending" },

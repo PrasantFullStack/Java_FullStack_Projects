@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./AdminSettings.css";
+
+// Admin Settings Page
 export default function AdminSettings() {
   const [name, setName] = useState("Admin User");
   const [email, setEmail] = useState("admin@email.com");
@@ -83,4 +85,3 @@ export default function AdminSettings() {
     </div>
   );
 }
- 

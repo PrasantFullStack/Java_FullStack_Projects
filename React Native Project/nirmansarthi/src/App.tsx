@@ -19,6 +19,8 @@ import VendorProfile from "./pages/vendor/VendorProfile"
 import BuyerProfile from "./pages/buyer/BuyerProfile";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminSettings from "./pages/admin/AdminSetting";
+import Reports from "./pages/admin/Reports";
+import Support from "./pages/admin/Support";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +40,9 @@ const App = () => (
             <Route path="/buyer/dashboard" element={<BuyerProfile />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
-            {/* <Route path="/vendor/dashboard" element={<ProtectedRoute role="SELLER"><VendorProfile /> </ProtectedRoute> */}
+            <Route path="/admin/reports" element={<Reports />} />
+            <Route path="/admin/support" element={<Support />} />
+                        {/* <Route path="/vendor/dashboard" element={<ProtectedRoute role="SELLER"><VendorProfile /> </ProtectedRoute> */}
 
             {/* }
 /> */}

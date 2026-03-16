@@ -15,7 +15,7 @@ import {
 
 export default function Sidebar() {
   const menuItems = [
-    { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
+    { name: "Dashboard", icon: LayoutDashboard, path: "/vendor/dashboard" },
     { name: "Orders", icon: ShoppingCart, path: "/orders" },
     { name: "Vendors", icon: Users, path: "/admin/vendors" },
     { name: "Buyers", icon: User, path: "/admin/buyers" },

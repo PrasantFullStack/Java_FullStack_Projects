@@ -17,10 +17,10 @@ import Register from "./pages/auth/Register";
 import { ProtectedRoute } from "./pages/auth/ProtectedRoute";
 import VendorProfile from "./pages/vendor/VendorProfile"
 import BuyerProfile from "./pages/buyer/BuyerProfile";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminSettings from "./pages/admin/AdminSetting";
-import Reports from "./pages/admin/Reports";
-import Support from "./pages/admin/Support";
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminSettings from "./admin/AdminSetting";
+import Reports from "./admin/Reports";
+import Support from "./admin/Support";
 
 const queryClient = new QueryClient();
 

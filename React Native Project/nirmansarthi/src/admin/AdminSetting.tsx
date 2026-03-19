@@ -8,7 +8,7 @@ export default function AdminSettings() {
   const [notifications, setNotifications] = useState(true);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+// const navigate = useNavigate();
   const handleSave = () => {
     if (password && password !== confirmPassword) {
       alert("Passwords do not match");

@@ -79,7 +79,7 @@ export default function SupportChat() {
               onChange={(e) => setMessage(e.target.value)}
               className="flex-1 border px-3 py-2 rounded-lg"
             />
-
+// commit test and push
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
               Send
             </button>

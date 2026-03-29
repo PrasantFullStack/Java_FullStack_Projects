@@ -1,5 +1,6 @@
 export default function Reports() {
   // Reports Page
+  // In a real application, you would fetch and display actual report data here
   return (
     <div>
       <h1 className="text-2xl font-bold">Reports</h1>
@@ -12,13 +13,13 @@ export default function Reports() {
         <p>Top Product: Wireless Earbuds</p>
       </div>
       <div className="mt-6 p-4 bg-white rounded shadow"></div>
-        <h2 className="text-xl font-semibold mb-4">User Activity</h2>
-        <p>Active Users: 120</p>
-        <p>New Signups: 15</p>
-        <p>Churn Rate: 5%</p>
-      </div>
+      <h2 className="text-xl font-semibold mb-4">User Activity</h2>
+      <p>Active Users: 120</p>
+      <p>New Signups: 15</p>
+      <p>Churn Rate: 5%</p>
+    </div>
 
 
-   
+
   );
 }

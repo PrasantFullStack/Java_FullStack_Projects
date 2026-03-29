@@ -5,9 +5,11 @@ interface CategoryCardProps {
   icon: React.ReactNode;
   name: string;
   count: number;
-  onClick?: () => void;
+  onClick?: () => void; 
   className?: string;
 }
+
+
 
 export const CategoryCard = ({
   icon,
@@ -34,6 +36,6 @@ export const CategoryCard = ({
         </p>
         <p className="text-[10px] text-muted-foreground">{count} items</p>
       </div>
-    </motion.button>
+    </motion.button> 
   );
 };

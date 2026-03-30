@@ -16,7 +16,7 @@ export default function VendorProfile() {
       {/* Sidebar */}
        <Sidebar />
       {/* <aside className="w-64 bg-white shadow-lg p-5">
-        <h2 className="text-xl font-bold mb-6">NirmanSarthi</h2>
+        <h2 className="text-xl font-bold mb-6">Nirman Sarthi</h2>
 
         <nav className="space-y-3">
           <button className="w-full text-left p-2 rounded hover:bg-gray-100">
@@ -88,7 +88,6 @@ export default function VendorProfile() {
                 <th>Amount</th>
               </tr>
             </thead>
-
             <tbody>
               <tr className="border-t">
                 <td>#101</td>

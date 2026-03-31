@@ -17,7 +17,7 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { VendorCard } from "@/components/VendorCard";
 import { ProductCard } from "@/components/ProductCard";
 import { BottomNav } from "@/components/BottomNav";
-
+// Sample data for categories, vendors, and products
 const categories = [
   { icon: <Building2 className="h-6 w-6" />, name: "Cement", count: 45 },
   { icon: <Layers className="h-6 w-6" />, name: "Steel", count: 32 },

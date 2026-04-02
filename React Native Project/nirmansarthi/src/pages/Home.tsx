@@ -28,7 +28,7 @@ const categories = [
   { icon: <Zap className="h-6 w-6" />, name: "Electric", count: 38 },
   { icon: <Truck className="h-6 w-6" />, name: "Aggregates", count: 24 },
 ];
-
+// Sample data for vendors and products
 const vendors = [
   {
     id: "1",

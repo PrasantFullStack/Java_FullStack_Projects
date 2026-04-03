@@ -1,13 +1,13 @@
+import { router, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { useLocalSearchParams, router } from "expo-router";
 
 type Role = "BUYER" | "SELLER";
 
@@ -35,8 +35,7 @@ export default function RegisterScreen() {
     if (!mobile) return "Mobile missing";
     if (!/^\S+@\S+\.\S+$/.test(form.email)) return "Invalid email";
     if (form.password.length < 6) return "Password min 6 chars";
-    if (form.password !== form.confirmPassword)
-      return "Passwords do not match";
+    if (form.password !== form.confirmPassword) return "Passwords do not match";
     return "";
   };
 
@@ -57,12 +56,13 @@ export default function RegisterScreen() {
     const payload = { ...form, mobile };
     console.log("Register Payload:", payload);
 
-  //   if (payload.role === "SELLER") {
-  //     router.replace("/(tabs)/vendor");
-  //   } else {
-  //     router.replace("/(tabs)/home");
-  //   }
-   };
+    // Navigate to tabs based on role
+    if (payload.role === "SELLER") {
+      router.replace("/(tabs)/explore"); // Assuming seller goes to explore
+    } else {
+      router.replace("/"); // Buyer goes to home (index)
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -111,10 +111,7 @@ export default function RegisterScreen() {
         <View style={styles.roleBox}>
           <TouchableOpacity
             onPress={() => handleChange("role", "BUYER")}
-            style={[
-              styles.roleBtn,
-              form.role === "BUYER" && styles.roleActive,
-            ]}
+            style={[styles.roleBtn, form.role === "BUYER" && styles.roleActive]}
           >
             <Text>Buyer</Text>
           </TouchableOpacity>

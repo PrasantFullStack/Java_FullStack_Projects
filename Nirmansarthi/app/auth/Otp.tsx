@@ -1,23 +1,21 @@
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  View,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
+  View,
 } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
 // OTP Verification Screen
 export default function OtpScreen() {
   const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const [timer, setTimer] = useState(30);
+  const [error, setError] = useState("");
 
   const inputs = useRef<Array<TextInput | null>>([]);
 
-  const navigation = useNavigation<any>();
-  const route = useRoute<any>();
-
-  const mobile = route.params?.mobile || "XXXXXXXXXX";
+  const { mobile } = useLocalSearchParams<{ mobile?: string }>();
 
   const isOtpValid = otp.every((d) => d !== "");
 
@@ -39,6 +37,7 @@ export default function OtpScreen() {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
+    setError(""); // Clear error on change
 
     if (value && index < 3) {
       inputs.current[index + 1]?.focus();
@@ -57,17 +56,28 @@ export default function OtpScreen() {
     const finalOtp = otp.join("");
 
     if (finalOtp.length !== 4) {
-      alert("Enter complete OTP");
+      setError("Please enter complete 4-digit OTP");
       return;
     }
 
-    navigation.navigate("RegisterScreen", { mobile });
+    // Here you would typically verify the OTP with your backend
+    // For demo purposes, let's assume OTP "1234" is valid
+    if (finalOtp !== "1234") {
+      setError("Invalid OTP. Please try again.");
+      return;
+    }
+
+    router.push({
+      pathname: "/auth/RegisterScreen",
+      params: { mobile },
+    });
   };
 
   // 🔁 Resend
   const handleResend = () => {
     setOtp(["", "", "", ""]);
     setTimer(30);
+    setError("");
     inputs.current[0]?.focus();
   };
 
@@ -78,12 +88,16 @@ export default function OtpScreen() {
 
         <Text style={styles.subtitle}>Sent to +91 {mobile}</Text>
 
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+
         {/* OTP BOXES */}
         <View style={styles.otpRow}>
           {otp.map((digit, index) => (
             <TextInput
               key={index}
-              ref={(el) => { inputs.current[index] = el; }}
+              ref={(el) => {
+                inputs.current[index] = el;
+              }}
               value={digit}
               maxLength={1}
               keyboardType="number-pad"
@@ -108,17 +122,9 @@ export default function OtpScreen() {
         <TouchableOpacity
           disabled={!isOtpValid}
           onPress={handleVerify}
-          style={[
-            styles.button,
-            !isOtpValid && styles.buttonDisabled,
-          ]}
+          style={[styles.button, !isOtpValid && styles.buttonDisabled]}
         >
-          <Text
-            style={[
-              styles.btnText,
-              !isOtpValid && styles.btnDisabledText,
-            ]}
-          >
+          <Text style={[styles.btnText, !isOtpValid && styles.btnDisabledText]}>
             Verify
           </Text>
         </TouchableOpacity>
@@ -140,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 24,
-     textAlign: "center"
+    textAlign: "center",
   },
   title: {
     fontSize: 22,
@@ -152,6 +158,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#6b7280",
     marginBottom: 24,
+  },
+  error: {
+    backgroundColor: "#fee2e2",
+    color: "#b91c1c",
+    padding: 8,
+    borderRadius: 8,
+    marginBottom: 10,
+    textAlign: "center",
   },
   otpRow: {
     flexDirection: "row",

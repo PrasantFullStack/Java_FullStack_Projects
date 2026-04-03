@@ -1,36 +1,56 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { router } from "expo-router";
 
 export default function LoginScreen() {
   const [mobile, setMobile] = useState("");
+  const [error, setError] = useState("");
 
   const handleChange = (text: string) => {
     const value = text.replace(/\D/g, "");
     if (value.length <= 10) {
       setMobile(value);
+      setError(""); // Clear error on change
     }
   };
 
+  const validateMobile = (number: string) => {
+    if (number.length !== 10) {
+      return "Mobile number must be 10 digits";
+    }
+    if (!/^[6-9]/.test(number)) {
+      return "Mobile number must start with 6, 7, 8, or 9";
+    }
+    return "";
+  };
+
   const handleGetOtp = () => {
+    const validationError = validateMobile(mobile);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     router.push({
       pathname: "/auth/Otp",
       params: { mobile },
     });
   };
 
-  const isValid = mobile.length === 10;
+  const isValid = mobile.length === 10 && !validateMobile(mobile);
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.title}>Enter Mobile Number</Text>
+
+        {error ? <Text style={styles.error}>{error}</Text> : null}
 
         <View style={styles.inputRow}>
           <Text style={styles.code}>+91</Text>
@@ -78,6 +98,14 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 20,
+  },
+  error: {
+    backgroundColor: "#fee2e2",
+    color: "#b91c1c",
+    padding: 8,
+    borderRadius: 8,
+    marginBottom: 10,
+    textAlign: "center",
   },
   inputRow: {
     flexDirection: "row",

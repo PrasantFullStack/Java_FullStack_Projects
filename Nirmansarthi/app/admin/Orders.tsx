@@ -1,545 +1,777 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
-    FlatList,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
-// Mock data for orders
-const mockOrders = [
+type PaymentStatus = "Paid" | "Unpaid";
+type DeliveryStatus = "Delivered" | "Pending" | "Cancelled";
+type TabKey = "All Orders" | "Pending" | "Delivered" | "Cancelled";
+type FilterKey = "All Payments" | PaymentStatus;
+
+type Order = {
+  id: string;
+  customerName: string;
+  vendorName: string;
+  totalAmount: number;
+  paymentStatus: PaymentStatus;
+  deliveryStatus: DeliveryStatus;
+};
+
+const ORDERS: Order[] = [
   {
-    id: "ORD001",
-    customerName: "John Doe",
-    vendor: "ABC Construction",
-    totalAmount: 25000,
+    id: "ORD-1048",
+    customerName: "Aarav Mehta",
+    vendorName: "Urban Cement Co.",
+    totalAmount: 28450,
     paymentStatus: "Paid",
     deliveryStatus: "Delivered",
-    orderDate: "2024-01-15",
   },
   {
-    id: "ORD002",
-    customerName: "Jane Smith",
-    vendor: "XYZ Builders",
-    totalAmount: 45000,
+    id: "ORD-1049",
+    customerName: "Priya Sharma",
+    vendorName: "Steel Frame Depot",
+    totalAmount: 56120,
     paymentStatus: "Unpaid",
     deliveryStatus: "Pending",
-    orderDate: "2024-01-14",
   },
   {
-    id: "ORD003",
-    customerName: "Mike Johnson",
-    vendor: "BuildPro Ltd",
-    totalAmount: 18000,
-    paymentStatus: "Paid",
-    deliveryStatus: "Delivered",
-    orderDate: "2024-01-13",
-  },
-  {
-    id: "ORD004",
-    customerName: "Sarah Wilson",
-    vendor: "ConstructCo",
-    totalAmount: 32000,
+    id: "ORD-1050",
+    customerName: "Kabir Verma",
+    vendorName: "BuildPro Supplies",
+    totalAmount: 17990,
     paymentStatus: "Paid",
     deliveryStatus: "Pending",
-    orderDate: "2024-01-12",
   },
   {
-    id: "ORD005",
-    customerName: "David Brown",
-    vendor: "Elite Builders",
-    totalAmount: 55000,
+    id: "ORD-1051",
+    customerName: "Ananya Rao",
+    vendorName: "Prime Bricks",
+    totalAmount: 42175,
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+  },
+  {
+    id: "ORD-1052",
+    customerName: "Rahul Nair",
+    vendorName: "Northline Hardware",
+    totalAmount: 31800,
     paymentStatus: "Unpaid",
     deliveryStatus: "Cancelled",
-    orderDate: "2024-01-11",
   },
-  // Add more mock data
-  ...Array.from({ length: 15 }, (_, i) => ({
-    id: `ORD${String(i + 6).padStart(3, "0")}`,
-    customerName: `Customer ${i + 6}`,
-    vendor: `Vendor ${i + 6}`,
-    totalAmount: Math.floor(Math.random() * 50000) + 10000,
-    paymentStatus: Math.random() > 0.5 ? "Paid" : "Unpaid",
-    deliveryStatus: ["Delivered", "Pending", "Cancelled"][
-      Math.floor(Math.random() * 3)
-    ],
-    orderDate: `2024-01-${String(10 - i).padStart(2, "0")}`,
-  })),
+  {
+    id: "ORD-1053",
+    customerName: "Ishita Kapoor",
+    vendorName: "Concrete Masters",
+    totalAmount: 23740,
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+  },
+  {
+    id: "ORD-1054",
+    customerName: "Rohan Singh",
+    vendorName: "Mason Hub",
+    totalAmount: 14960,
+    paymentStatus: "Unpaid",
+    deliveryStatus: "Pending",
+  },
+  {
+    id: "ORD-1055",
+    customerName: "Sana Khan",
+    vendorName: "Elite Aggregates",
+    totalAmount: 60200,
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+  },
+  {
+    id: "ORD-1056",
+    customerName: "Aditya Jain",
+    vendorName: "BrickBarn Vendors",
+    totalAmount: 27480,
+    paymentStatus: "Paid",
+    deliveryStatus: "Pending",
+  },
+  {
+    id: "ORD-1057",
+    customerName: "Neha Patel",
+    vendorName: "Metro Tiles",
+    totalAmount: 33890,
+    paymentStatus: "Unpaid",
+    deliveryStatus: "Cancelled",
+  },
+  {
+    id: "ORD-1058",
+    customerName: "Vikram Das",
+    vendorName: "Rapid Scaffold",
+    totalAmount: 48770,
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+  },
+  {
+    id: "ORD-1059",
+    customerName: "Meera Iyer",
+    vendorName: "Golden Sand Traders",
+    totalAmount: 19320,
+    paymentStatus: "Unpaid",
+    deliveryStatus: "Pending",
+  },
 ];
 
-const tabs = ["All Orders", "Pending Orders", "Delivered", "Cancelled"];
-const filters = ["All", "Paid", "Unpaid"];
+const TABS: TabKey[] = ["All Orders", "Pending", "Delivered", "Cancelled"];
+const FILTERS: FilterKey[] = ["All Payments", "Paid", "Unpaid"];
+const ITEMS_PER_PAGE = 6;
 
-function OrderRow({ order }: { order: (typeof mockOrders)[0] }) {
+const currencyFormatter = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+  maximumFractionDigits: 0,
+});
+
+function StatusBadge({
+  label,
+  type,
+}: {
+  label: string;
+  type: "success" | "warning" | "danger";
+}) {
   return (
-    <View style={styles.orderRow}>
-      <View style={styles.orderCell}>
+    <View
+      style={[
+        styles.badge,
+        type === "success" && styles.badgeSuccess,
+        type === "warning" && styles.badgeWarning,
+        type === "danger" && styles.badgeDanger,
+      ]}
+    >
+      <Text
+        style={[
+          styles.badgeText,
+          type === "success" && styles.badgeTextSuccess,
+          type === "warning" && styles.badgeTextWarning,
+          type === "danger" && styles.badgeTextDanger,
+        ]}
+      >
+        {label}
+      </Text>
+    </View>
+  );
+}
+
+function OrderRow({ order }: { order: Order }) {
+  const deliveryBadgeType =
+    order.deliveryStatus === "Delivered"
+      ? "success"
+      : order.deliveryStatus === "Pending"
+        ? "warning"
+        : "danger";
+
+  return (
+    <View style={styles.row}>
+      <View style={[styles.cell, styles.idColumn]}>
         <Text style={styles.orderId}>{order.id}</Text>
       </View>
-      <View style={styles.orderCell}>
-        <Text style={styles.customerName}>{order.customerName}</Text>
+      <View style={[styles.cell, styles.customerColumn]}>
+        <Text style={styles.primaryCellText}>{order.customerName}</Text>
       </View>
-      <View style={styles.orderCell}>
-        <Text style={styles.vendor}>{order.vendor}</Text>
+      <View style={[styles.cell, styles.vendorColumn]}>
+        <Text style={styles.secondaryCellText}>{order.vendorName}</Text>
       </View>
-      <View style={styles.orderCell}>
-        <Text style={styles.amount}>₹{order.totalAmount.toLocaleString()}</Text>
+      <View style={[styles.cell, styles.amountColumn]}>
+        <Text style={styles.amountText}>
+          {currencyFormatter.format(order.totalAmount)}
+        </Text>
       </View>
-      <View style={styles.orderCell}>
-        <View
-          style={[
-            styles.statusBadge,
-            order.paymentStatus === "Paid"
-              ? styles.paidBadge
-              : styles.unpaidBadge,
-          ]}
-        >
-          <Text
-            style={[
-              styles.statusText,
-              order.paymentStatus === "Paid"
-                ? styles.paidText
-                : styles.unpaidText,
-            ]}
-          >
-            {order.paymentStatus}
-          </Text>
-        </View>
+      <View style={[styles.cell, styles.paymentColumn]}>
+        <StatusBadge
+          label={order.paymentStatus}
+          type={order.paymentStatus === "Paid" ? "success" : "danger"}
+        />
       </View>
-      <View style={styles.orderCell}>
-        <View
-          style={[
-            styles.statusBadge,
-            order.deliveryStatus === "Delivered"
-              ? styles.deliveredBadge
-              : order.deliveryStatus === "Pending"
-                ? styles.pendingBadge
-                : styles.cancelledBadge,
-          ]}
-        >
-          <Text
-            style={[
-              styles.statusText,
-              order.deliveryStatus === "Delivered"
-                ? styles.deliveredText
-                : order.deliveryStatus === "Pending"
-                  ? styles.pendingText
-                  : styles.cancelledText,
-            ]}
-          >
-            {order.deliveryStatus}
-          </Text>
-        </View>
+      <View style={[styles.cell, styles.deliveryColumn]}>
+        <StatusBadge label={order.deliveryStatus} type={deliveryBadgeType} />
       </View>
     </View>
   );
 }
 
 export default function Orders() {
-  const [activeTab, setActiveTab] = useState("All Orders");
+  const [activeTab, setActiveTab] = useState<TabKey>("All Orders");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [selectedFilter, setSelectedFilter] =
+    useState<FilterKey>("All Payments");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [filterOpen, setFilterOpen] = useState(false);
 
   const filteredOrders = useMemo(() => {
-    let filtered = mockOrders;
+    const normalizedQuery = searchQuery.trim().toLowerCase();
 
-    // Filter by tab
-    if (activeTab !== "All Orders") {
-      const statusMap = {
-        "Pending Orders": "Pending",
-        Delivered: "Delivered",
-        Cancelled: "Cancelled",
-      };
-      filtered = filtered.filter(
-        (order) =>
-          order.deliveryStatus ===
-          statusMap[activeTab as keyof typeof statusMap],
-      );
-    }
+    return ORDERS.filter((order) => {
+      const matchesTab =
+        activeTab === "All Orders" || order.deliveryStatus === activeTab;
+      const matchesFilter =
+        selectedFilter === "All Payments" ||
+        order.paymentStatus === selectedFilter;
+      const matchesSearch =
+        normalizedQuery.length === 0 ||
+        order.id.toLowerCase().includes(normalizedQuery) ||
+        order.customerName.toLowerCase().includes(normalizedQuery) ||
+        order.vendorName.toLowerCase().includes(normalizedQuery);
 
-    // Filter by payment status
-    if (selectedFilter !== "All") {
-      filtered = filtered.filter(
-        (order) => order.paymentStatus === selectedFilter,
-      );
-    }
-
-    // Filter by search query
-    if (searchQuery) {
-      filtered = filtered.filter(
-        (order) =>
-          order.customerName
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()) ||
-          order.vendor.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          order.id.toLowerCase().includes(searchQuery.toLowerCase()),
-      );
-    }
-
-    return filtered;
+      return matchesTab && matchesFilter && matchesSearch;
+    });
   }, [activeTab, searchQuery, selectedFilter]);
 
-  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredOrders.length / ITEMS_PER_PAGE),
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, searchQuery, selectedFilter]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
+  const pageStart = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedOrders = filteredOrders.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  );
-
-  const renderHeader = () => (
-    <View style={styles.header}>
-      <Text style={styles.headerTitle}>Orders</Text>
-    </View>
-  );
-
-  const renderTabs = () => (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      style={styles.tabsContainer}
-    >
-      {tabs.map((tab) => (
-        <TouchableOpacity
-          key={tab}
-          style={[styles.tab, activeTab === tab && styles.activeTab]}
-          onPress={() => {
-            setActiveTab(tab);
-            setCurrentPage(1);
-          }}
-        >
-          <Text
-            style={[styles.tabText, activeTab === tab && styles.activeTabText]}
-          >
-            {tab}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
-  );
-
-  const renderSearchAndFilter = () => (
-    <View style={styles.searchFilterContainer}>
-      <View style={styles.searchContainer}>
-        <Ionicons
-          name="search-outline"
-          size={20}
-          color="#666"
-          style={styles.searchIcon}
-        />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search orders..."
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-      </View>
-
-      <View style={styles.filterContainer}>
-        <Text style={styles.filterLabel}>Filter:</Text>
-        {filters.map((filter) => (
-          <TouchableOpacity
-            key={filter}
-            style={[
-              styles.filterButton,
-              selectedFilter === filter && styles.activeFilterButton,
-            ]}
-            onPress={() => setSelectedFilter(filter)}
-          >
-            <Text
-              style={[
-                styles.filterText,
-                selectedFilter === filter && styles.activeFilterText,
-              ]}
-            >
-              {filter}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
-  );
-
-  const renderTableHeader = () => (
-    <View style={styles.tableHeader}>
-      <Text style={styles.tableHeaderText}>Order ID</Text>
-      <Text style={styles.tableHeaderText}>Customer</Text>
-      <Text style={styles.tableHeaderText}>Vendor</Text>
-      <Text style={styles.tableHeaderText}>Amount</Text>
-      <Text style={styles.tableHeaderText}>Payment</Text>
-      <Text style={styles.tableHeaderText}>Status</Text>
-    </View>
-  );
-
-  const renderPagination = () => (
-    <View style={styles.paginationContainer}>
-      <TouchableOpacity
-        style={[
-          styles.pageButton,
-          currentPage === 1 && styles.disabledPageButton,
-        ]}
-        onPress={() => setCurrentPage(Math.max(1, currentPage - 1))}
-        disabled={currentPage === 1}
-      >
-        <Ionicons
-          name="chevron-back"
-          size={20}
-          color={currentPage === 1 ? "#CCC" : "#2F5BEA"}
-        />
-      </TouchableOpacity>
-
-      <Text style={styles.pageInfo}>
-        Page {currentPage} of {totalPages}
-      </Text>
-
-      <TouchableOpacity
-        style={[
-          styles.pageButton,
-          currentPage === totalPages && styles.disabledPageButton,
-        ]}
-        onPress={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-        disabled={currentPage === totalPages}
-      >
-        <Ionicons
-          name="chevron-forward"
-          size={20}
-          color={currentPage === totalPages ? "#CCC" : "#2F5BEA"}
-        />
-      </TouchableOpacity>
-    </View>
+    pageStart,
+    pageStart + ITEMS_PER_PAGE,
   );
 
   return (
-    <View style={styles.container}>
-      {renderHeader()}
-      {renderTabs()}
-      {renderSearchAndFilter()}
-
-      <View style={styles.tableContainer}>
-        {renderTableHeader()}
-        <FlatList
-          data={paginatedOrders}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <OrderRow order={item} />}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.ordersList}
-        />
+    <Pressable style={styles.container} onPress={() => setFilterOpen(false)}>
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.title}>Orders Management</Text>
+          <Text style={styles.subtitle}>
+            Track every order, payment, and delivery update in one place.
+          </Text>
+        </View>
+        <View style={styles.summaryCard}>
+          <Text style={styles.summaryLabel}>Total Orders</Text>
+          <Text style={styles.summaryValue}>{filteredOrders.length}</Text>
+        </View>
       </View>
 
-      {renderPagination()}
-    </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.tabsContainer}
+      >
+        {TABS.map((tab) => {
+          const active = activeTab === tab;
+
+          return (
+            <TouchableOpacity
+              key={tab}
+              activeOpacity={0.85}
+              onPress={() => setActiveTab(tab)}
+              style={[styles.tab, active && styles.tabActive]}
+            >
+              <Text style={[styles.tabText, active && styles.tabTextActive]}>
+                {tab}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+
+      <View style={styles.toolbar}>
+        <View style={styles.searchBox}>
+          <Ionicons name="search-outline" size={18} color="#64748B" />
+          <TextInput
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            placeholder="Search by order ID, customer, or vendor"
+            placeholderTextColor="#94A3B8"
+            style={styles.searchInput}
+          />
+        </View>
+
+        <View style={styles.filterWrapper}>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={() => setFilterOpen((open) => !open)}
+            style={styles.filterTrigger}
+          >
+            <Ionicons name="options-outline" size={18} color="#1E3A8A" />
+            <Text style={styles.filterTriggerText}>{selectedFilter}</Text>
+            <Ionicons
+              name={filterOpen ? "chevron-up" : "chevron-down"}
+              size={16}
+              color="#1E3A8A"
+            />
+          </TouchableOpacity>
+
+          {filterOpen ? (
+            <View style={styles.dropdownMenu}>
+              {FILTERS.map((filter) => {
+                const selected = selectedFilter === filter;
+
+                return (
+                  <TouchableOpacity
+                    key={filter}
+                    activeOpacity={0.85}
+                    onPress={() => {
+                      setSelectedFilter(filter);
+                      setFilterOpen(false);
+                    }}
+                    style={[
+                      styles.dropdownItem,
+                      selected && styles.dropdownItemSelected,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.dropdownItemText,
+                        selected && styles.dropdownItemTextSelected,
+                      ]}
+                    >
+                      {filter}
+                    </Text>
+                    {selected ? (
+                      <Ionicons
+                        name="checkmark"
+                        size={16}
+                        color="#1D4ED8"
+                      />
+                    ) : null}
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          ) : null}
+        </View>
+      </View>
+
+      <View style={styles.tableCard}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.table}>
+            <View style={styles.tableHeader}>
+              <View style={[styles.headerCell, styles.idColumn]}>
+                <Text style={styles.headerCellText}>Order ID</Text>
+              </View>
+              <View style={[styles.headerCell, styles.customerColumn]}>
+                <Text style={styles.headerCellText}>Customer Name</Text>
+              </View>
+              <View style={[styles.headerCell, styles.vendorColumn]}>
+                <Text style={styles.headerCellText}>Vendor Name</Text>
+              </View>
+              <View style={[styles.headerCell, styles.amountColumn]}>
+                <Text style={styles.headerCellText}>Total Amount</Text>
+              </View>
+              <View style={[styles.headerCell, styles.paymentColumn]}>
+                <Text style={styles.headerCellText}>Payment Status</Text>
+              </View>
+              <View style={[styles.headerCell, styles.deliveryColumn]}>
+                <Text style={styles.headerCellText}>Delivery Status</Text>
+              </View>
+            </View>
+
+            <FlatList
+              data={paginatedOrders}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => <OrderRow order={item} />}
+              showsVerticalScrollIndicator={false}
+              style={styles.list}
+              ListEmptyComponent={
+                <View style={styles.emptyState}>
+                  <Ionicons
+                    name="receipt-outline"
+                    size={28}
+                    color="#94A3B8"
+                  />
+                  <Text style={styles.emptyTitle}>No orders found</Text>
+                  <Text style={styles.emptyText}>
+                    Try changing the tab, search, or payment filter.
+                  </Text>
+                </View>
+              }
+            />
+          </View>
+        </ScrollView>
+      </View>
+
+      <View style={styles.pagination}>
+        <Text style={styles.paginationText}>
+          Showing {filteredOrders.length === 0 ? 0 : pageStart + 1}-
+          {Math.min(pageStart + ITEMS_PER_PAGE, filteredOrders.length)} of{" "}
+          {filteredOrders.length}
+        </Text>
+
+        <View style={styles.paginationControls}>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            disabled={currentPage === 1}
+            onPress={() => setCurrentPage((page) => Math.max(1, page - 1))}
+            style={[
+              styles.paginationButton,
+              currentPage === 1 && styles.paginationButtonDisabled,
+            ]}
+          >
+            <Ionicons name="chevron-back" size={18} color="#1E3A8A" />
+          </TouchableOpacity>
+
+          <Text style={styles.pageIndicator}>
+            {currentPage} / {totalPages}
+          </Text>
+
+          <TouchableOpacity
+            activeOpacity={0.85}
+            disabled={currentPage === totalPages || filteredOrders.length === 0}
+            onPress={() =>
+              setCurrentPage((page) => Math.min(totalPages, page + 1))
+            }
+            style={[
+              styles.paginationButton,
+              (currentPage === totalPages || filteredOrders.length === 0) &&
+                styles.paginationButtonDisabled,
+            ]}
+          >
+            <Ionicons name="chevron-forward" size={18} color="#1E3A8A" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FB",
+    backgroundColor: "#F3F6FB",
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    paddingBottom: 20,
   },
   header: {
     backgroundColor: "#FFFFFF",
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 16,
   },
-  headerTitle: {
+  title: {
+    fontSize: 26,
+    fontWeight: "700",
+    color: "#0F172A",
+    marginBottom: 6,
+  },
+  subtitle: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: "#64748B",
+    maxWidth: 280,
+  },
+  summaryCard: {
+    minWidth: 110,
+    backgroundColor: "#EFF6FF",
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    alignItems: "flex-start",
+  },
+  summaryLabel: {
+    fontSize: 12,
+    color: "#1D4ED8",
+    marginBottom: 4,
+    fontWeight: "600",
+  },
+  summaryValue: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#333333",
+    fontWeight: "700",
+    color: "#1E3A8A",
   },
   tabsContainer: {
-    backgroundColor: "#FFFFFF",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingBottom: 14,
+    gap: 10,
   },
   tab: {
-    paddingHorizontal: 20,
+    backgroundColor: "#E2E8F0",
+    borderRadius: 999,
+    paddingHorizontal: 18,
     paddingVertical: 10,
-    marginRight: 8,
-    borderRadius: 20,
-    backgroundColor: "#F3F4F6",
+    marginRight: 10,
   },
-  activeTab: {
-    backgroundColor: "#2F5BEA",
+  tabActive: {
+    backgroundColor: "#1D4ED8",
   },
   tabText: {
     fontSize: 14,
-    color: "#666666",
-    fontWeight: "500",
+    fontWeight: "600",
+    color: "#475569",
   },
-  activeTabText: {
+  tabTextActive: {
     color: "#FFFFFF",
   },
-  searchFilterContainer: {
-    backgroundColor: "#FFFFFF",
-    padding: 16,
-    marginBottom: 8,
+  toolbar: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 12,
+    marginBottom: 14,
+    zIndex: 20,
   },
-  searchContainer: {
+  searchBox: {
+    flex: 1,
+    minHeight: 52,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    marginBottom: 12,
-  },
-  searchIcon: {
-    marginRight: 8,
+    paddingHorizontal: 14,
   },
   searchInput: {
     flex: 1,
-    paddingVertical: 12,
-    fontSize: 16,
+    marginLeft: 10,
+    fontSize: 14,
+    color: "#0F172A",
+    paddingVertical: 14,
   },
-  filterContainer: {
+  filterWrapper: {
+    width: 170,
+    position: "relative",
+  },
+  filterTrigger: {
+    minHeight: 52,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#BFDBFE",
+    paddingHorizontal: 14,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
   },
-  filterLabel: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#333333",
-    marginRight: 12,
-  },
-  filterButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: "#F3F4F6",
-    marginRight: 8,
-  },
-  activeFilterButton: {
-    backgroundColor: "#2F5BEA",
-  },
-  filterText: {
+  filterTriggerText: {
+    flex: 1,
     fontSize: 14,
-    color: "#666666",
+    fontWeight: "600",
+    color: "#1E3A8A",
   },
-  activeFilterText: {
-    color: "#FFFFFF",
+  dropdownMenu: {
+    position: "absolute",
+    top: 58,
+    left: 0,
+    right: 0,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#DBEAFE",
+    paddingVertical: 8,
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.08,
+    shadowRadius: 18,
+    elevation: 8,
+    zIndex: 30,
   },
-  tableContainer: {
+  dropdownItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
+  dropdownItemSelected: {
+    backgroundColor: "#EFF6FF",
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: "#334155",
+  },
+  dropdownItemTextSelected: {
+    color: "#1D4ED8",
+    fontWeight: "600",
+  },
+  tableCard: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    margin: 16,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+    overflow: "hidden",
+  },
+  table: {
+    minWidth: 860,
+    flex: 1,
   },
   tableHeader: {
     flexDirection: "row",
-    padding: 16,
+    backgroundColor: "#F8FAFC",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
-    backgroundColor: "#F9FAFB",
+    borderBottomColor: "#E2E8F0",
   },
-  tableHeaderText: {
-    flex: 1,
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#374151",
-    textAlign: "center",
-  },
-  ordersList: {
-    paddingBottom: 16,
-  },
-  orderRow: {
-    flexDirection: "row",
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
-  },
-  orderCell: {
-    flex: 1,
+  headerCell: {
+    paddingHorizontal: 16,
+    paddingVertical: 14,
     justifyContent: "center",
-    alignItems: "center",
+  },
+  headerCellText: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#64748B",
+    textTransform: "uppercase",
+    letterSpacing: 0.3,
+  },
+  list: {
+    flexGrow: 0,
+  },
+  row: {
+    flexDirection: "row",
+    backgroundColor: "#FFFFFF",
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEF2F7",
+  },
+  cell: {
+    paddingHorizontal: 16,
+    paddingVertical: 18,
+    justifyContent: "center",
+  },
+  idColumn: {
+    width: 120,
+  },
+  customerColumn: {
+    width: 170,
+  },
+  vendorColumn: {
+    width: 180,
+  },
+  amountColumn: {
+    width: 140,
+  },
+  paymentColumn: {
+    width: 120,
+  },
+  deliveryColumn: {
+    width: 130,
   },
   orderId: {
     fontSize: 14,
+    fontWeight: "700",
+    color: "#1D4ED8",
+  },
+  primaryCellText: {
+    fontSize: 14,
     fontWeight: "600",
-    color: "#2F5BEA",
+    color: "#0F172A",
   },
-  customerName: {
+  secondaryCellText: {
     fontSize: 14,
-    color: "#333333",
+    color: "#475569",
   },
-  vendor: {
-    fontSize: 14,
-    color: "#666666",
-  },
-  amount: {
-    fontSize: 16,
-    fontWeight: "bold",
+  amountText: {
+    fontSize: 15,
+    fontWeight: "700",
     color: "#059669",
   },
-  statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    minWidth: 70,
-    alignItems: "center",
+  badge: {
+    alignSelf: "flex-start",
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderWidth: 1,
   },
-  paidBadge: {
-    backgroundColor: "#D1FAE5",
+  badgeSuccess: {
+    backgroundColor: "#ECFDF5",
+    borderColor: "#A7F3D0",
   },
-  unpaidBadge: {
-    backgroundColor: "#FEE2E2",
+  badgeWarning: {
+    backgroundColor: "#FEFCE8",
+    borderColor: "#FDE68A",
   },
-  deliveredBadge: {
-    backgroundColor: "#D1FAE5",
+  badgeDanger: {
+    backgroundColor: "#FEF2F2",
+    borderColor: "#FECACA",
   },
-  pendingBadge: {
-    backgroundColor: "#FEF3C7",
-  },
-  cancelledBadge: {
-    backgroundColor: "#FEE2E2",
-  },
-  statusText: {
+  badgeText: {
     fontSize: 12,
+    fontWeight: "700",
+  },
+  badgeTextSuccess: {
+    color: "#047857",
+  },
+  badgeTextWarning: {
+    color: "#B45309",
+  },
+  badgeTextDanger: {
+    color: "#B91C1C",
+  },
+  emptyState: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 42,
+    paddingHorizontal: 24,
+  },
+  emptyTitle: {
+    marginTop: 12,
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#334155",
+  },
+  emptyText: {
+    marginTop: 6,
+    fontSize: 14,
+    lineHeight: 20,
+    color: "#64748B",
+    textAlign: "center",
+  },
+  pagination: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    marginTop: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  paginationText: {
+    fontSize: 13,
+    color: "#64748B",
     fontWeight: "500",
   },
-  paidText: {
-    color: "#059669",
-  },
-  unpaidText: {
-    color: "#DC2626",
-  },
-  deliveredText: {
-    color: "#059669",
-  },
-  pendingText: {
-    color: "#D97706",
-  },
-  cancelledText: {
-    color: "#DC2626",
-  },
-  paginationContainer: {
+  paginationControls: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    padding: 16,
-    backgroundColor: "#FFFFFF",
+    gap: 10,
   },
-  pageButton: {
-    padding: 8,
-    borderRadius: 8,
-    backgroundColor: "#F3F4F6",
-    marginHorizontal: 8,
+  paginationButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: "#EFF6FF",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  disabledPageButton: {
-    backgroundColor: "#F9FAFB",
+  paginationButtonDisabled: {
+    opacity: 0.45,
   },
-  pageInfo: {
+  pageIndicator: {
+    minWidth: 46,
+    textAlign: "center",
     fontSize: 14,
-    color: "#666666",
-    marginHorizontal: 16,
+    fontWeight: "700",
+    color: "#1E3A8A",
   },
 });

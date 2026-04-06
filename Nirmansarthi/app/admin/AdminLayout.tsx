@@ -7,6 +7,7 @@ import Buyers from "./Buyers";
 import Categories from "./Categories";
 import SidebarItem from "./components/SidebarItem";
 import Dashboard from "./Dashboard";
+import Disputes from "./Disputes";
 import Orders from "./Orders";
 import Payments from "./Payments";
 import Reports from "./Reports";
@@ -23,6 +24,7 @@ const menuItems = [
   { name: "Buyers", icon: "people-outline", component: Buyers },
   { name: "Categories", icon: "grid-outline", component: Categories },
   { name: "Payments", icon: "card-outline", component: Payments },
+  { name: "Disputes", icon: "alert-circle-outline", component: Disputes },
   { name: "Reports", icon: "bar-chart-outline", component: Reports },
   { name: "Support", icon: "help-circle-outline", component: Support },
   { name: "Admins", icon: "shield-checkmark-outline", component: Admins },

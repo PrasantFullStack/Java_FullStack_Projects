@@ -1,34 +1,111 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
+  Dimensions,
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
-  TextInput,
-  FlatList,
-  Dimensions,
 } from "react-native";
 
 const { width } = Dimensions.get("window");
 
 const categoryData = [
   { title: "Materials", icon: "cube-outline", count: 22, color: "#2F5BEA" },
-  { title: "Equipment", icon: "construct-outline", count: 14, color: "#059669" },
+  {
+    title: "Equipment",
+    icon: "construct-outline",
+    count: 14,
+    color: "#059669",
+  },
   { title: "Suppliers", icon: "people-outline", count: 30, color: "#DC2626" },
   { title: "Deals", icon: "pricetags-outline", count: 9, color: "#D97706" },
 ];
 
 const allItems = [
-  { id: 1, title: "Cement", detail: "Portland cement 50kg", price: 220, category: "Materials", rating: 4.5, location: "Mumbai", image: "🏗️" },
-  { id: 2, title: "Steel Rods", detail: "TMT bars 12mm", price: 6500, category: "Materials", rating: 4.2, location: "Delhi", image: "🔧" },
-  { id: 3, title: "Sand", detail: "River sand per m3", price: 420, category: "Materials", rating: 4.0, location: "Pune", image: "🏖️" },
-  { id: 4, title: "Paint", detail: "Premium emulsion 20L", price: 4100, category: "Materials", rating: 4.7, location: "Bangalore", image: "🎨" },
-  { id: 5, title: "Concrete Mixer", detail: "Electric mixer 10HP", price: 45000, category: "Equipment", rating: 4.3, location: "Chennai", image: "⚙️" },
-  { id: 6, title: "Bricks", detail: "Red clay bricks 1000pcs", price: 3200, category: "Materials", rating: 4.1, location: "Kolkata", image: "🧱" },
-  { id: 7, title: "Cement Tiles", detail: "Designer tiles 2x2ft", price: 85, category: "Materials", rating: 4.6, location: "Ahmedabad", image: "🔲" },
-  { id: 8, title: "Steel Pipes", detail: "GI pipes 2inch", price: 180, category: "Materials", rating: 4.4, location: "Hyderabad", image: "🔩" },
+  {
+    id: 1,
+    title: "Cement",
+    detail: "Portland cement 50kg",
+    price: 220,
+    category: "Materials",
+    rating: 4.5,
+    location: "Mumbai",
+    image: "🏗️",
+  },
+  {
+    id: 2,
+    title: "Steel Rods",
+    detail: "TMT bars 12mm",
+    price: 6500,
+    category: "Materials",
+    rating: 4.2,
+    location: "Delhi",
+    image: "🔧",
+  },
+  {
+    id: 3,
+    title: "Sand",
+    detail: "River sand per m3",
+    price: 420,
+    category: "Materials",
+    rating: 4.0,
+    location: "Pune",
+    image: "🏖️",
+  },
+  {
+    id: 4,
+    title: "Paint",
+    detail: "Premium emulsion 20L",
+    price: 4100,
+    category: "Materials",
+    rating: 4.7,
+    location: "Bangalore",
+    image: "🎨",
+  },
+  {
+    id: 5,
+    title: "Concrete Mixer",
+    detail: "Electric mixer 10HP",
+    price: 45000,
+    category: "Equipment",
+    rating: 4.3,
+    location: "Chennai",
+    image: "⚙️",
+  },
+  {
+    id: 6,
+    title: "Bricks",
+    detail: "Red clay bricks 1000pcs",
+    price: 3200,
+    category: "Materials",
+    rating: 4.1,
+    location: "Kolkata",
+    image: "🧱",
+  },
+  {
+    id: 7,
+    title: "Cement Tiles",
+    detail: "Designer tiles 2x2ft",
+    price: 85,
+    category: "Materials",
+    rating: 4.6,
+    location: "Ahmedabad",
+    image: "🔲",
+  },
+  {
+    id: 8,
+    title: "Steel Pipes",
+    detail: "GI pipes 2inch",
+    price: 180,
+    category: "Materials",
+    rating: 4.4,
+    location: "Hyderabad",
+    image: "🔩",
+  },
 ];
 
 const sortOptions = [
@@ -54,10 +131,12 @@ export default function ExploreScreen() {
   const [recentSearches] = useState(["cement", "steel", "paint"]);
 
   const filteredAndSortedItems = useMemo(() => {
-    let filtered = allItems.filter(item => {
-      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          item.detail.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
+    let filtered = allItems.filter((item) => {
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.detail.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" || item.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
 
@@ -78,7 +157,7 @@ export default function ExploreScreen() {
     return filtered;
   }, [searchQuery, selectedCategory, sortBy]);
 
-  const renderItemCard = ({ item }: { item: typeof allItems[0] }) => (
+  const renderItemCard = ({ item }: { item: (typeof allItems)[0] }) => (
     <TouchableOpacity style={styles.itemCard}>
       <View style={styles.itemHeader}>
         <Text style={styles.itemEmoji}>{item.image}</Text>
@@ -164,14 +243,16 @@ export default function ExploreScreen() {
                   key={option.value}
                   style={[
                     styles.filterChip,
-                    selectedCategory === option.value && styles.filterChipActive,
+                    selectedCategory === option.value &&
+                      styles.filterChipActive,
                   ]}
                   onPress={() => setSelectedCategory(option.value)}
                 >
                   <Text
                     style={[
                       styles.filterChipText,
-                      selectedCategory === option.value && styles.filterChipTextActive,
+                      selectedCategory === option.value &&
+                        styles.filterChipTextActive,
                     ]}
                   >
                     {option.label}

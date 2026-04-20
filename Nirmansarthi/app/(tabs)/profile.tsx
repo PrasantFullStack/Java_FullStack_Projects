@@ -1,28 +1,29 @@
 function handleAdminAccess() {
   router.push("/admin/AdminLogin");
 }
+//update profile
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TouchableOpacity,
   View,
-  Alert,
-  Switch,
 } from "react-native";
-import { useThemeColor } from "@/hooks/use-theme-color";
 
 export default function Profile() {
   const router = useRouter();
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const backgroundColor = useThemeColor({}, 'background');
-  const textColor = useThemeColor({}, 'text');
-  const tintColor = useThemeColor({}, 'tint');
+  const backgroundColor = useThemeColor({}, "background");
+  const textColor = useThemeColor({}, "text");
+  const tintColor = useThemeColor({}, "tint");
 
   const handleAdminAccess = () => {
     router.push("/admin/AdminLogin");
@@ -33,24 +34,28 @@ export default function Profile() {
   };
 
   const handleLogout = () => {
-    Alert.alert(
-      "Logout",
-      "Are you sure you want to logout?",
-      [
-        { text: "Cancel", style: "cancel" },
-        { text: "Logout", style: "destructive", onPress: () => console.log("Logout") },
-      ]
-    );
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: () => console.log("Logout"),
+      },
+    ]);
   };
 
   const menuItems = [
-    { icon: "person-outline", label: "Personal Information", action: handleEditProfile },
-    { icon: "location-outline", label: "Addresses", action: () => {} },
-    { icon: "card-outline", label: "Payment Methods", action: () => {} },
-    { icon: "heart-outline", label: "Wishlist", action: () => {} },
-    { icon: "document-text-outline", label: "Order History", action: () => {} },
-    { icon: "settings-outline", label: "Settings", action: () => {} },
-    { icon: "help-circle-outline", label: "Help & Support", action: () => {} },
+    {
+      icon: "person-outline",
+      label: "Personal Information",
+      action: handleEditProfile,
+    },
+    { icon: "location-outline", label: "Addresses", action: () => { } },
+    { icon: "card-outline", label: "Payment Methods", action: () => { } },
+    { icon: "heart-outline", label: "Wishlist", action: () => { } },
+    { icon: "document-text-outline", label: "Order History", action: () => { } },
+    { icon: "settings-outline", label: "Settings", action: () => { } },
+    { icon: "help-circle-outline", label: "Help & Support", action: () => { } },
   ];
 
   const quickStats = [
@@ -63,15 +68,20 @@ export default function Profile() {
   return (
     <ScrollView style={[styles.container, { backgroundColor }]}>
       {/* Profile Header */}
-      <View style={[styles.header, { backgroundColor: '#FFFFFF' }]}>
+      <View style={[styles.header, { backgroundColor: "#FFFFFF" }]}>
         <View style={styles.avatarContainer}>
           <Ionicons name="person-circle" size={100} color={tintColor} />
-          <TouchableOpacity style={styles.editAvatarButton} onPress={handleEditProfile}>
+          <TouchableOpacity
+            style={styles.editAvatarButton}
+            onPress={handleEditProfile}
+          >
             <Ionicons name="camera" size={20} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
         <Text style={[styles.name, { color: textColor }]}>John Doe</Text>
-        <Text style={[styles.email, { color: '#666666' }]}>john.doe@example.com</Text>
+        <Text style={[styles.email, { color: "#666666" }]}>
+          john.doe@example.com
+        </Text>
         <View style={styles.membershipContainer}>
           <Text style={styles.membershipText}>Premium Member</Text>
           <Ionicons name="checkmark-circle" size={16} color="#FFD700" />
@@ -79,50 +89,62 @@ export default function Profile() {
       </View>
 
       {/* Quick Stats */}
-      <View style={[styles.statsContainer, { backgroundColor: '#FFFFFF' }]}>
-        <Text style={[styles.sectionTitle, { color: textColor }]}>Quick Stats</Text>
+      <View style={[styles.statsContainer, { backgroundColor: "#FFFFFF" }]}>
+        <Text style={[styles.sectionTitle, { color: textColor }]}>
+          Quick Stats
+        </Text>
         <View style={styles.statsGrid}>
           {quickStats.map((stat, index) => (
             <View key={index} style={styles.statItem}>
               <Ionicons name={stat.icon as any} size={24} color={tintColor} />
-              <Text style={[styles.statValue, { color: textColor }]}>{stat.value}</Text>
-              <Text style={[styles.statLabel, { color: '#666666' }]}>{stat.label}</Text>
+              <Text style={[styles.statValue, { color: textColor }]}>
+                {stat.value}
+              </Text>
+              <Text style={[styles.statLabel, { color: "#666666" }]}>
+                {stat.label}
+              </Text>
             </View>
           ))}
         </View>
       </View>
 
       {/* Account Settings */}
-      <View style={[styles.section, { backgroundColor: '#FFFFFF' }]}>
-        <Text style={[styles.sectionTitle, { color: textColor }]}>Account Settings</Text>
+      <View style={[styles.section, { backgroundColor: "#FFFFFF" }]}>
+        <Text style={[styles.sectionTitle, { color: textColor }]}>
+          Account Settings
+        </Text>
         <View style={styles.settingItem}>
           <View style={styles.settingLeft}>
             <Ionicons name="notifications-outline" size={24} color="#666" />
-            <Text style={[styles.settingText, { color: textColor }]}>Push Notifications</Text>
+            <Text style={[styles.settingText, { color: textColor }]}>
+              Push Notifications
+            </Text>
           </View>
           <Switch
             value={isNotificationsEnabled}
             onValueChange={setIsNotificationsEnabled}
-            trackColor={{ false: '#767577', true: tintColor }}
-            thumbColor={isNotificationsEnabled ? '#FFFFFF' : '#f4f3f4'}
+            trackColor={{ false: "#767577", true: tintColor }}
+            thumbColor={isNotificationsEnabled ? "#FFFFFF" : "#f4f3f4"}
           />
         </View>
         <View style={styles.settingItem}>
           <View style={styles.settingLeft}>
             <Ionicons name="moon-outline" size={24} color="#666" />
-            <Text style={[styles.settingText, { color: textColor }]}>Dark Mode</Text>
+            <Text style={[styles.settingText, { color: textColor }]}>
+              Dark Mode
+            </Text>
           </View>
           <Switch
             value={isDarkMode}
             onValueChange={setIsDarkMode}
-            trackColor={{ false: '#767577', true: tintColor }}
-            thumbColor={isDarkMode ? '#FFFFFF' : '#f4f3f4'}
+            trackColor={{ false: "#767577", true: tintColor }}
+            thumbColor={isDarkMode ? "#FFFFFF" : "#f4f3f4"}
           />
         </View>
       </View>
 
       {/* Menu Items */}
-      <View style={[styles.section, { backgroundColor: '#FFFFFF' }]}>
+      <View style={[styles.section, { backgroundColor: "#FFFFFF" }]}>
         <Text style={[styles.sectionTitle, { color: textColor }]}>Menu</Text>
         {menuItems.map((item, index) => (
           <TouchableOpacity
@@ -131,14 +153,16 @@ export default function Profile() {
             onPress={item.action}
           >
             <Ionicons name={item.icon as any} size={24} color="#666" />
-            <Text style={[styles.menuText, { color: textColor }]}>{item.label}</Text>
+            <Text style={[styles.menuText, { color: textColor }]}>
+              {item.label}
+            </Text>
             <Ionicons name="chevron-forward" size={20} color="#CCC" />
           </TouchableOpacity>
         ))}
       </View>
 
       {/* Admin Access */}
-      <View style={[styles.section, { backgroundColor: '#FFFFFF' }]}>
+      <View style={[styles.section, { backgroundColor: "#FFFFFF" }]}>
         <TouchableOpacity
           style={[styles.adminButton, { backgroundColor: tintColor }]}
           onPress={handleAdminAccess}
@@ -150,7 +174,10 @@ export default function Profile() {
       </View>
 
       {/* Logout */}
-      <TouchableOpacity style={[styles.logoutButton, { backgroundColor: '#FFFFFF' }]} onPress={handleLogout}>
+      <TouchableOpacity
+        style={[styles.logoutButton, { backgroundColor: "#FFFFFF" }]}
+        onPress={handleLogout}
+      >
         <Ionicons name="log-out-outline" size={20} color="#DC2626" />
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>

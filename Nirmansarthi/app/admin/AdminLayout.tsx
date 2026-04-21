@@ -33,7 +33,7 @@ const menuItems = [
 
 function CustomDrawerContent({ navigation, state }: any) {
   const activeRoute = state.routes[state.index].name;
-
+  // added activeRoute to determine which menu item is currently active and apply styling accordingly
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.header}>

@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+// This is a static mockup of a vendor management admin panel. In a real application, the vendor data would be fetched from an API and the actions would trigger navigation or API calls instead of alerts.
 type VendorStatus = "Active" | "Pending" | "Suspended";
 type VerificationStatus = "Verified" | "Under Review" | "Missing Docs";
 type Category =
@@ -297,21 +297,32 @@ export default function Vendors() {
 
           <View style={styles.highlightStrip}>
             <View style={styles.highlightItem}>
-              <Ionicons name="shield-checkmark-outline" size={18} color="#0F766E" />
+              <Ionicons
+                name="shield-checkmark-outline"
+                size={18}
+                color="#0F766E"
+              />
               <Text style={styles.highlightLabel}>Compliance Ready</Text>
               <Text style={styles.highlightValue}>
-                {VENDORS.filter((vendor) => vendor.verification === "Verified").length}
+                {
+                  VENDORS.filter((vendor) => vendor.verification === "Verified")
+                    .length
+                }
               </Text>
             </View>
             <View style={styles.highlightItem}>
               <Ionicons name="time-outline" size={18} color="#B45309" />
               <Text style={styles.highlightLabel}>Awaiting Review</Text>
-              <Text style={styles.highlightValue}>{dashboardStats.pendingReview}</Text>
+              <Text style={styles.highlightValue}>
+                {dashboardStats.pendingReview}
+              </Text>
             </View>
             <View style={styles.highlightItem}>
               <Ionicons name="trending-up-outline" size={18} color="#1D4ED8" />
               <Text style={styles.highlightLabel}>Avg Rating</Text>
-              <Text style={styles.highlightValue}>{dashboardStats.avgRating}</Text>
+              <Text style={styles.highlightValue}>
+                {dashboardStats.avgRating}
+              </Text>
             </View>
           </View>
         </View>
@@ -530,7 +541,9 @@ export default function Vendors() {
                   <View style={styles.performanceRow}>
                     <View style={styles.performanceCard}>
                       <Text style={styles.performanceLabel}>Orders</Text>
-                      <Text style={styles.performanceValue}>{vendor.orders}</Text>
+                      <Text style={styles.performanceValue}>
+                        {vendor.orders}
+                      </Text>
                     </View>
                     <View style={styles.performanceCard}>
                       <Text style={styles.performanceLabel}>Revenue</Text>
@@ -590,7 +603,9 @@ export default function Vendors() {
           ) : (
             <View style={styles.emptyState}>
               <Ionicons name="search-outline" size={42} color="#94A3B8" />
-              <Text style={styles.emptyTitle}>No vendors match these filters</Text>
+              <Text style={styles.emptyTitle}>
+                No vendors match these filters
+              </Text>
               <Text style={styles.emptyText}>
                 Try another status, category, or search keyword to widen the
                 list.

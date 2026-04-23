@@ -15,7 +15,7 @@ export default function Admins() {
     </View>
   );
 }
-
+//admin css
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F5F7FB" },
   header: {

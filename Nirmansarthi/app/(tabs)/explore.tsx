@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 //explore this page
+
 const { width } = Dimensions.get("window");
 
 const categoryData = [

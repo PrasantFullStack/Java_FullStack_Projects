@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+//admin page for managing admins, currently just a placeholders
 export default function Admins() {
   return (
     <View style={styles.container}>

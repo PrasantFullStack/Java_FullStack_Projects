@@ -14,6 +14,7 @@ import {
 
 const { width } = Dimensions.get("window");
 
+
 const categoryData = [
   { title: "Materials", icon: "cube-outline", count: 22, color: "#2F5BEA" },
   {

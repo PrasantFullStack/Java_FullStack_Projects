@@ -1,0 +1,7 @@
+<suite name="Suite">
+    <test name="Launch Test">
+        <classes>
+            <class name="tests.LaunchTest"/>
+        </classes>
+    </test>
+</suite>

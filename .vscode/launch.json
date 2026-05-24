@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ApnaBazarBackendApplication",
+      "request": "launch",
+      "mainClass": "com.prashant.apna.bazar.ApnaBazarBackendApplication",
+      "projectName": "com.prashant.apna.bazar-ApnaBazarBackend"
+    },
+    {
+      "type": "java",
       "name": "FirstProgram",
       "request": "launch",
       "mainClass": "FirstProgram"
@@ -61,6 +68,17 @@
       "projectName": "ApnaBazarBackend",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ApnaBazarBackendApplication<apna-bazar-backend>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.apna_bazar_backend.ApnaBazarBackendApplication",
+      "projectName": "apna-bazar-backend",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=64063 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=apna-bazar-backend"
     }
   ]
 }

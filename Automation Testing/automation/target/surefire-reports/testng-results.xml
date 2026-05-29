@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-05-24T09:37:48 IST" name="Surefire suite" finished-at="2026-05-24T09:37:57 IST" duration-ms="8911">
+    <groups>
+    </groups>
+    <test started-at="2026-05-24T09:37:48 IST" name="Surefire test" finished-at="2026-05-24T09:37:57 IST" duration-ms="8911">
+      <class name="tests.LaunchTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tests.LaunchTest@6d2a209c]" started-at="2026-05-24T09:37:48 IST" name="setup" finished-at="2026-05-24T09:37:52 IST" duration-ms="4144" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="openAppTest()[pri:0, instance:tests.LaunchTest@6d2a209c]" started-at="2026-05-24T09:37:52 IST" name="openAppTest" finished-at="2026-05-24T09:37:52 IST" duration-ms="30" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openAppTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.LaunchTest@6d2a209c]" started-at="2026-05-24T09:37:52 IST" name="tearDown" finished-at="2026-05-24T09:37:57 IST" duration-ms="4651" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- tests.LaunchTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
